@@ -1,3 +1,22 @@
+hotel_bundle_tasca:
+    resource: "@HotelBundleTascaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+hotel_bundle_admin:
+    resource: "@HotelBundleAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+
+hotel_bundle_reserva:
+    resource: "@HotelBundleReservaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+hotel:
+    resource: "@HotelBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+    
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

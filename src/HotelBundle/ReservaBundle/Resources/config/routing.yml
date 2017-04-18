@@ -1,0 +1,3 @@
+hotel_bundle_reserva_homepage:
+    path:     /
+    defaults: { _controller: HotelBundleReservaBundle:Default:index }
