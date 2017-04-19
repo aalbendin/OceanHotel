@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new HotelBundle\AdminBundle\HotelBundleAdminBundle(),
             new HotelBundle\TascaBundle\HotelBundleTascaBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new HotelBundle\UsuariBundle\HotelBundleUsuariBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
