@@ -1,0 +1,3 @@
+hotel_bundle_usuari_homepage:
+    path:     /
+    defaults: { _controller: HotelBundleUsuariBundle:Default:index }
