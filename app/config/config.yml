@@ -80,4 +80,15 @@ fos_user:
     user_class: HotelBundle\Entity\User
     from_email:
         address: "%mailer_user%"
-        sender_name: "%mailer_user%"
+        sender_name: "%mailer_name%"
+    registration:
+        confirmation:
+            enabled: true
+            from_email:
+                address: "%mailer_user%"
+                sender_name: "%mailer_name%"
+    resetting:
+        email:
+            from_email:
+                address: "%mailer_user%"
+                sender_name: "%mailer_name%"
