@@ -1,14 +1,18 @@
+hotel_bundle_usuari:
+    resource: "@HotelBundleUsuariBundle/Resources/config/routing.yml"
+    prefix:   /usuari
+
 hotel_bundle_tasca:
     resource: "@HotelBundleTascaBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /tasca
 
 hotel_bundle_admin:
     resource: "@HotelBundleAdminBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /admin
 
 hotel_bundle_reserva:
     resource: "@HotelBundleReservaBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /reserva
 
 hotel:
     resource: "@HotelBundle/Resources/config/routing.yml"
@@ -20,3 +24,7 @@ app:
     
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+fos_user_group:
+    resource: "@FOSUserBundle/Resources/config/routing/group.xml"
+    prefix: /group
