@@ -4,4 +4,4 @@ hotel_bundle_usuari_homepage:
 
 hotel_bundle_usuari_edit:
     path:     /edit/{id}
-    defaults: { _controller: HotelBundleUsuariBundle:Default:editUser }
+    defaults: { _controller: FOSUserBundle:Profile:administrarUser }
