@@ -50,12 +50,13 @@ class Client
     private $nif;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="idUsuari", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="Client")
+     * @ORM\JoinColumn(name="userId", referencedColumnName="id")
      */
-    private $idUsuari;
+    private $user;
 
+
+   
 
     /**
      * Get id
@@ -164,27 +165,26 @@ class Client
     }
 
     /**
-     * Set idUsuari
+     * Set user
      *
-     * @param integer $idUsuari
+     * @param \HotelBundle\Entity\User $user
      *
      * @return Client
      */
-    public function setIdUsuari($idUsuari)
+    public function setUser(\HotelBundle\Entity\User $user = null)
     {
-        $this->idUsuari = $idUsuari;
+        $this->user = $user;
     
         return $this;
     }
 
     /**
-     * Get idUsuari
+     * Get user
      *
-     * @return integer
+     * @return \HotelBundle\Entity\User
      */
-    public function getIdUsuari()
+    public function getUser()
     {
-        return $this->idUsuari;
+        return $this->user;
     }
 }
-
