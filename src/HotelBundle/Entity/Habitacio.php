@@ -43,12 +43,13 @@ class Habitacio
     private $preu;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="tipusHabitacio", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="TipusHabitacio", inversedBy="Habitacio")
+     * @ORM\JoinColumn(name="tipusHabitacioId", referencedColumnName="id")
      */
     private $tipusHabitacio;
 
+
+    
 
     /**
      * Get id
@@ -135,11 +136,11 @@ class Habitacio
     /**
      * Set tipusHabitacio
      *
-     * @param integer $tipusHabitacio
+     * @param \HotelBundle\Entity\TipusHabitacio $tipusHabitacio
      *
      * @return Habitacio
      */
-    public function setTipusHabitacio($tipusHabitacio)
+    public function setTipusHabitacio(\HotelBundle\Entity\TipusHabitacio $tipusHabitacio = null)
     {
         $this->tipusHabitacio = $tipusHabitacio;
     
@@ -149,7 +150,7 @@ class Habitacio
     /**
      * Get tipusHabitacio
      *
-     * @return integer
+     * @return \HotelBundle\Entity\TipusHabitacio
      */
     public function getTipusHabitacio()
     {
