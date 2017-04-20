@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+
+    <title>{% block title %}Login{% endblock %}</title>
+    {% block stylesheets %}
+    <!-- Estils -->            
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{asset('public/css/estil.css?<php time();?>') }}"/>            
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="icon" type="image/x-icon" href="{{ asset('public/image/icon01.png') }}" />
+
+    {% endblock %}
+    <script src="{{asset('assets/js/chart-master/Chart.js') }}"></script>
+
+</head>
+
+<body class="body-login">
+
+    {% block content %}
+    <div class="container">                               
+        <div class="col-xs-8 col-sm-8  col-md-4 col-xs-offset-3 col-sm-offset-4 col-md-offset-4">
+            <img src="{{ asset('public/image/logo_white.png') }}" class="img-responsive img-Logo login">
+        </div>
+        <div class="col-xs-11 col-md-4 col-xs-offset-1 col-md-offset-4">                        
+            <div class="container-login mt">
+                <div class="head-login">
+                    <h1 class="text-center">Iniciar Sessió</h1>
+                </div>
+                <div>
+                    {% block fos_user_content %}
+                    {% endblock fos_user_content %}
+                </div>
+            </div>                    
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

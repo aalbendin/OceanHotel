@@ -1,1 +1,161 @@
-Hello World!
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Benvingut a la Agencia d'actors!{% endblock %}</title>
+    {% block stylesheets %}
+        <!-- Bootstrap Core CSS --> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+
+        <!--Custom CSS-->
+        <link href="{{ asset('css/agencia-homepage.css') }}" rel="stylesheet">
+
+    {% endblock %}
+</head>
+
+<body>
+    {% block body %}
+        {% block navigation %}
+            <!-- Navigation -->
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="{{ path('agencia_actors_frontend_homepage') }}">Agencia d'Actors</a>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="{{ path('agencia_actors_frontend_actor') }}">Actors</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('agencia_actors_frontend_directors') }}">Directors</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('agencia_actors_frontend_films') }}">Pelicules</a>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li>
+                                    <a href="{{ path('agencia_actors_backend_homepage') }}">
+                                        <span class="glyphicon glyphicon-log-out"></span>Backend
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('logout') }}">
+                                        <span class="glyphicon glyphicon-log-out"></span>Sortir de Sessio
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a href="{{ path('login') }}">
+                                        <span class="glyphicon glyphicon-log-in"></span>   Iniciar Sessio
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+                <!-- /.container -->
+            </nav>
+        {% endblock %}
+
+        {% block page_content %}
+            <!-- Page Content -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row carousel-holder">
+                            <div class="col-md-12">
+                                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        <div class="item active">
+                                            <img class="slide-image" src="{{ asset('photos/BANNER_HARRY_1.png') }}" alt="Harry Potter y la piedra Filosofal">
+                                        </div>
+                                        <div class="item">
+                                            <img class="slide-image" src="{{ asset('photos/BANNER_HARRY_2.png') }}" alt="Harry Potter y la camara de los secretos">
+                                        </div>
+                                        <div class="item">
+                                            <img class="slide-image" src="{{ asset('photos/BANNER_HARRY_3.png') }}" alt="">
+                                        </div>
+                                    </div>
+                                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                    </a>
+                                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            {% for peli in films %}
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                                <div class="thumbnail">
+                                    <div class="cartel">
+                                    <img src="{{ peli.photoURL }}" class="img-rounded img-responsive cartel">
+                                    </div>
+                                    <div class="caption">
+                                        <h4><a href="{{ path('agencia_actors_frontend_film', {'id': peli.getId() }) }}">{{ peli.name }}</a>
+                                        </h4>
+                                        <p class="text-justify">{{ peli.description }}</a>.</p>
+                                    </div>
+                                    <div class="ratings">
+                                        <p>
+                                        {% for a in 1..rating %}
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        {% endfor %}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container -->
+        {% endblock %}
+
+        <div class="container">
+            <hr>
+            <!-- Footer -->
+            <footer>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p>Copyright &copy; Your Website 2017</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- /.container -->
+    {% endblock %}
+
+    {% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    {% endblock %}
+
+</body>
+
+</html>

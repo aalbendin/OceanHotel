@@ -1,3 +1,8 @@
 hotel_homepage:
     path:     /
     defaults: { _controller: HotelBundle:Default:index }
+
+hotel_homepage_backend:
+    path:     /backend
+    defaults: { _controller: HotelBundle:Default:backend }
+
