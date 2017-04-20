@@ -27,10 +27,40 @@ class User extends BaseUser
      */
     protected $groups;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Rol", inversedBy="User")
+     * @ORM\JoinColumn(name="rolId", referencedColumnName="id")
+     */
+    private $rol;
+
     public function __construct()
     {
         parent::__construct();
         // your own logic
     }
 
+
+    /**
+     * Set rol
+     *
+     * @param \HotelBundle\Entity\Rol $rol
+     *
+     * @return User
+     */
+    public function setRol(\HotelBundle\Entity\Rol $rol = null)
+    {
+        $this->rol = $rol;
+    
+        return $this;
+    }
+
+    /**
+     * Get rol
+     *
+     * @return \HotelBundle\Entity\Rol
+     */
+    public function getRol()
+    {
+        return $this->rol;
+    }
 }

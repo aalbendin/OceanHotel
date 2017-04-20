@@ -22,19 +22,25 @@ class Reserva
     private $id;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="idPedido", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Comanda", inversedBy="Reserva")
+     * @ORM\JoinColumn(name="comandaId", referencedColumnName="id")
      */
-    private $idPedido;
+    private $comanda;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="idHabitacio", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Habitacio", inversedBy="Reserva")
+     * @ORM\JoinColumn(name="habitacioId", referencedColumnName="id")
      */
-    private $idHabitacio;
+    private $habitacio;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Modalitat", inversedBy="Reserva")
+     * @ORM\JoinColumn(name="modalitatId", referencedColumnName="id")
+     */
+    private $modalitat;
+
+
+    
 
     /**
      * Get id
@@ -47,51 +53,74 @@ class Reserva
     }
 
     /**
-     * Set idPedido
+     * Set comanda
      *
-     * @param integer $idPedido
+     * @param \HotelBundle\Entity\Comanda $comanda
      *
      * @return Reserva
      */
-    public function setIdPedido($idPedido)
+    public function setComanda(\HotelBundle\Entity\Comanda $comanda = null)
     {
-        $this->idPedido = $idPedido;
+        $this->comanda = $comanda;
     
         return $this;
     }
 
     /**
-     * Get idPedido
+     * Get comanda
      *
-     * @return integer
+     * @return \HotelBundle\Entity\Comanda
      */
-    public function getIdPedido()
+    public function getComanda()
     {
-        return $this->idPedido;
+        return $this->comanda;
     }
 
     /**
-     * Set idHabitacio
+     * Set habitacio
      *
-     * @param integer $idHabitacio
+     * @param \HotelBundle\Entity\Habitacio $habitacio
      *
      * @return Reserva
      */
-    public function setIdHabitacio($idHabitacio)
+    public function setHabitacio(\HotelBundle\Entity\Habitacio $habitacio = null)
     {
-        $this->idHabitacio = $idHabitacio;
+        $this->habitacio = $habitacio;
     
         return $this;
     }
 
     /**
-     * Get idHabitacio
+     * Get habitacio
      *
-     * @return integer
+     * @return \HotelBundle\Entity\Habitacio
      */
-    public function getIdHabitacio()
+    public function getHabitacio()
     {
-        return $this->idHabitacio;
+        return $this->habitacio;
+    }
+
+    /**
+     * Set modalitat
+     *
+     * @param \HotelBundle\Entity\Modalitat $modalitat
+     *
+     * @return Reserva
+     */
+    public function setModalitat(\HotelBundle\Entity\Modalitat $modalitat = null)
+    {
+        $this->modalitat = $modalitat;
+    
+        return $this;
+    }
+
+    /**
+     * Get modalitat
+     *
+     * @return \HotelBundle\Entity\Modalitat
+     */
+    public function getModalitat()
+    {
+        return $this->modalitat;
     }
 }
-

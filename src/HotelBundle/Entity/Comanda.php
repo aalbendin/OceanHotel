@@ -36,12 +36,14 @@ class Comanda
     private $dataSortida;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="idClient", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="Comanda")
+     * @ORM\JoinColumn(name="clientId", referencedColumnName="id")
      */
-    private $idClient;
+    protected $client;
 
+
+    
+    
 
     /**
      * Get id
@@ -102,27 +104,26 @@ class Comanda
     }
 
     /**
-     * Set idClient
+     * Set client
      *
-     * @param integer $idClient
+     * @param \HotelBundle\Entity\Client $client
      *
      * @return Comanda
      */
-    public function setIdClient($idClient)
+    public function setClient(\HotelBundle\Entity\Client $client = null)
     {
-        $this->idClient = $idClient;
+        $this->client = $client;
     
         return $this;
     }
 
     /**
-     * Get idClient
+     * Get client
      *
-     * @return integer
+     * @return \HotelBundle\Entity\Client
      */
-    public function getIdClient()
+    public function getClient()
     {
-        return $this->idClient;
+        return $this->client;
     }
 }
-
