@@ -154,7 +154,7 @@ class ProfileController extends Controller
             return $response;
         }
 
-        return $this->render('@FOSUser/Profile/edit.html.twig', array(
+        return $this->render('@FOSUser/Profile/administrar.html.twig', array(
             'form' => $form->createView(),
         ));
     }
