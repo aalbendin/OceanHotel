@@ -54,6 +54,7 @@ class ProfileFormType extends AbstractType
             'mapped' => false,
             'constraints' => new UserPassword($constraintsOptions),
         ));
+        
 
     }
 

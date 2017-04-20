@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
-class AdminprofileFormType extends AbstractType
+class AdminProfileFormType extends AbstractType
 {
     /**
      * @var string
