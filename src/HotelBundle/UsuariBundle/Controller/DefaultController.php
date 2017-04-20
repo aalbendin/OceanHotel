@@ -20,49 +20,5 @@ class DefaultController extends Controller
         ));
     }
 
-    public function editUserAction($id, Request $request){
-    	$usuari = $this->getDoctrine()->getRepository('HotelBundle:User')->findById($id);
 
-    	
-    	$form = $this->createFormBuilder($usuari)
-    		->add('username', TextType::class, array(
-    			'label' => 'Nom \'usuari '
-    	    ))
-    		->add('email', EmailType::class, array(
-    			'label' => 'Email '
-    	    ))
-    		->add('enabled', CheckboxType::class, array(
-    			'label' => 'Actiu'
-    	    ))
-    		->add('password', PasswordType::class, array(
-    			'label' => 'Password'
-    		))
-    		->add('save', SubmitType::class, array('label' => 'Editar Usuari',
-                    'attr' => array(
-                        'class' => 'btn btn-warning mt')))
-            ->getForm();
-    	
-    	$form->handleRequest($request);
-
-    	if ($form->isSubmitted() && $form->isValid()) {
-
-            $usuari = $form->getData();
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($usuari);
-            $em->flush(); 
-
-            $this->get('session')->getFlashBag()->add(
-                    'notice',array(
-                    'type' => 'success',
-                    'msg' => 'S\'ha editat l\'usuari'
-            ));
-            return $this->redirect($this->generateurl('hotel_bundle_usuari_homepage'));
-        }
-        return $this->render('HotelBundleUsuariBundle:Default:form.html.twig', array(
-                    'array' => $usuari,
-                    'titol' => 'Editar usuari',
-                    'form' => $form->createView()
-        ));
-    }
 }
