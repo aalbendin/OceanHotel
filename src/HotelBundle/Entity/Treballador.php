@@ -57,11 +57,10 @@ class Treballador
     private $usuari;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="tipusTreballador", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="TipusTreballador", inversedBy="Treballador")
+     * @ORM\JoinColumn(name="tipusTreballadorId", referencedColumnName="id")
      */
-    private $tipusTreballador;
+    protected $tipusTreballador;
 
 
     /**
@@ -197,11 +196,11 @@ class Treballador
     /**
      * Set tipusTreballador
      *
-     * @param integer $tipusTreballador
+     * @param \HotelBundle\Entity\TipusTreballador $tipusTreballador
      *
      * @return Treballador
      */
-    public function setTipusTreballador($tipusTreballador)
+    public function setTipusTreballador(\HotelBundle\Entity\TipusTreballador $tipusTreballador = null)
     {
         $this->tipusTreballador = $tipusTreballador;
     
@@ -211,11 +210,10 @@ class Treballador
     /**
      * Get tipusTreballador
      *
-     * @return integer
+     * @return \HotelBundle\Entity\TipusTreballador
      */
     public function getTipusTreballador()
     {
         return $this->tipusTreballador;
     }
 }
-
