@@ -55,7 +55,9 @@ class ProfileFormType extends AbstractType
             'constraints' => new UserPassword($constraintsOptions),
         ));
 
-        $builder->add('roles', ChoiceType::class, array('label' => 'Rol', 'required' => true, 'choices' => array( 1 => 'ROLE_ADMIN', 2 => 'ROLE_USER'), 'multiple' => true));
+        if (is_granted('ROLE_ADMIN')){          
+        $builder->add('roles', ChoiceType::class, array('label' => 'Rol', 'required' => true, 'choices' => array( "Administrador" => 'ROLE_ADMIN', "Usuari" => 'ROLE_USER'), 'multiple' => true));
+        }
     }
 
     /**
