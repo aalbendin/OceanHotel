@@ -36,18 +36,17 @@ class Tasca
     private $dataAlta;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="tipusTreball", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Treball", inversedBy="Tasca")
+     * @ORM\JoinColumn(name="treballId", referencedColumnName="id")
      */
-    private $tipusTreball;
+    protected $treball;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="tipusTasca", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="TipusTasca", inversedBy="Tasca")
+     * @ORM\JoinColumn(name="tipusTascaId", referencedColumnName="id")
      */
-    private $tipusTasca;
+    protected $tipusTasca;
+
 
 
     /**
@@ -109,37 +108,37 @@ class Tasca
     }
 
     /**
-     * Set tipusTreball
+     * Set treball
      *
-     * @param integer $tipusTreball
+     * @param \HotelBundle\Entity\Treball $treball
      *
      * @return Tasca
      */
-    public function setTipusTreball($tipusTreball)
+    public function setTreball(\HotelBundle\Entity\Treball $treball = null)
     {
-        $this->tipusTreball = $tipusTreball;
+        $this->treball = $treball;
     
         return $this;
     }
 
     /**
-     * Get tipusTreball
+     * Get treball
      *
-     * @return integer
+     * @return \HotelBundle\Entity\Treball
      */
-    public function getTipusTreball()
+    public function getTreball()
     {
-        return $this->tipusTreball;
+        return $this->treball;
     }
 
     /**
      * Set tipusTasca
      *
-     * @param integer $tipusTasca
+     * @param \HotelBundle\Entity\TipusTasca $tipusTasca
      *
      * @return Tasca
      */
-    public function setTipusTasca($tipusTasca)
+    public function setTipusTasca(\HotelBundle\Entity\TipusTasca $tipusTasca = null)
     {
         $this->tipusTasca = $tipusTasca;
     
@@ -149,11 +148,10 @@ class Tasca
     /**
      * Get tipusTasca
      *
-     * @return integer
+     * @return \HotelBundle\Entity\TipusTasca
      */
     public function getTipusTasca()
     {
         return $this->tipusTasca;
     }
 }
-

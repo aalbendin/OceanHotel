@@ -156,4 +156,3 @@ class Habitacio
         return $this->tipusHabitacio;
     }
 }
-

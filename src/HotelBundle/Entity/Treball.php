@@ -36,25 +36,23 @@ class Treball
     private $dataFi;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="tasca", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Tasca", inversedBy="Treball")
+     * @ORM\JoinColumn(name="tascaId", referencedColumnName="id")
      */
-    private $tasca;
+    protected $tasca;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="treballador", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Treballador", inversedBy="Treball")
+     * @ORM\JoinColumn(name="treballadorId", referencedColumnName="id")
      */
-    private $treballador;
+    protected $treballador;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="estat", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Estat", inversedBy="Treball")
+     * @ORM\JoinColumn(name="estatId", referencedColumnName="id")
      */
-    private $estat;
+    protected $estat;
+
 
 
     /**
@@ -118,11 +116,11 @@ class Treball
     /**
      * Set tasca
      *
-     * @param integer $tasca
+     * @param \HotelBundle\Entity\Tasca $tasca
      *
      * @return Treball
      */
-    public function setTasca($tasca)
+    public function setTasca(\HotelBundle\Entity\Tasca $tasca = null)
     {
         $this->tasca = $tasca;
     
@@ -132,7 +130,7 @@ class Treball
     /**
      * Get tasca
      *
-     * @return integer
+     * @return \HotelBundle\Entity\Tasca
      */
     public function getTasca()
     {
@@ -142,11 +140,11 @@ class Treball
     /**
      * Set treballador
      *
-     * @param integer $treballador
+     * @param \HotelBundle\Entity\Treballador $treballador
      *
      * @return Treball
      */
-    public function setTreballador($treballador)
+    public function setTreballador(\HotelBundle\Entity\Treballador $treballador = null)
     {
         $this->treballador = $treballador;
     
@@ -156,7 +154,7 @@ class Treball
     /**
      * Get treballador
      *
-     * @return integer
+     * @return \HotelBundle\Entity\Treballador
      */
     public function getTreballador()
     {
@@ -166,11 +164,11 @@ class Treball
     /**
      * Set estat
      *
-     * @param integer $estat
+     * @param \HotelBundle\Entity\Estat $estat
      *
      * @return Treball
      */
-    public function setEstat($estat)
+    public function setEstat(\HotelBundle\Entity\Estat $estat = null)
     {
         $this->estat = $estat;
     
@@ -180,11 +178,10 @@ class Treball
     /**
      * Get estat
      *
-     * @return integer
+     * @return \HotelBundle\Entity\Estat
      */
     public function getEstat()
     {
         return $this->estat;
     }
 }
-

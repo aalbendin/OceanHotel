@@ -29,6 +29,7 @@ class Estat
     private $descripcio;
 
 
+
     /**
      * Get id
      *
@@ -63,4 +64,3 @@ class Estat
         return $this->descripcio;
     }
 }
-

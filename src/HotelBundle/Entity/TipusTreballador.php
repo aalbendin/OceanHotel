@@ -63,4 +63,3 @@ class TipusTreballador
         return $this->descripcio;
     }
 }
-
