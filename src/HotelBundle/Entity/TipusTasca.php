@@ -29,11 +29,11 @@ class TipusTasca
     private $descripcio;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="tipusTreballador", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="TipusTreballador", inversedBy="tipusTasca")
+     * @ORM\JoinColumn(name="tipusTreballadorId", referencedColumnName="id")
      */
-    private $tipusTreballador;
+    protected $tipusTreballador;
+
 
 
     /**
@@ -73,11 +73,11 @@ class TipusTasca
     /**
      * Set tipusTreballador
      *
-     * @param integer $tipusTreballador
+     * @param \HotelBundle\Entity\TipusTreballador $tipusTreballador
      *
      * @return TipusTasca
      */
-    public function setTipusTreballador($tipusTreballador)
+    public function setTipusTreballador(\HotelBundle\Entity\TipusTreballador $tipusTreballador = null)
     {
         $this->tipusTreballador = $tipusTreballador;
     
@@ -87,11 +87,10 @@ class TipusTasca
     /**
      * Get tipusTreballador
      *
-     * @return integer
+     * @return \HotelBundle\Entity\TipusTreballador
      */
     public function getTipusTreballador()
     {
         return $this->tipusTreballador;
     }
 }
-
