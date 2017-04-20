@@ -15,6 +15,7 @@ use FOS\UserBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
 class ProfileFormType extends AbstractType
@@ -53,6 +54,8 @@ class ProfileFormType extends AbstractType
             'mapped' => false,
             'constraints' => new UserPassword($constraintsOptions),
         ));
+
+        $builder->add('roles', ChoiceType::class, array('label' => 'Rol', 'required' => true, 'choices' => array( 1 => 'ROLE_ADMIN', 2 => 'ROLE_USER'), 'multiple' => true));
     }
 
     /**
