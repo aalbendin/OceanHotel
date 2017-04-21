@@ -117,6 +117,35 @@ class Configuration implements ConfigurationInterface
     /**
      * @param ArrayNodeDefinition $node
      */
+    private function addAdminProfileSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('adminprofile')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->arrayNode('form')
+                            ->addDefaultsIfNotSet()
+                            ->fixXmlConfig('validation_group')
+                            ->children()
+                                ->scalarNode('type')->defaultValue(LegacyFormHelper::getType('FOS\UserBundle\Form\Type\AdminProfileFormType'))->end()
+                                ->scalarNode('name')->defaultValue('fos_user_profile_form')->end()
+                                ->arrayNode('validation_groups')
+                                    ->prototype('scalar')->end()
+                                    ->defaultValue(array('adminprofile', 'Default'))
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+
+    /**
+     * @param ArrayNodeDefinition $node
+     */
     private function addRegistrationSection(ArrayNodeDefinition $node)
     {
         $node

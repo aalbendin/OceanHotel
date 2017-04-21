@@ -55,9 +55,17 @@ class AdminProfileFormType extends AbstractType
             'constraints' => new UserPassword($constraintsOptions),
         ));
         
-        $builder->add('roles', ChoiceType::class, array('label' => 'Rol', 'required' => true, 'choices' => array( "Administrador" => 'ROLE_ADMIN', "Usuari" => 'ROLE_USER'), 'multiple' => true));
+        $builder = this->addRolesToFormForm($builder);
         
     }
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function addRolesToFormForm(FormBuilderInterface $builder){
+        $builder->add('roles', ChoiceType::class, array('label' => 'Rol', 'required' => true, 'choices' => array( "Administrador" => 'ROLE_ADMIN', "Usuari" => 'ROLE_USER'), 'multiple' => true));
+        return $builder;
+    }
+
 
     /**
      * {@inheritdoc}
@@ -66,9 +74,9 @@ class AdminProfileFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => $this->class,
-            'csrf_token_id' => 'profile',
+            'csrf_token_id' => 'adminprofile',
             // BC for SF < 2.8
-            'intention' => 'profile',
+            'intention' => 'adminprofile',
         ));
     }
 
@@ -86,7 +94,7 @@ class AdminProfileFormType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'fos_user_profile';
+        return 'fos_user_admin_profile';
     }
 
     /**
