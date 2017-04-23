@@ -1,5 +1,6 @@
-{% extends "@FOSUser/layout.html.twig" %}
-
+{% extends "HotelBundle:Default:backend.html.twig" %}
+{% block content %}
 {% block fos_user_content %}
 {% include "@FOSUser/Profile/show_content.html.twig" %}
 {% endblock fos_user_content %}
+{% endblock %}

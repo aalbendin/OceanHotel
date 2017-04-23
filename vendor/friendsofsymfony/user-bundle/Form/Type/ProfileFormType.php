@@ -67,7 +67,9 @@ class ProfileFormType extends AbstractType
      */
     public function addRolesToFormForm(FormBuilderInterface $builder){
 
-        return $builder->add('roles', ChoiceType::class, array('label' => 'Rol', 'required' => true, 'choices' => array( "Administrador" => 'ROLE_ADMIN', "Usuari" => 'ROLE_USER'), 'multiple' => true));
+        return $builder->add('roles', ChoiceType::class, array('label' => 'Rol', 
+            'attr' => ['class' => 'selectRol'],
+            'required' => true, 'choices' => array( "Administrador" => 'ROLE_ADMIN', "Usuari" => 'ROLE_USER'), 'multiple' => true));
     }
 
     /**
