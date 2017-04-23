@@ -27,7 +27,7 @@
 
         <service id="fos_user.admin.profile.form.type" class="FOS\UserBundle\Form\Type\AdminProfileFormType">
             <argument>%fos_user.model.user.class%</argument>
-            <tag name="form.type" alias="fos_user_profile" />
+            <tag name="form.type" alias="fos_user_admin_profile" />
         </service>
 
     </services>
