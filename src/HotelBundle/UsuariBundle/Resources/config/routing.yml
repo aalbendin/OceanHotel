@@ -2,6 +2,14 @@ hotel_bundle_usuari_homepage:
     path:     /
     defaults: { _controller: HotelBundleUsuariBundle:Default:index }
 
+hotel_bundle_usuari_editprofile:
+    path:     /editprofile/
+    defaults: { _controller: FOSUserBundle:Profile:administrarUser }
+
 hotel_bundle_usuari_edit:
     path:     /edit/{id}
-    defaults: { _controller: FOSUserBundle:Profile:administrarUser }
+    defaults: { _controller: FOSUserBundle:Profile:editUser }
+
+hotel_bundle_usuari_delete:
+    path:     /delete/{id}
+    defaults: { _controller: HotelBundleUsuariBundle:Default:delete }
