@@ -2,5 +2,5 @@ hotel_bundle_admin_homepage:
     path:     /
     defaults: { _controller: HotelBundleAdminBundle:Default:index }
 hotel_bundle_addTipusTreballador:
-    path:     /backend/add_TipusTreballador
+    path:     /addTipusTreballador
     defaults: { _controller: HotelBundleAdminBundle:TipusTreballador:addTipusTreballador }

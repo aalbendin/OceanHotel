@@ -3,6 +3,12 @@
 namespace HotelBundle\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use HotelBundle\Entity\TipusTreballador;
+use HotelBundle\Entity\Rol;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class TipusTreballadorController extends Controller
 {
@@ -13,20 +19,16 @@ class TipusTreballadorController extends Controller
 
     public function addTipusTreballadorAction(Request $request)
     {
-        // crea una categoria y le asigna algunos datos ficticios para este ejemplo
         $tipusTreballador = new TipusTreballador();
-        // $category->setName('tato');
+        $rol = new Rol();
  
-        $form = $this->createFormBuilder($tipusTreballador)
+        $form = $this->createFormBuilder()
             ->add('descripcio', TextType::class, array('label' => 'Descripció','attr' => array(
-                        'class' => 'form-control'),
+                    'class' => 'form-control'),
                     'label_attr'=> array('class' => 'label_text spaceTop')))
-            ->add('Rol', EntityType::class, array(
-                'class' => 'HotelBundleBundle:Rol',
-                'choice_label' => 'nameRol',
-                'multiple' => FALSE,
-                'label_attr'=> array('class' => 'label_text spaceTop'), 
-                'attr' => array('class' => 'form-control')))
+            ->add('rol', TextType::class, array('label' => 'Rol','attr' => array(
+                    'class' => 'form-control'),
+                    'label_attr'=> array('class' => 'label_text spaceTop')))
             ->add('save', SubmitType::class, array('label' => 'Crear Tipus Treballador' ,'attr' => array(
                         'class' => 'btn btn-primary spaceTop')))
             ->getForm();
@@ -34,24 +36,21 @@ class TipusTreballadorController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            $tipusTreballador = $form->getData();
+            $tipusTreballador->setDescripcio($form->get('descripcio')->getData());
+            $rol->setDescripcio($form->get('rol')->getData());
 
-            // ... perform some action, such as saving the task to the database
-            // for example, if Category is a Doctrine entity, save it!
             $em = $this->getDoctrine()->getManager();
             $em->persist($tipusTreballador);
+            $em->persist($rol);
             $em->flush();
 
-            return $this->render('HotelBundle:Default:backend.html.twig', array(
-            'titol' => 'Nou Director afegit',
-            'name' => $tipusTreballador->getName()));
-        }
+            return $this->render('HotelBundleAdminBundle:Default:objectAdded.html.twig', array(
+            'titol' => 'Nou Tipus de treball afegit'));
+        };
  
-        return $this->render('HotelBundle:Default:backend.html.twig', array(
-            'titol' => 'Afegir Director',
-            'form' => $form->createView(),
+        return $this->render('HotelBundleAdminBundle:Default:addObject.html.twig', array(
+            'titol' => 'Afegir tipus de Treball',
+            'form' => $form->createView()
         ));
     }
 
