@@ -8,7 +8,7 @@ hotel_bundle_tasca:
 
 hotel_bundle_admin:
     resource: "@HotelBundleAdminBundle/Resources/config/routing.yml"
-    prefix:   /admin
+    prefix:   /backend/admin
 
 hotel_bundle_reserva:
     resource: "@HotelBundleReservaBundle/Resources/config/routing.yml"
