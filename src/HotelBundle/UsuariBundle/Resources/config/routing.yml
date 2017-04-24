@@ -1,3 +1,7 @@
 hotel_bundle_usuari_homepage:
     path:     /
     defaults: { _controller: HotelBundleUsuariBundle:Default:index }
+
+hotel_bundle_usuari_edit:
+    path:     /edit/{id}
+    defaults: { _controller: FOSUserBundle:Profile:administrarUser }

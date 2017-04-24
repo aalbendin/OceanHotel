@@ -110,6 +110,10 @@ class FOSUserExtension extends Extension
             $this->loadProfile($config['profile'], $container, $loader);
         }
 
+        if (!empty($config['adminprofile'])) {
+            $this->loadAdminProfile($config['adminprofile'], $container, $loader);
+        }
+
         if (!empty($config['registration'])) {
             $this->loadRegistration($config['registration'], $container, $loader, $config['from_email']);
         }
@@ -133,6 +137,20 @@ class FOSUserExtension extends Extension
      * @param XmlFileLoader    $loader
      */
     private function loadProfile(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    {
+        $loader->load('profile.xml');
+
+        $this->remapParametersNamespaces($config, $container, array(
+            'form' => 'fos_user.profile.form.%s',
+        ));
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param XmlFileLoader    $loader
+     */
+    private function loadAdminProfile(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
         $loader->load('profile.xml');
 

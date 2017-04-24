@@ -24,6 +24,7 @@ final class LegacyFormHelper
     private static $map = array(
         'FOS\UserBundle\Form\Type\ChangePasswordFormType' => 'fos_user_change_password',
         'FOS\UserBundle\Form\Type\GroupFormType' => 'fos_user_group',
+        'FOS\UserBundle\Form\Type\AdminProfileFormType' => 'fos_user_admin_profile',
         'FOS\UserBundle\Form\Type\ProfileFormType' => 'fos_user_profile',
         'FOS\UserBundle\Form\Type\RegistrationFormType' => 'fos_user_registration',
         'FOS\UserBundle\Form\Type\ResettingFormType' => 'fos_user_resetting',

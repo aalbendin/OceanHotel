@@ -12,12 +12,15 @@
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css">
 	
-	<link rel="stylesheet" type="text/css" href="{{asset('css/estil.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('public/css/estil.css')}}">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	
 	<!-- DataTable-->
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+
+	<!-- Select2 -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />	
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -40,7 +43,15 @@
 
 			<div class="collapse navbar-collapse">											
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Tancar Sessió</a></li>					
+					<li>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <p class="text-nav"> {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}&nbsp;&nbsp;
+  					<a href="{{ path('fos_user_security_logout') }}" class="btn btn-warning btn-xs"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></p>                     
+                     {% else %}
+                     <a class="btn btn-info" href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}
+                     </a>
+                     {% endif %}
+                 </li>					
 				</ul>
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->
@@ -53,29 +64,30 @@
 				<li class="sidebar-brand">
 				<img style="width: 100px;" class="img img-circle" src="http://home.iitk.ac.in/~kundua/male.png">
 					<a href="#">
-						Nom Usuari
+						{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+							<a href="{{path('fos_user_profile_show')}}">
+								{{ app.user.username | title}}
+							</a>						
+						{% endif %}
 					</a>
 				</li>
 				<li>
-					<a href="#"><span class="fa fa-tachometer"></span>  Dashboard</a>
+					<a href="{{path('hotel_bundle_admin_homepage')}}"><span class="fa fa-tachometer"></span>  Dashboard</a>
 				</li>
 				<li>
 					<a href="#"><span class="fa fa-briefcase"></span>  Treballadors</a>
 				</li>
 				<li>
-					<a href="#"><span class="fa fa-list-alt"></span>  Tasques</a>
+					<a href="{{path('hotel_bundle_tasca_homepage')}}"><span class="fa fa-list-alt"></span>  Tasques</a>
+				</li>			
+				<li>
+					<a href="{{path('hotel_bundle_reserva_homepage')}}"><span class="fa fa-bed"></span>  Reserves</a>
 				</li>
 				<li>
-					<a href="#"><span class="fa fa-calendar"></span>  Calendari</a>
-				</li>
-				<li>
-					<a href="#"><span class="fa fa-bed"></span>  Reserves</a>
-				</li>
-				<li>
-					<a href="#"><span class="fa fa-user-o"></span>  Usuaris</a>
+					<a href="{{path('hotel_bundle_usuari_homepage')}}"><span class="fa fa-user-o"></span>  Usuaris</a>
 				</li>				
 				<li>
-					<a href="#"><span class="fa fa-power-off"></span>  Tancar Sessió</a>
+					<a href="{{ path('fos_user_security_login') }}"><span class="fa fa-power-off"></span>  Tancar Sessió</a>
 				</li>
 			</ul>
 		</div>
@@ -108,12 +120,12 @@
 							</thead>
 							<tfoot>
 								<tr>
-									<th>Name</th>
-									<th>Position</th>
-									<th>Office</th>
-									<th>Age</th>
-									<th>Start date</th>
-									<th>Salary</th>
+									<th>Nom</th>
+									<th>càrrec</th>
+									<th>Cuitat</th>
+									<th>Edat</th>
+									<th>Date Inici</th>
+									<th>Sou</th>
 								</tr>
 							</tfoot>
 							<tbody>
@@ -587,19 +599,24 @@
         <!--footer-->
            <footer class="footer mt">
                 <div class="text-center">
-                    2017 - Hotel Ocean
+                    <p> Copyright &copy; 2017 - Hotel Ocean</p>                    
                     <a href="#" class="go-top">
                         <i class="fa fa-angle-up"></i>
                     </a>
                 </div>
             </footer>
-	{% endblock %}
+	{% endblock %}	
+
 	<!--DataTable-->
 	 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.js"></script>
 	 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
 
-    <script>
-    
+	 <!-- Select2 -->
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+	 
+    <script>    	
+    	$(".selectRol").select2(); 
+
     	$(document).ready(function() {
     		//Data Table
     		$('#table_id').DataTable( {
@@ -642,6 +659,8 @@
     			$("#contenedor").addClass("toggled");
     		}
     	});
+
+
     </script>
 </body>
 </html>
