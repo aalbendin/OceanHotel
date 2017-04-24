@@ -34,12 +34,7 @@ class Tasca
      * @ORM\Column(name="dataAlta", type="date", nullable=true)
      */
     private $dataAlta;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Treball", inversedBy="Tasca")
-     * @ORM\JoinColumn(name="treballId", referencedColumnName="id")
-     */
-    protected $treball;
+    
 
     /**
      * @ORM\ManyToOne(targetEntity="TipusTasca", inversedBy="Tasca")
@@ -106,31 +101,7 @@ class Tasca
     {
         return $this->dataAlta;
     }
-
-    /**
-     * Set treball
-     *
-     * @param \HotelBundle\Entity\Treball $treball
-     *
-     * @return Tasca
-     */
-    public function setTreball(\HotelBundle\Entity\Treball $treball = null)
-    {
-        $this->treball = $treball;
-    
-        return $this;
-    }
-
-    /**
-     * Get treball
-     *
-     * @return \HotelBundle\Entity\Treball
-     */
-    public function getTreball()
-    {
-        return $this->treball;
-    }
-
+   
     /**
      * Set tipusTasca
      *
