@@ -20,5 +20,28 @@ class DefaultController extends Controller
         ));
     }
 
-
+    public function deleteAction($id){
+    	$usuari = $this->getDoctrine()->getRepository('HotelBundle:User')->findOneById($id);
+    	echo $usuari;
+    	if ($usuari != null) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($usuari);
+            $em->flush();
+            $this->get('session')->getFlashBag()->add(
+                    'notice',array(
+                    'type' => 'success',
+                    'msg' => 'S\'ha eliminat l\'usuari'
+            ));
+        }else{
+            $this->get('session')->getFlashBag()->add(
+                    'notice',array(
+                    'type' => 'danger',
+                    'msg' => 'No s\'ha eliminat l\'usuari'
+            ));
+        }
+        $arrayUsuari = $this->getDoctrine()->getRepository('HotelBundle:User')->findAll();
+        return $this->render('HotelBundleUsuariBundle:Default:llista.html.twig', array(
+                    'array' => $arrayUsuari
+        ));
+    }
 }
