@@ -46,7 +46,7 @@ a:hover{
 
 
 #sidebar-contenedor {
-    z-index: 100;
+    z-index: 1000;
     position: fixed;
     top: 60px;
     left: 250px;
@@ -85,12 +85,18 @@ a:hover{
     width: 250px;
     margin: 0;
     padding: 0;
-    list-style: none;
+    list-style: none;    
 }
 
 .sidebar-nav li {
     text-indent: 20px;
     line-height: 40px;
+}
+
+.sidebar-nav li > ul > li > a{
+    padding-left: 20% !important;
+padding-top: 0 !important;
+padding-bottom: 0 !important;
 }
 
 .sidebar-nav li a {
@@ -111,7 +117,7 @@ a:hover{
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 180px;
+    height: 150px;
     font-size: 18px;
     line-height: 60px;
     margin-left: 20px;
@@ -171,7 +177,7 @@ input,select, textarea {
 /* FOOTER*/
 footer{
    position:fixed;
-   z-index: 1000;
+   z-index: 100;
    left:0px;
    bottom:0px;
    height:50px;

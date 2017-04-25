@@ -73,15 +73,21 @@
 				</li>
 				<li>
 					<a href="{{path('hotel_bundle_admin_homepage')}}"><span class="fa fa-tachometer"></span>  Dashboard</a>
-				</li>
+				</li>				
 				<li>
-					<a href="#"><span class="fa fa-briefcase"></span>  Treballadors</a>
+					<a href="{{path('hotel_bundle_adminTipusTreballador')}}"><span class="fa fa-briefcase"></span> Tipus Treballadors</a>
 				</li>
 				<li>
 					<a href="{{path('hotel_bundle_tasca_homepage')}}"><span class="fa fa-list-alt"></span>  Tasques</a>
-				</li>			
+				</li>				
+				<li><a href="#" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false"><span class="fa fa-bed"></span> Habitacions </a>
+					<ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
+						<li><a href="{{path('hotel_bundle_llistaHabitacions')}}">Habitacions</a></li>
+						<li><a href="{{path('hotel_bundle_tipusHabitacio')}}">Tipus d'Habitacions</a></li>
+					</ul>
+				</li>						
 				<li>
-					<a href="{{path('hotel_bundle_reserva_homepage')}}"><span class="fa fa-bed"></span>  Reserves</a>
+					<a href="{{path('hotel_bundle_reserva_homepage')}}"><span class="fa fa-ticket"></span>  Reserves</a>
 				</li>
 				<li>
 					<a href="{{path('hotel_bundle_usuari_homepage')}}"><span class="fa fa-user-o"></span>  Usuaris</a>
@@ -89,6 +95,7 @@
 				<li>
 					<a href="{{ path('fos_user_security_login') }}"><span class="fa fa-power-off"></span>  Tancar Sessió</a>
 				</li>
+
 			</ul>
 		</div>
 	{% endblock %}	
