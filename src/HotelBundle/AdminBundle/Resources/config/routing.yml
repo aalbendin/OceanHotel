@@ -1,6 +1,15 @@
 hotel_bundle_admin_homepage:
     path:     /
     defaults: { _controller: HotelBundleAdminBundle:Default:index }
+hotel_bundle_adminTipusTreballador:
+    path:     /tipusTreballador
+    defaults: { _controller: HotelBundleAdminBundle:TipusTreballador:index }
 hotel_bundle_addTipusTreballador:
     path:     /addTipusTreballador
     defaults: { _controller: HotelBundleAdminBundle:TipusTreballador:addTipusTreballador }
+hotel_bundle_editTipusTreballador:
+    path:     /editTipusTreballador/{id}
+    defaults: { _controller: HotelBundleAdminBundle:TipusTreballador:editTipusTreballador }
+hotel_bundle_deleteTipusTreballador:
+    path:     /deleteTipusTreballador/{id}
+    defaults: { _controller: HotelBundleAdminBundle:TipusTreballador:deleteTipusTreballador }
