@@ -1,6 +1,6 @@
 hotel_bundle_usuari:
     resource: "@HotelBundleUsuariBundle/Resources/config/routing.yml"
-    prefix:   /usuari
+    prefix:   /backend/usuari
 
 hotel_bundle_tasca:
     resource: "@HotelBundleTascaBundle/Resources/config/routing.yml"
