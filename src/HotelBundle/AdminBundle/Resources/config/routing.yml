@@ -1,6 +1,48 @@
 hotel_bundle_admin_homepage:
     path:     /
     defaults: { _controller: HotelBundleAdminBundle:Default:index }
+#Tipus Treballador
+hotel_bundle_adminTipusTreballador:
+    path:     /tipusTreballador
+    defaults: { _controller: HotelBundleAdminBundle:TipusTreballador:index }
 hotel_bundle_addTipusTreballador:
     path:     /addTipusTreballador
     defaults: { _controller: HotelBundleAdminBundle:TipusTreballador:addTipusTreballador }
+hotel_bundle_editTipusTreballador:
+    path:     /editTipusTreballador/{id}
+    defaults: { _controller: HotelBundleAdminBundle:TipusTreballador:editTipusTreballador }
+hotel_bundle_deleteTipusTreballador:
+    path:     /deleteTipusTreballador/{id}
+    defaults: { _controller: HotelBundleAdminBundle:TipusTreballador:deleteTipusTreballador }
+#Habitació
+hotel_bundle_addHabitacio:
+    path:     /addHabitacio
+    defaults: { _controller: HotelBundleAdminBundle:Habitacio:addHabitacio }
+
+hotel_bundle_llistaHabitacions:
+    path:     /llistaHabitacions
+    defaults: { _controller: HotelBundleAdminBundle:LlistaHabitacions:index }
+
+hotel_bundle_habitacio_delete:
+    path:     /llistaHabitacions/delete/{id}
+    defaults: { _controller: HotelBundleAdminBundle:LlistaHabitacions:delete }
+
+hotel_bundle_habitacio_edit:
+    path:     /llistaHabitacions/edit/{id}
+    defaults: { _controller: HotelBundleAdminBundle:Habitacio:editHabitacio }
+#Tipus d'Habitacio
+hotel_bundle_tipusHabitacio:
+    path:     /tipusHabitacio
+    defaults: { _controller: HotelBundleAdminBundle:TipusHabitacio:mostrarTipusHabitacio }
+
+hotel_bundle_addTipusHabitacio:
+    path:     /addTipusHabitacio
+    defaults: { _controller: HotelBundleAdminBundle:TipusHabitacio:addTipusHabitacio }
+
+hotel_bundle_editTipusHabitacio:
+    path:     /editTipusHabitacio/{id}
+    defaults: { _controller: HotelBundleAdminBundle:TipusHabitacio:editTipusHabitacio }
+
+hotel_bundle_deleteTipusHabitacio:
+    path:     /deleteTipusHabitacio/{id}
+    defaults: { _controller: HotelBundleAdminBundle:TipusHabitacio:deleteTipusHabitacio }
