@@ -55,8 +55,16 @@ class HabitacioController extends Controller
             $em->persist($habitacio);
             $em->flush();
 
-            return $this->render('HotelBundleAdminBundle:Default:objectAdded.html.twig', array(
-            'titol' => 'Nova habitació afegida'));
+            /*return $this->render('HotelBundleAdminBundle:Default:objectAdded.html.twig', array(
+            'titol' => 'Nova habitació afegida'));*/
+            $this->get('session')->getFlashBag()->add(
+                    'notice',array(
+                    'type' => 'success',
+                    'msg' => 'S\'ha afegit l\'habitació'
+            ));
+
+            return $this->redirect($this->generateurl('hotel_bundle_llistaHabitacions'));
+
         };
  
         return $this->render('HotelBundleAdminBundle:Default:addObject.html.twig', array(
@@ -102,8 +110,17 @@ class HabitacioController extends Controller
             $em->persist($habitacio);
             $em->flush();
 
-            return $this->render('HotelBundleAdminBundle:Default:objectAdded.html.twig', array(
-            'titol' => 'Habitació guardada'));
+            /*return $this->render('HotelBundleAdminBundle:Default:objectAdded.html.twig', array(
+            'titol' => 'Habitació guardada'));*/
+
+
+            $this->get('session')->getFlashBag()->add(
+                    'notice',array(
+                    'type' => 'success',
+                    'msg' => 'S\'ha modificat l\'habitació'
+            ));
+            return $this->redirect($this->generateurl('hotel_bundle_llistaHabitacions'));
+
         };
  
         return $this->render('HotelBundleAdminBundle:Default:addObject.html.twig', array(
