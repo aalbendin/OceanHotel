@@ -72,7 +72,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="{{path('hotel_bundle_admin_homepage')}}"><span class="fa fa-tachometer"></span>  Dashboard</a>
+					<a href="{{path('hotel_bundle_admin_homepage')}}"  {% if app.request.get('_route') == 'hotel_bundle_admin_homepage' %} class="active" {% endif %}><span class="fa fa-tachometer"></span>  Dashboard</a>
 				</li>				
 				<li>
 					<a href="{{path('hotel_bundle_adminTipusTreballador')}}"><span class="fa fa-briefcase"></span> Tipus Treballadors</a>
@@ -80,9 +80,9 @@
 				<li>
 					<a href="{{path('hotel_bundle_tasca_homepage')}}"><span class="fa fa-list-alt"></span>  Tasques</a>
 				</li>				
-				<li><a href="#" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false"><span class="fa fa-bed"></span> Habitacions </a>
+				<li><a href="#" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false" {% if app.request.get('_route') == 'hotel_bundle_llistaHabitacions' %} class="active" {% endif %}><span class="fa fa-bed"></span> Habitacions </a>
 					<ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
-						<li><a href="{{path('hotel_bundle_llistaHabitacions')}}">Habitacions</a></li>
+						<li><a href="{{path('hotel_bundle_llistaHabitacions')}}" >Habitacions</a></li>
 						<li><a href="{{path('hotel_bundle_tipusHabitacio')}}">Tipus d'Habitacions</a></li>
 					</ul>
 				</li>						
