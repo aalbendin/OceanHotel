@@ -19,6 +19,9 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
 
+	<!-- Datepicker-->
+	 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
+
 	<!-- Select2 -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />	
 
@@ -620,10 +623,17 @@
 
 	 <!-- Select2 -->
 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+	 <!--Date picker-->
+	            <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js" ></script>
 	 
     <script>    	
     	$(".selectRol").select2(); 
 
+    	jQuery(document).ready(function () {
+                    $('.js-datepicker').datepicker({
+                        format: 'dd/mm/yyyy'                  
+                    });                   
+                });
     	$(document).ready(function() {
     		//Data Table
     		$('#table_id').DataTable( {
