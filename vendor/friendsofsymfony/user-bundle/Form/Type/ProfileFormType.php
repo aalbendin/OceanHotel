@@ -59,28 +59,18 @@ class ProfileFormType extends AbstractType
         ));
         
 
-        $this->addRolesToFormForm($builder);
+        $this->addRolesToForm($builder);
         
     }
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function addRolesToFormForm(FormBuilderInterface $builder){
+    public function addRolesToForm(FormBuilderInterface $builder){
 
-         return $builder
-            ->add('rol', EntityType::class, array(
-                'class' => 'HotelBundle:Rol',
-                 'choice_label' => 'descripcio',
-                'multiple' => TRUE,
-                'label' => 'Rol', 
-                'attr' => ['class' => 'selectRol'],
-                'required' => true));
-
-
-        /*return $builder->add('roles', ChoiceType::class, array('label' => 'Rol', 
+        return $builder->add('roles', ChoiceType::class, array('label' => 'Rol', 
             'attr' => ['class' => 'selectRol'],
-            'required' => true, 'choices' => array("Serv. de Neteja" => 'ROLE_CLEAN',"Serv. de manteniment" => 'ROLE_MANT', "Administrador" => 'ROLE_ADMIN', "Usuari" => 'ROLE_USER'), 'multiple' => true));*/
+            'required' => true, 'choices' => array("Serv. de Neteja" => 'ROLE_CLEAN',"Serv. de manteniment" => 'ROLE_MANT', "Administrador" => 'ROLE_ADMIN', "Usuari" => 'ROLE_USER'), 'multiple' => true));
     }
 
     /**

@@ -55,13 +55,13 @@ class AdminProfileFormType extends AbstractType
             'constraints' => new UserPassword($constraintsOptions),
         ));
         
-        $builder = this->addRolesToFormForm($builder);
+        $builder = this->addRolesToForm($builder);
         
     }
     /**
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function addRolesToFormForm(FormBuilderInterface $builder){
+    public function addRolesToForm(FormBuilderInterface $builder){
         $builder->add('roles', ChoiceType::class, array('label' => 'Rol', 'required' => true, 'choices' => array( "Administrador" => 'ROLE_ADMIN', "Usuari" => 'ROLE_USER'), 'multiple' => true));
         return $builder;
     }
