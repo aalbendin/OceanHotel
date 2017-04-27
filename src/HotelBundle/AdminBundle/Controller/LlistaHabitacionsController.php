@@ -15,7 +15,7 @@ class LlistaHabitacionsController extends Controller
 {
     public function indexAction(){
     	$habitacio = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findAll();
-        return $this->render('HotelBundleAdminBundle:Default:llista.html.twig', array(
+        return $this->render('HotelBundleAdminBundle:Default:llistaHabitacions.html.twig', array(
                     'array' => $habitacio
         ));
     }
@@ -39,9 +39,10 @@ class LlistaHabitacionsController extends Controller
                     'msg' => 'No s\'ha eliminat l\'habitació'
             ));
         }
-        $arrayHabitacions = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findAll();
-        return $this->render('HotelBundleAdminBundle:Default:llista.html.twig', array(
+        /*$arrayHabitacions = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findAll();
+        return $this->render('HotelBundleAdminBundle:Default:llistaHabitacions.html.twig', array(
                     'array' => $arrayHabitacions
-        ));
+        ));*/
+        return $this->redirect($this->generateurl('hotel_bundle_llistaHabitacions'));
     }
 }

@@ -7,6 +7,6 @@
     {% if targetUrl %}
     <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
 	{% else %}
-	<p><a href="{{ hotel_homepage }}"> Tornar a Home</a></p>
+	<p><a href="{{path('hotel_homepage') }}"> Tornar a Home</a></p>
     {% endif %}
 {% endblock fos_user_content %}
