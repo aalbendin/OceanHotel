@@ -40,7 +40,7 @@ class TipusTreballadorController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $rol->setDescripcio($form->get('rol')->getData());           
+            $rol->setDescripcio(strtoupper("ROLE_".$form->get('rol')->getData()));           
             $tipusTreballador->setDescripcio($form->get('descripcio')->getData());
             $tipusTreballador->setRolAsociat($rol);
 
