@@ -20,14 +20,12 @@
                                     <thead>
                                         <tr>
                                             <th>Tipus de Treball</th>
-                                            <th>Rol asociat</th>                                            
                                             <th><span class="fa fa-cogs"></span> Config</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Tipus de Treball</th>
-                                            <th>Rol asociat</th>                                            
                                             <th><span class="fa fa-cogs"></span> Config</th>
                                         </tr>
                                     </tfoot>
@@ -35,7 +33,6 @@
                                         {% for tipusTreb in array %}
                                         <tr>
                                             <td>{{tipusTreb.descripcio}}</td>
-                                            <td>{{ tipusTreb.getRolAsociat().getDescripcio() }}</td>
                                             <td>
                                                 <center>
                                                 <a href="{{ path('hotel_bundle_editTipusTreballador', { 'id': tipusTreb.id }) }}" class="btn btn-xs btn-info"><span class="fa fa-pencil"></span></a>

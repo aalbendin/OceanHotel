@@ -5,7 +5,6 @@ namespace HotelBundle\AdminBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use HotelBundle\Entity\TipusTreballador;
-use HotelBundle\Entity\Rol;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -24,13 +23,9 @@ class TipusTreballadorController extends Controller
     public function addTipusTreballadorAction(Request $request)
     {
        $tipusTreballador = new TipusTreballador();
-        $rol = new Rol();
 
-        $form = $this->createFormBuilder()
+        $form = $this->createFormBuilder($tipusTreballador)
             ->add('descripcio', TextType::class, array('label' => 'Descripció','attr' => array(
-                    'class' => 'form-control'),
-                    'label_attr'=> array('class' => 'label_text spaceTop')))
-            ->add('rol', TextType::class, array('label' => 'Rol','attr' => array(
                     'class' => 'form-control'),
                     'label_attr'=> array('class' => 'label_text spaceTop')))
             ->add('save', SubmitType::class, array('label' => 'Crear Tipus Treballador' ,'attr' => array(
@@ -40,12 +35,7 @@ class TipusTreballadorController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $rol->setDescripcio(strtoupper("ROLE_".$form->get('rol')->getData()));           
-            $tipusTreballador->setDescripcio($form->get('descripcio')->getData());
-            $tipusTreballador->setRolAsociat($rol);
-
             $em = $this->getDoctrine()->getManager();
-            $em->persist($rol);
             $em->persist($tipusTreballador);
             $em->flush();
 
@@ -72,15 +62,11 @@ class TipusTreballadorController extends Controller
     public function editTipusTreballadorAction(Request $request , $id)
     {
         $tipusTreb = $this->getDoctrine()->getRepository('HotelBundle:TipusTreballador')->findOneById($id);
-        $rol = $this->getDoctrine()->getRepository('HotelBundle:Rol')->findOneById($tipusTreb->getRolAsociat()->getId());
 
-        $form = $this->createFormBuilder()
+        $form = $this->createFormBuilder($tipusTreb)
             ->add('descripcio', TextType::class, array('label' => 'Descripció','attr' => array(
                     'class' => 'form-control'),
                     'label_attr'=> array('class' => 'label_text spaceTop'),'data' => $tipusTreb->getDescripcio()))
-            ->add('rol', TextType::class, array('label' => 'Rol','attr' => array(
-                    'class' => 'form-control'),
-                    'label_attr'=> array('class' => 'label_text spaceTop'),'data' => $rol->getDescripcio()))
             ->add('save', SubmitType::class, array('label' => 'Modificar Tipus Treballador' ,'attr' => array(
                         'class' => 'btn btn-primary spaceTop')))
             ->getForm();
@@ -88,10 +74,6 @@ class TipusTreballadorController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $rol->setDescripcio($form->get('rol')->getData());           
-            $tipusTreb->setDescripcio($form->get('descripcio')->getData());
-            $tipusTreb->setRolAsociat($rol);
-
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
@@ -116,12 +98,10 @@ class TipusTreballadorController extends Controller
     public function deleteTipusTreballadorAction(Request $request , $id)
     {
         $tipusTreb = $this->getDoctrine()->getRepository('HotelBundle:TipusTreballador')->findOneById($id);
-        $rol = $this->getDoctrine()->getRepository('HotelBundle:Rol')->findOneById($tipusTreb->getRolAsociat()->getId());
 
-        if ($tipusTreb && $rol) {
+        if ($tipusTreb) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($tipusTreb);
-            $em->remove($rol);
             $em->flush();
 
          $this->get('session')->getFlashBag()->add(
