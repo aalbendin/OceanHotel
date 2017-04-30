@@ -5,7 +5,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1>Tipus Habitació</h1>
+						<h1 class="text-center">Tipus Habitació</h1>
 						{% for flashMessage in app.session.flashbag.get('notice') %}
 							<div class="alert alert-{{ flashMessage.type }}">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -13,7 +13,7 @@
 							</div>
 						{% endfor %}	
 						<div class="row">
-							<a href="{{path('hotel_bundle_addTipusHabitacio')}}" class="btn btn-warning">Afegir Tipus d'Habitació</a>
+							<a href="{{path('hotel_bundle_addTipusHabitacio')}}" class="btn btn-warning btn-afegir"><span class="fa fa-plus"/>  Afegir Tipus d'Habitació</a>
 						</div>
 						<div class="row">									
 						</div>

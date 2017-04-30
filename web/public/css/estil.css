@@ -67,9 +67,10 @@ a:hover{
 
 #contingut {
     width: 100%;
-    position: absolute;
+    height: 750px !important;
+    position: relative;
     padding: 15px;
-    z-index: 1;
+    z-index: 10000;
 }
 
 #contenedor.toggled #contingut {
@@ -120,16 +121,25 @@ padding-bottom: 0 !important;
     height: 150px;
     font-size: 18px;
     line-height: 60px;
-    margin-left: 20px;
+    margin-left: 40px;
+    margin-top: 20px;
 }
 
 .sidebar-nav > .sidebar-brand a {
+    margin-left: 20px;
     color: #999999;
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
     color: #FFAF00;
     background: none;
+}
+
+/*Form */
+
+.content-backend{
+    margin-bottom: 30px !important;
+    height: 100%;
 }
 
 textarea:focus,textarea.form-control:focus, input.form-control:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="number"]:focus, .form-control[type="text"]:focus, .form-control[type="password"]:focus, .form-control[type="email"]:focus, .form-control[type="tel"]:focus, .form-control[contenteditable]:focus{
@@ -174,16 +184,20 @@ input,select, textarea {
     color: #fff !important;
 }
 
+.btn-afegir{
+    margin: 20px;
+}
+
 /* FOOTER*/
 footer{
    position:fixed;
-   z-index: 100;
+   z-index: 4;
    left:0px;
    bottom:0px;
    height:50px;
    width:100%;
    padding: 20px;
-   margin-top: 30px;
+   margin-top: 60px;
    background-color: #182633;
    color:#fff;
    line-height: 50%;
@@ -195,6 +209,9 @@ footer{
 }
 /* DATA TABLE */
 
+.dataTables_wrapper{
+    margin-bottom: 30px !important;
+}
 .dataTables_wrapper .dataTables_paginate .paginate_button{
     border: none !important;
     padding: 0 0 !important;
