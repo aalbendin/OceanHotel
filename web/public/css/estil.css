@@ -70,7 +70,6 @@ a:hover{
     height: 750px !important;
     position: relative;
     padding: 15px;
-    z-index: 10000;
 }
 
 #contenedor.toggled #contingut {
