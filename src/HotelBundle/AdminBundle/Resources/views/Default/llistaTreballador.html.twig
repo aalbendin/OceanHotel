@@ -1,11 +1,11 @@
 {% extends "HotelBundle:Default:backend.html.twig" %}
-{% block title %}Llista de Tipus Habitació{% endblock %}
+{% block title %}Treballadors{% endblock %}
 	{% block content %} 
 		<div id="contingut">
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1>Treballador</h1>
+						<h1 class="text-center">Treballadors</h1>
 						{% for flashMessage in app.session.flashbag.get('notice') %}
 							<div class="alert alert-{{ flashMessage.type }}">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -13,7 +13,7 @@
 							</div>
 						{% endfor %}	
 						<div class="row">
-							<a href="{{path('hotel_bundle_addTreballador')}}" class="btn btn-warning">Afegir Treballador</a>
+							<a href="{{path('hotel_bundle_addTreballador')}}" class="btn btn-warning btn-afegir"><span class="fa fa-plus"/>  Afegir Treballador</a>
 						</div>
 						<div class="row">									
 						</div>
@@ -32,7 +32,12 @@
 									</thead>
 									<tfoot>
 										<tr>
-											<th>Descripció</th>
+											<th>Nom</th>
+											<th>Cognom</th>
+											<th>Data Naixement</th>
+											<th>Nif</th>
+											<th>Usuari</th>
+											<th>Tipus treballador</th>
 											<th><span class="fa fa-cogs"></span> Config</th>
 										</tr>
 									</tfoot>
@@ -45,7 +50,6 @@
 											<td>{{treballador.nif}}</td>
 											<td>{{treballador.getUsuari().getUsername()}}</td>
 											<td>{{treballador.getTipusTreballador().getDescripcio()}}</td>
-											<td></td>
 											<td>
 												<center>
 												<a href="{{ path('hotel_bundle_editTreballador', { 'id': treballador.id }) }}" class="btn btn-xs btn-info"><span class="fa fa-pencil"></span></a>
