@@ -58,7 +58,7 @@ a:focus, a:hover {
 }
 
 .navbar-inverse {
-    background-color: transparent !important;
+    background-color: rgba(69, 68, 68, 0.7) /*transparent*/ !important;
     border-color: #ccc;
 }
 
@@ -210,4 +210,41 @@ a:focus, a:hover {
 	 .img-wapper, .col-xs-12{
 	padding:0px !important;
 	padding-top: 40px !important;}
+}
+
+
+
+#contingut {
+    width: 100%;
+    position: relative;
+    margin-top: 100px;
+}
+
+
+
+.thumbnail{
+
+      min-height: 370px !important;
+    }
+
+@media (max-width: 1200px) {
+  .thumbnail{
+      min-height: 320px !important;
+
+    }
+}
+
+@media (max-width: 992px) {
+  .thumbnail{
+      min-height: 220px !important;
+
+    }
+}
+
+@media (max-width: 400px){
+  
+   .thumbnail{
+      min-height: 100px !important;
+
+    }
 }

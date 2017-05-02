@@ -10,4 +10,6 @@ class DefaultController extends Controller
     {
         return $this->render('HotelBundle:Default:backend.html.twig');
     }
+
+
 }
