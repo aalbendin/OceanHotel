@@ -41,25 +41,28 @@
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
                 <li><a href="{{ path('hotel_homepage') }}">Inici</a></li>
-                <li><a href="#about">Habitacions</a></li>
+                <li><a href="{{path('hotel_bundle_reserva_llistaHabitacionsFrontend')}}">Habitacions</a></li>
                 <li><a href="#about">Instal·lacions</a></li>
                 <li><a href="#about">Fotografies</a></li>
                 <li><a href="#about">Ubicació</a></li>
                 <li><a href="#contact">Contacte</a></li>               
               </ul>
               <ul class="nav navbar-nav navbar-right">
+              {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} <span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  
+                  {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} <span class="caret"></span></a>
                   <ul class="dropdown-menu">
-                    {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_ADMIN') %}
                     <li>
                         <a href="{{ path('hotel_homepage_backend') }}">
                             <span class="glyphicon glyphicon-log-out"></span>Backend
                         </a>
                     </li>
-                    {% endif %}
+                {% endif %}
                     <li>
-                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        
                         <a href="{{ path('fos_user_profile_show') }}">
                             <span class="glyphicon glyphicons-user"></span>Perfil
                         </a>
@@ -67,10 +70,10 @@
                     <li>
                     <a href="{{ path('fos_user_security_logout') }}"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
                    </li>
-                   {% else %}
+              {% else %}
                     <li role="separator" class="divider"></li>
-                    <li><a  href="{{ path('fos_user_security_logout') }}" > {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>   
-                   {% endif %}
+                    <li><a  href="{{ path('fos_user_security_login') }}" > {{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>   
+              {% endif %}
                                   
                   </ul>
                 </li>                                      

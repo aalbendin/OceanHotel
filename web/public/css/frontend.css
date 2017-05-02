@@ -212,12 +212,39 @@ a:focus, a:hover {
 	padding-top: 40px !important;}
 }
 
-.thumbnail{
-  min-height: 430px !important;
-}
+
 
 #contingut {
     width: 100%;
     position: relative;
     margin-top: 100px;
+}
+
+
+
+.thumbnail{
+
+      min-height: 370px !important;
+    }
+
+@media (max-width: 1200px) {
+  .thumbnail{
+      min-height: 320px !important;
+
+    }
+}
+
+@media (max-width: 992px) {
+  .thumbnail{
+      min-height: 220px !important;
+
+    }
+}
+
+@media (max-width: 400px){
+  
+   .thumbnail{
+      min-height: 100px !important;
+
+    }
 }

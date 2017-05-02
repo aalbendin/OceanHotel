@@ -21,22 +21,7 @@
 							</div>
 						</div>
 						</div>
-						<!--
-{% for habitacio in array %}
-										<tr>
-											<td>{{habitacio.numHabitacio}}</td>
-											<td>{{habitacio.places}}</td>
-											<td>{{habitacio.preu}}</td>
-											<td>{{habitacio.getTipusHabitacio().getDescripcio()}}</td>
-											<td>
-												<center>
-												<a href="{{ path('hotel_bundle_habitacio_edit', { 'id': habitacio.id }) }}" class="btn btn-xs btn-info"><span class="fa fa-pencil"></span></a>
-												<a  href="{{path('hotel_bundle_habitacio_delete', { 'id': habitacio.id }) }}"class="btn btn-xs btn-danger"><span class="fa fa-trash"></span></a>
-												</center>
-											</td>
-										</tr>
-										 {% endfor %} 	
-						 -->
+
 
 						<!--HABITACIONES -->
 						<div class="row">									
@@ -54,10 +39,10 @@
 															</div>
 												</div>
 												<div class="row">
-													<div id="nomMiniHabitacio" class="col-xs-9">
-														<h4>{{habitacio.places}}</h4>
+													<div id="nomMiniHabitacio" class="col-xs-8">
+														<h4>Places: {{habitacio.places}}</h4>
 													</div>
-													<div id="preuMiniHabitacio" class="col-xs-3 ">
+													<div id="preuMiniHabitacio" class="col-xs-4 ">
 														 <a href="{{habitacio.id}}" type="button" class="btn btn-primary">Reservar</a>
 													</div>
 											    </div>
