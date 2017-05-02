@@ -1,46 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Bienvenido a Ocean Hotel!{% endblock %}</title>
-    {% block stylesheets %}
-    <!-- Bootstrap Core CSS --> 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+    <meta name="description" content="hotel">
+    <meta name="author" content="yaritza Aburdene">
+    <!--<link rel="icon" href="img/favicon.ico">-->
 
-    <!--Custom CSS-->
-    <link href="{{ asset('public/css/estil.css') }}" rel="stylesheet">
+    <title>Hotel</title>
 
-    {% endblock %}
-</head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href="{{asset('public/css/frontend.css')}}" rel="stylesheet">
 
-<body>
-    {% block body %}
-    {% block navigation %}
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+  </head>
+<!-- NAVBAR
+================================================== -->
+  <body>
+    <div class="navbar-wrapper">
+      <div class="container">
+
+        <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="{{ path('hotel_homepage') }}">Ocean Hotel</a>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Hotel</a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="{{ path('hotel_homepage') }}">Index</a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li><a href="{{ path('hotel_homepage') }}">Inici</a></li>
+                <li><a href="#about">Habitacions</a></li>
+                <li><a href="#about">Instal·lacions</a></li>
+                <li><a href="#about">Fotografies</a></li>
+                <li><a href="#about">Ubicació</a></li>
+                <li><a href="#contact">Contacte</a></li>               
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
                     {% if is_granted('ROLE_ADMIN') %}
                     <li>
                         <a href="{{ path('hotel_homepage_backend') }}">
@@ -55,83 +65,174 @@
                         </a>
                     </li>
                     <li>
-                       <p class="text-nav"> {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}&nbsp;&nbsp;
-                    <a href="{{ path('fos_user_security_logout') }}" class="btn btn-warning btn-xs"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></p>  
+                    <a href="{{ path('fos_user_security_logout') }}"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
                    </li>
                    {% else %}
-                   <a class="btn btn-info" href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}
-                   </a>
+                    <li role="separator" class="divider"></li>
+                    <li><a  href="{{ path('fos_user_security_logout') }}" > {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>   
                    {% endif %}
+                                  
+                  </ul>
+                </li>                                      
                </li>
            </ul>
-       </div>
-       <!-- /.navbar-collapse -->
-   </div>
-   <!-- /.container -->
-</nav>
-{% endblock %}
-
-{% block page_content %}
-<!-- Page Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row carousel-holder">
-                <div class="col-md-12">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img class="slide-image" src="{{ asset('photos/BANNER_HARRY_1.png') }}" alt="Harry Potter y la piedra Filosofal">
-                            </div>
-                            <div class="item">
-                                <img class="slide-image" src="{{ asset('photos/BANNER_HARRY_2.png') }}" alt="Harry Potter y la camara de los secretos">
-                            </div>
-                            <div class="item">
-                                <img class="slide-image" src="{{ asset('photos/BANNER_HARRY_3.png') }}" alt="">
-                            </div>
-                        </div>
-                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                        </a>
-                    </div>
-                </div>
             </div>
+          </div>
+        </nav>
 
-        </div>
+      </div>
     </div>
-</div>
-<!-- /.container -->
-{% endblock %}
 
-<div class="container">
-    <hr>
-    <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <p> Copyright &copy; 2017 - Hotel Ocean</p>
+    {% block page_content %}
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <img class="first-slide img-responsive" src="{{asset('public/img/slide1.jpg')}}" alt="First slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Un lloc ideal per disfrutar</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+              <p><a class="btn btn-lg btn-warning" href="#" role="button">Haz tu reserva ya!</a></p>
             </div>
+          </div>
         </div>
-    </footer>
-</div>
-<!-- /.container -->
-{% endblock %}
+        <div class="item">
+          <img class="second-slide img-responsive" src="{{asset('public/img/slide2.jpg')}}" alt="Second slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Elegancia i comodidat</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+              <p><a class="btn btn-lg btn-warning" href="#" role="button">Ver más</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="third-slide img-responsive" src="{{asset('public/img/slide3.jpg')}}" alt="Third slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Localitzat en un edifici historic</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+              <p><a class="btn btn-lg btn-warning" href="#" role="button">Conoce la historia</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div><!-- /.carousel -->
 
-{% block javascripts %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Marketing 
+    ================================================== -->
+    <div class="container marketing">
 
-{% endblock %}
+      <!-- tres columnas con texto -->
+      <div class="row">
+        <div class="col-lg-4 col-md-8 col-xs-12">
+          <img  class="img-wrapper" src="{{asset('public/img/img-1.jpg')}}" alt="Generic placeholder image">
+          <div class="wrapper">
+            <div class="wrapper-text">
+            <h2>Gastronomia</h2>
+             <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
+             <p><a class="btn btn-default" href="#" role="button">Ver detalles &raquo;</a></p>
+            </div>             
+          </div>
+         
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4 col-xs-12">
+          <img class="img-wrapper" tabindex="4"  src="{{asset('public/img/img-2.jpg')}}" alt="Generic placeholder image">
+          <div class="wrapper ocultar">
+            <div class="wrapper-text">
+            <h2>Ofertas Especiales</h2>
+            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+            <p><a class="btn btn-default" href="#" role="button">Ver detalles &raquo;</a></p>
+            </div>             
+          </div>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4 col-xs-12">
+          <img class="img-wrapper" src="{{asset('public/img/img-3.jpg')}}" alt="Generic placeholder image">
+          <div class="wrapper">
+            <div class="wrapper-text">
+              <h2>Fotografías</h2>
+              <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+              <p><a class="btn btn-default" href="#" role="button">Ver detalles &raquo;</a></p>
+            </div>             
+          </div>
+        </div><!-- /.col-lg-4 -->
+      </div><!-- /.row -->
 
-</body>
 
+      <!-- Inicio de Caracteristicas -->
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Contamos con las mejores habitaciones<span class="text-warning"> "como dormir en las nubes"</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block" src="{{asset('public/img/img-4.jpg')}}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+          <h2 class="featurette-heading">Pisina en el interior <span class="text-warning">¡Descubrelo tu mismo!</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+          <img class="featurette-image img-responsive center-block" src="{{asset('public/img/img-5.jpg')}}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Y por ultimo, podras disfrutar de las maravillosa vista de la ciudad <span class="text-warning"> comiendo desde la terraza.</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block" src="{{asset('public/img/img-6.jpg')}}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <!-- /Fin de Caracteristicas -->
+      {% endblock %}
+
+      <!-- Pie -->
+      <footer>
+        <p class="pull-right"><a href="#"><span class="flecha glyphicon glyphicon-arrow-up"></span></a></p>
+        <p>&copy; 2017 Hotel Ocean, Todos los derechos reservados | Creado por Gobal System </p>
+        <p><a href="#">Privacidad</a> &middot; <a href="#">Terminos</a></p>
+      </footer>
+
+    </div><!-- /.container -->
+
+
+    <!-- JavaScript
+    ================================================== -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src=""></script>
+  </body>
 </html>
