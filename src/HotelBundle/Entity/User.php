@@ -28,8 +28,7 @@ class User extends BaseUser
     protected $groups;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Rol", inversedBy="User")
-     * @ORM\JoinColumn(name="rolId", referencedColumnName="id")
+     * 
      */
     private $rol;
 
@@ -43,11 +42,11 @@ class User extends BaseUser
     /**
      * Set rol
      *
-     * @param \HotelBundle\Entity\Rol $rol
+     * 
      *
      * @return User
      */
-    public function setRol(\HotelBundle\Entity\Rol $rol = null)
+    public function setRol($rol = null)
     {
         $this->rol = $rol;
     
@@ -57,7 +56,7 @@ class User extends BaseUser
     /**
      * Get rol
      *
-     * @return \HotelBundle\Entity\Rol
+     * 
      */
     public function getRol()
     {

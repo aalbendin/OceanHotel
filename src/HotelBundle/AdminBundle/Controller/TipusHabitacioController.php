@@ -5,7 +5,6 @@ namespace HotelBundle\AdminBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use HotelBundle\Entity\TipusHabitacio;
-use HotelBundle\Entity\Rol;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -27,7 +26,10 @@ class TipusHabitacioController extends Controller
         $form = $this->createFormBuilder($TipusHabitacio)
             ->add('descripcio', TextType::class, array('label' => 'Descripció','attr' => array(
                     'class' => 'form-control'),
-                    'label_attr'=> array('class' => 'label_text spaceTop')))         
+                    'label_attr'=> array('class' => 'label_text spaceTop')))   
+            ->add('Imatge', TextType::class, array('label' => 'Imatge','attr' => array(
+                    'class' => 'form-control'),
+                    'label_attr'=> array('class' => 'label_text spaceTop')))           
             ->add('save', SubmitType::class, array('label' => 'Crear Tipus d\'Habitació',
                     'attr' => array(
                         'class' => 'btn btn-warning mt')))
@@ -44,15 +46,12 @@ class TipusHabitacioController extends Controller
                     'notice',array(
                     'type' => 'success',
                     'msg' => 'S\'ha afegit el Tipus d\'Habitació'
-            ));
-            $arrayTipusHabitacio = $this->getDoctrine()->getRepository('HotelBundle:TipusHabitacio')->findAll();
-            return $this->render('HotelBundleAdminBundle:Default:tipusHabitacio.html.twig', array(
-                'array' => $arrayTipusHabitacio
-                ));
+            ));            
+            return $this->redirect($this->generateurl('hotel_bundle_tipusHabitacio'));
         };
  
         return $this->render('HotelBundleAdminBundle:Default:addObject.html.twig', array(
-            'titol' => 'Afegir tipus de Treball',
+            'titol' => 'Afegir tipus d\'Habitació',
             'form' => $form->createView()
         ));
     }
@@ -63,7 +62,10 @@ class TipusHabitacioController extends Controller
         $form = $this->createFormBuilder($TipusHabitacio)
             ->add('descripcio', TextType::class, array('label' => 'Descripció','attr' => array(
                     'class' => 'form-control'),
-                    'label_attr'=> array('class' => 'label_text spaceTop')))         
+                    'label_attr'=> array('class' => 'label_text spaceTop')))  
+            ->add('Imatge', TextType::class, array('label' => 'Imatge','attr' => array(
+                    'class' => 'form-control'),
+                    'label_attr'=> array('class' => 'label_text spaceTop')))       
             ->add('save', SubmitType::class, array('label' => 'Editar el Tipus d\'Habitació',
                     'attr' => array(
                         'class' => 'btn btn-warning mt')))
@@ -81,14 +83,11 @@ class TipusHabitacioController extends Controller
                     'type' => 'success',
                     'msg' => 'S\'ha editat el Tipus d\'Habitació'
             ));
-            $arrayTipusHabitacio = $this->getDoctrine()->getRepository('HotelBundle:TipusHabitacio')->findAll();
-            return $this->render('HotelBundleAdminBundle:Default:tipusHabitacio.html.twig', array(
-                'array' => $arrayTipusHabitacio
-                ));
+            return $this->redirect($this->generateurl('hotel_bundle_tipusHabitacio'));
         };
  
         return $this->render('HotelBundleAdminBundle:Default:addObject.html.twig', array(
-            'titol' => 'Editar tipus de Treball',
+            'titol' => 'Editar tipus d\'Habitació',
             'form' => $form->createView()
         ));
     }
@@ -112,10 +111,7 @@ class TipusHabitacioController extends Controller
                     'msg' => 'No s\'ha eliminat el tipus d\'Habitació'
             ));
         }
-        $arrayTipusHabitacio = $this->getDoctrine()->getRepository('HotelBundle:TipusHabitacio')->findAll();
-            return $this->render('HotelBundleAdminBundle:Default:tipusHabitacio.html.twig', array(
-                'array' => $arrayTipusHabitacio
-                ));
+        return $this->redirect($this->generateurl('hotel_bundle_tipusHabitacio'));
     }
 
 }

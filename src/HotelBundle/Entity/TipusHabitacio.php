@@ -24,9 +24,17 @@ class TipusHabitacio
     /**
      * @var string
      *
+     * @ORM\Column(name="imatge", type="string", length=255, nullable=true)
+     */
+    private $imatge;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="descripcio", type="string", length=255, nullable=true)
      */
     private $descripcio;
+
 
 
     /**
@@ -37,6 +45,30 @@ class TipusHabitacio
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set imatge
+     *
+     * @param string $imatge
+     *
+     * @return TipusHabitacio
+     */
+    public function setImatge($imatge)
+    {
+        $this->imatge = $imatge;
+    
+        return $this;
+    }
+
+    /**
+     * Get imatge
+     *
+     * @return string
+     */
+    public function getImatge()
+    {
+        return $this->imatge;
     }
 
     /**
@@ -63,4 +95,3 @@ class TipusHabitacio
         return $this->descripcio;
     }
 }
-
