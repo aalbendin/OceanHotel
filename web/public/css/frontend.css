@@ -58,7 +58,7 @@ a:focus, a:hover {
 }
 
 .navbar-inverse {
-    background-color: transparent !important;
+    background-color: rgba(69, 68, 68, 0.7) /*transparent*/ !important;
     border-color: #ccc;
 }
 
@@ -210,4 +210,14 @@ a:focus, a:hover {
 	 .img-wapper, .col-xs-12{
 	padding:0px !important;
 	padding-top: 40px !important;}
+}
+
+.thumbnail{
+  min-height: 430px !important;
+}
+
+#contingut {
+    width: 100%;
+    position: relative;
+    margin-top: 100px;
 }
