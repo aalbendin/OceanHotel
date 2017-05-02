@@ -1,6 +1,19 @@
 hotel_bundle_admin_homepage:
     path:     /
     defaults: { _controller: HotelBundleAdminBundle:Default:index }
+#Treballador
+hotel_bundle_llistaTreballador:
+    path:     /treballador
+    defaults: { _controller: HotelBundleAdminBundle:Treballador:index }
+hotel_bundle_addTreballador:
+    path:     /addTreballador
+    defaults: { _controller: HotelBundleAdminBundle:Treballador:addTreballador }
+hotel_bundle_editTreballador:
+    path:     /editTreballador/{id}
+    defaults: { _controller: HotelBundleAdminBundle:Treballador:editTreballador }
+hotel_bundle_deleteTreballador:
+    path:     /deleteTreballador/{id}
+    defaults: { _controller: HotelBundleAdminBundle:Treballador:deleteTreballador }
 #Tipus Treballador
 hotel_bundle_adminTipusTreballador:
     path:     /tipusTreballador
