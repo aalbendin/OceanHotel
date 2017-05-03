@@ -10,4 +10,8 @@ namespace HotelBundle\Repository;
  */
 class ComandaRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function addReserva($reserva){
+		
+	}
+
 }
