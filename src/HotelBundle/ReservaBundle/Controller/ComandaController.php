@@ -32,25 +32,25 @@ public function afegirLiniaAction($id, Request $request){
   $session = $request->getSession();
 
   if($session->has('arrayReserva')){
-    $arrayReserva = $session->get('arrayReserva');
+    $arrayReserva = $session->get('arrayReserva');    
   }else{
     $arrayReserva = array();
   }
-
-
-    $reserva = new Reserva();
-    $reserva->setHabitacio($habitacio);
-    array_push($arrayReserva,$reserva);
-
-    $arrayReserva = $session->set('arrayReserva', $arrayReserva);
   
-            $this->get('session')->getFlashBag()->add(
-                    'notice',array(
-                    'type' => 'success',
-                    'msg' => 'S\'ha afegit l\'habitació'
-            ));
+  $reserva = new Reserva();
+  $reserva->setHabitacio($habitacio);
+  array_push($arrayReserva,$reserva);
 
-    return $this->redirect($this->generateurl('hotel_bundle_reserva_comanda'));
+  $arrayReserva = $session->set('arrayReserva', $arrayReserva);
+  
+  $this->get('session')->getFlashBag()->add(
+    'notice',array(
+      'type' => 'success',
+      'msg' => 'S\'ha afegit l\'habitació'
+      ));
+
+  return $this->redirect($this->generateurl('hotel_bundle_reserva_comanda')); 
+
 }
 
 public function eliminarLiniaAction($id, Request $request){
@@ -87,7 +87,7 @@ public function completarReservaAction(Request $request){
     //client incomplet:
                 $this->get('session')->getFlashBag()->add(
                     'notice',array(
-                    'type' => 'notice',
+                    'type' => 'info',
                     'msg' => 'Necesitamos tus datos de cliente!'
             ));
     return $this->redirect($this->generateurl('hotel_bundle_reserva_completarCliente'));
@@ -147,7 +147,7 @@ public function fichaClienteAction(Request $request){
                     'class' => 'form-control'),
                     'label_attr'=> array('class' => 'label_text spaceTop')))
             ->add('save', SubmitType::class, array('label' => 'Guardar ficha de client' ,'attr' => array(
-                        'class' => 'btn btn-primary spaceTop')))
+                        'class' => 'btn btn-warning mt')))
             ->getForm();
 
         $form->handleRequest($request);
@@ -169,8 +169,8 @@ public function fichaClienteAction(Request $request){
 
         };
  
-        return $this->render('HotelBundleAdminBundle:Default:addObject.html.twig', array(
-            'titol' => 'Afegir habitació',
+        return $this->render('HotelBundleReservaBundle:Default:addObject.html.twig', array(
+            'titol' => 'Dades de Client',
             'form' => $form->createView()
         ));
   }
@@ -197,7 +197,7 @@ public function buscarReservaAction($id,Request $request)
     $q  = $qb->select(array('p'))
     ->from('HotelBundle:Reserva', 'p')
     ->where(
-     $qb->expr()->gt('p.comanda', $idComanda)
+     $qb->expr()->get('p.comanda', $idComanda)
      )
     ->getQuery();
 
