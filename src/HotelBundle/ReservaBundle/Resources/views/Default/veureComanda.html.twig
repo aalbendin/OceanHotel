@@ -60,6 +60,17 @@
 									</tbody>
 								</table>
 							</div>
+
+							<div>
+								 
+								{% if client == null %}
+									No hi han dades de client.
+								{% else %}
+									Ets un putu crack, el teu client te el nom {{client.getNom()}}
+								{% endif %}
+
+							</div>
+
 						</div>
 					</div>
 				</div>
