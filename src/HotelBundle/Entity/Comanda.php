@@ -36,7 +36,7 @@ class Comanda
     private $dataSortida;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Client", inversedBy="Comanda")
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="Comanda" , cascade={"persist"})
      * @ORM\JoinColumn(name="clientId", referencedColumnName="id")
      */
     protected $client;

@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use HotelBundle\Entity\Reserva;
 use HotelBundle\Entity\Comanda;
 use HotelBundle\Entity\Client;
+use HotelBundle\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -18,11 +19,29 @@ public function indexAction(Request $request){
 
   if($session->has('arrayReserva')){
     $lineasComanda =$session->get('arrayReserva');
+  }else{
+    $lineasComanda = array();
+  }
 
     return $this->render('HotelBundleReservaBundle:Default:veureComanda.html.twig', array(
-      'arrayLinea' => $lineasComanda
+      'arrayLinea' => $lineasComanda,
+      'client' => $this->retornaClient()
       ));
-  }
+
+}
+
+public function retornaClient(){
+  $usuari =  $this->container->get('security.token_storage')->getToken()->getUser();
+    //echo "<script type='text/javascript'>alert('".$usuari."');</script>";
+    $client = new Client();
+
+    if($usuari == "anon."){
+      $client->setNom(null);
+    }else{
+      $client = $this->getDoctrine()->getRepository('HotelBundle:Client')->findOneByUser($usuari->getId());
+    }
+
+    return $client;
 }
 
   //creacio de reservas
@@ -30,6 +49,15 @@ public function afegirLiniaAction($id, Request $request){
   $habitacio = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findOneById($id);
 
   $session = $request->getSession();
+
+  //CCCCCCCCCCCCCCCCCCCCCCCCCCCCC 
+  //TO-DO session comanda provisional.
+  if(!$session->has('comanda')){
+    $comanda = new Comanda();
+    $comanda->setDataEntrada('2017-01-01');
+    $comanda->setDataSortida('2017-01-15');
+    $session->set('comanda',$comanda);
+  }
 
   if($session->has('arrayReserva')){
     $arrayReserva = $session->get('arrayReserva');    
@@ -97,20 +125,21 @@ public function completarReservaAction(Request $request){
     //dades comande incomplet:
 
   }else{
-
     //completar reserva
     $em = $this->getDoctrine()->getManager();
     //TO-DO peta el persist, posiblmenete se pueda hacer persist en cascada para guardar la comanda
-    $arrayReserva= $session->get('arrayReserva');
+    if($session->has('comanda')){
+      $comanda = $session->get('comanda');
+      $client = $this->retornaClient();
+      $comanda->setClient($client);
+      $arrayReserva= $session->get('arrayReserva');
+      $comanda = $em->persist($comanda);
     foreach ($arrayReserva as $key => $reserva) {
+      $reserva->setComanda($comanda);
       $em->persist($reserva);
     }
-    //TO-DO completar la comanda antes de este paso:
-        //$comanda = $session->get('comanda');
-        //$em->persist($comanda);
 
-    $client = $session->get('client');
-     $em->persist($client);
+
      
      $em->flush();
 
@@ -120,15 +149,25 @@ public function completarReservaAction(Request $request){
                     'msg' => 'S\'ha completat la reserva!'
             ));
      return $this->redirect($this->generateurl('hotel_bundle_reserva_homepage'));
+   }else{
+    //TO-DO crear/buscar comanda
+     return $this->redirect($this->generateurl('hotel_bundle_reserva_homepage'));
+   }
   }
+
 
 }
 
 public function fichaClienteAction(Request $request){
-        //$client =  $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findOneById($id);
-        $session = $request->getSession();
-        //TO-DO metodo que busque al cliente por usuario
-        $client = new Client();
+        $client = $this->retornaClient();
+
+        if ($client == null){
+                          $this->get('session')->getFlashBag()->add(
+                    'notice',array(
+                    'type' => 'info',
+                    'msg' => 'Necesitamos tus datos de cliente!'
+            ));
+        }
 
         $form = $this->createFormBuilder($client)
             ->add('nom', TextType::class, array('label' => 'Nom','attr' => array(
@@ -165,7 +204,7 @@ public function fichaClienteAction(Request $request){
                     'msg' => 'S\'ha guardat l\'usuari'
             ));
 
-            return $this->redirect($this->generateurl('hotel_bundle_llistaHabitacions'));
+            return $this->redirect($this->generateurl('hotel_bundle_reserva_homepage'));
 
         };
  
