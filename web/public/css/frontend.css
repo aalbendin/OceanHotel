@@ -21,7 +21,9 @@ a:focus, a:hover {
 	color:#f0ad4e;
 }
 
-
+.mt{
+  margin-top: 30px;
+}
 /*Boton*/
 
 .btn-warning, .btn-warning:hover {
@@ -81,6 +83,10 @@ a:focus, a:hover {
     padding: 10px;
     margin-top: 10px;
     color:#fff !important;
+}
+
+.badge{
+  background-color: #ec971f;
 }
 
 /* ======= Carrousel ========== */
