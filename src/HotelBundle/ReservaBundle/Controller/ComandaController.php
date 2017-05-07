@@ -11,6 +11,7 @@ use HotelBundle\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ComandaController extends Controller{
 
@@ -285,8 +286,57 @@ public function redirectBuscarReserva($codiComanda){
     ));
 }
 
-public function editarClientAction($id, Request $request){
+public function editarClientAction($idComanda, $id, Request $request){
+    {
+        $client = $this->getDoctrine()->getRepository('HotelBundle:Client')->findOneById($id);
 
+         $form = $this->createFormBuilder($client)
+            ->add('nom', TextType::class, array('label' => 'Nom','attr' => array(
+                    'class' => 'form-control'),
+                    'label_attr'=> array('class' => 'label_text spaceTop')))  
+            ->add('cognoms', TextType::class, array('label' => 'Cognoms','attr' => array(
+                    'class' => 'form-control'),
+                    'label_attr'=> array('class' => 'label_text spaceTop'))) 
+            ->add('dataNaixament', DateType::class, array('label' => 'Data Naixement',
+            'widget' => 'single_text',
+            'html5' => false,
+            'format' => 'dd/mm/yyyy',
+            'attr' => ['class' => 'js-datepicker'])) 
+            ->add('nif', TextType::class, array('label' => 'NIF','attr' => array(
+                    'class' => 'form-control'),
+                    'label_attr'=> array('class' => 'label_text spaceTop')))  
+            ->add('user', EntityType::class, array(
+            'class' => 'HotelBundle:User',
+            'label' => 'Usuari',
+            'choice_label' => 'username',
+            'multiple' => FALSE,
+            'label_attr'=> array('class' => 'label_text spaceTop'), 
+            'attr' => array('class' => 'form-control selectRol'))) 
+            ->add('save', SubmitType::class, array('label' => 'Editar Client',
+                    'attr' => array(
+                        'class' => 'btn btn-warning mt')))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($client);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add(
+                    'notice',array(
+                    'type' => 'success',
+                    'msg' => 'S\'ha editat el Client Correctament'
+            ));
+            return $this->redirectBuscarReserva($idComanda);
+        };
+ 
+        return $this->render('HotelBundleAdminBundle:Default:addObject.html.twig', array(
+            'titol' => 'Editar Client',
+            'form' => $form->createView()
+        ));
+    }
 }
 
 public function donarBaixaComandaAction($id,Request $request){
@@ -310,25 +360,23 @@ public function donarBaixaComandaAction($id,Request $request){
   return $this->redirect($this->generateurl('hotel_bundle_admin_reserva_buscaComanda'));
 }
 
-public function eliminarLineaAdminAction($idComanda,$id,Request $request)
-{
-  $lineaComanda = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findOneById($id);
+  public function eliminarLineaAdminAction($idComanda,$id,Request $request)
+  {
+    $lineaComanda = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findOneById($id);
 
-  $dinero= $lineaComanda->getHabitacio()->getPreu();
+    $dinero= $lineaComanda->getHabitacio()->getPreu();
 
-  $em = $this->getDoctrine()->getManager();
-  $em->remove($lineaComanda);
-  $em->flush();
-  
-  $msg = "Es tornaran un total de: ".$dinero."€ al client";
-      $this->get('session')->getFlashBag()->add(
-      'notice',array(
-        'type' => 'success',
-        'msg' => $msg
-        ));
+    $em = $this->getDoctrine()->getManager();
+    $em->remove($lineaComanda);
+    $em->flush();
+    
+    $msg = "Es tornaran un total de: ".$dinero."€ al client";
+        $this->get('session')->getFlashBag()->add(
+        'notice',array(
+          'type' => 'success',
+          'msg' => $msg
+          ));
 
-  return $this->redirectBuscarReserva($idComanda);
-}
-
-
+    return $this->redirectBuscarReserva($idComanda);
+  }
 }

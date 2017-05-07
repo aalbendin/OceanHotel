@@ -7,9 +7,9 @@ hotel_bundle_admin_reserva_donarBaixaComanda:
     path:     /donarBaixaComanda/{id}
     defaults: { _controller: HotelBundleReservaBundle:Comanda:donarBaixaComanda }
 
-hotel_bundle_admin_reserva_editarClient:
-    path:     /editarClient/{id}
-    defaults: { _controller: HotelBundleReservaBundle:Client:editarClient }
+hotel_bundle_admin_reserva_editarClientByComanda:
+    path:     /editarClient/{idComanda}/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:editarClient }
 
 hotel_bundle_admin_reserva_eliminarLineaComanda:
     path:     /eliminarLinea/{idComanda}/{id}
