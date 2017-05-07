@@ -22,13 +22,13 @@ class Reserva
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Comanda", inversedBy="Reserva", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Comanda", inversedBy="Reserva")
      * @ORM\JoinColumn(name="comandaId", referencedColumnName="id")
      */
     private $comanda;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Habitacio", inversedBy="Reserva", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Habitacio", inversedBy="Reserva")
      * @ORM\JoinColumn(name="habitacioId", referencedColumnName="id")
      */
     private $habitacio;
@@ -38,9 +38,6 @@ class Reserva
      * @ORM\JoinColumn(name="modalitatId", referencedColumnName="id")
      */
     private $modalitat;
-
-
-    
 
     /**
      * Get id
