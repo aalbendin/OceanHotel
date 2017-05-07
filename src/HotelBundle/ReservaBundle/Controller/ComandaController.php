@@ -264,34 +264,70 @@ public function buscarReservaAction(Request $request)
   if ($form->isSubmitted() && $form->isValid()) {
     $session = $request->getSession();
 
-  $comanda = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findOneById($form->get('codi')->getData());
+    $codiComanda = $form->get('codi')->getData();
+    return $this->redirectBuscarReserva($codiComanda);
+  } 
+  return $this->render('HotelBundleReservaBundle:Default:buscarComanda.html.twig', array(
+    'titol' => 'Buscar comanda',
+    'form' => $form->createView()
+  ));
+
+}
+
+public function redirectBuscarReserva($codiComanda){
+
+  $comanda = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findOneById($codiComanda);
   $client = $this->getDoctrine()->getRepository('HotelBundle:Client')->findOneById($comanda->getClient()->getId());
   $lineasComanda = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findBy(array('comanda' => $comanda->getId()));
 
   return $this->render('HotelBundleReservaBundle:Default:editarComanda.html.twig', array(
     'arrayLinea' => $lineasComanda , 'comanda' => $comanda, 'client' => $client
     ));
-}  
-return $this->render('HotelBundleReservaBundle:Default:buscarComanda.html.twig', array(
-    'titol' => 'Buscar comanda',
-    'form' => $form->createView()
-    ));
-
 }
 
 public function editarClientAction($id, Request $request){
 
 }
 
-public function editarComandaAction($id,Request $request)
-{
+public function donarBaixaComandaAction($id,Request $request){
+  $comanda = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findOneById($id);
+  $preuFinal = 0;
+  $lineasComanda = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findBy(array('comanda' => $comanda->getId()));
+  $em = $this->getDoctrine()->getManager();
+  foreach ($lineasComanda as $reserva) {
+    $preuFinal = $preuFinal + $reserva->getHabitacio()->getPreu();
+    $em->remove($reserva);
+  }
+  $em->remove($comanda);
+  $em->flush();
+  
+  $msg = "Reserva cancelada, es tornaran un total de: ".$preuFinal."€ al client";
+      $this->get('session')->getFlashBag()->add(
+      'notice',array(
+        'type' => 'success',
+        'msg' => $msg
+        ));
+  return $this->redirect($this->generateurl('hotel_bundle_admin_reserva_buscaComanda'));
 }
 
-public function editarLineaAdminAction($id,Request $request)
+public function eliminarLineaAdminAction($idComanda,$id,Request $request)
 {
-}
-public function eliminarLineaAdminAction($id,Request $request)
-{
+  $lineaComanda = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findOneById($id);
+
+  $dinero= $lineaComanda->getHabitacio()->getPreu();
+
+  $em = $this->getDoctrine()->getManager();
+  $em->remove($lineaComanda);
+  $em->flush();
+  
+  $msg = "Es tornaran un total de: ".$dinero."€ al client";
+      $this->get('session')->getFlashBag()->add(
+      'notice',array(
+        'type' => 'success',
+        'msg' => $msg
+        ));
+
+  return $this->redirectBuscarReserva($idComanda);
 }
 
 

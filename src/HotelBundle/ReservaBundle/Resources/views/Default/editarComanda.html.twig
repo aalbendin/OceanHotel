@@ -16,7 +16,7 @@
 							<a href="{{path('hotel_bundle_admin_reserva_editarClient', { 'id': client.id }) }}" class="btn btn-warning btn-afegir"><span class="fa fa-plus"/>  Client</a>
 						</div>
 						<div class="row">
-							<a href="{{path('hotel_bundle_admin_reserva_editarComanda', { 'id': comanda.id }) }}" class="btn btn-warning btn-afegir"><span class="fa fa-plus"/>  Dades Comanda</a>
+							<a href="{{path('hotel_bundle_admin_reserva_donarBaixaComanda', { 'id': comanda.id }) }}" class="btn btn-warning btn-afegir"><span class="fa fa-plus"/> Donar Baixa Comanda</a>
 						</div>
 						<div class="row">									
 						</div>
@@ -55,8 +55,7 @@
 											<td> MODALITAT ENCARA NO DISPONIBLE </td>
 											<td>
 												<center>
-												<a href="{{ path('hotel_bundle_admin_reserva_editarLineaComanda', { 'id': reserva.habitacio.id }) }}" class="btn btn-xs btn-info"><span class="fa fa-pencil"></span></a>
-												<a  href="{{path('hotel_bundle_admin_reserva_eliminarLineaComanda', { 'id': reserva.habitacio.id }) }}"class="btn btn-xs btn-danger"><span class="fa fa-trash"></span></a>
+												<a  href="{{path('hotel_bundle_admin_reserva_eliminarLineaComanda', { 'idComanda':comanda.id  , 'id': reserva.habitacio.id }) }}"class="btn btn-xs btn-danger"><span class="fa fa-trash"></span></a>
 												</center>
 											</td>
 										</tr>
