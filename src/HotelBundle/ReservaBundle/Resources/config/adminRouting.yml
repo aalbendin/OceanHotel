@@ -1,0 +1,22 @@
+hotel_bundle_admin_reserva_buscaComanda:
+    path:     /buscarReserva
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:buscarReserva }
+
+
+hotel_bundle_admin_reserva_editarComanda:
+    path:     /editarReserva/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:editarComanda }
+
+hotel_bundle_admin_reserva_editarClient:
+    path:     /editarClient/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Client:editarClient }
+
+
+
+hotel_bundle_admin_reserva_editarLineaComanda:
+    path:     /editarLinea/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Client:editarLineaAdmin }
+
+hotel_bundle_admin_reserva_eliminarLineaComanda:
+    path:     /eliminarLinea/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Client:eliminarLineaAdmin }

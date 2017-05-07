@@ -30,9 +30,31 @@ class ComandaController extends Controller{
 
   }
 
+  public function indexReservasAction(Request $request){
+      $client = $this->retornaClient();
+      $comandes = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findBy(array('client' => $client->getId()));
+
+    return $this->render('HotelBundleReservaBundle:Default:veureComandes.html.twig', array(
+      'arrayComanda' => $comandes
+    ));
+
+  }
+
+  public function veureReservaAction($id,Request $request){
+      $client = $this->retornaClient();
+      $comanda = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findOneById($id);
+      $reservas = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findBy(array('comanda' => $comanda->getId()));
+
+    return $this->render('HotelBundleReservaBundle:Default:veureReserva.html.twig', array(
+      'comanda' => $comanda,
+      'arrayReserva' => $reservas,
+      'client' => $client
+    ));
+
+  }
+
   public function retornaClient(){
     $usuari =  $this->container->get('security.token_storage')->getToken()->getUser();
-    //echo "<script type='text/javascript'>alert('".$usuari."');</script>";
     $client = new Client();
 
     if($usuari == "anon."){
@@ -121,11 +143,6 @@ class ComandaController extends Controller{
     $session = $request->getSession();
     if (!$session->has('client')){
       return $this->redirect($this->generateurl('hotel_bundle_reserva_completarCliente'));
-
-  //TO-DO un elseif que compruebe la comanda
-    //}else if(!$session->has('comanda')){
-    //dades comande incomplet:
-
     }else{
     //completar reserva
       $em = $this->getDoctrine()->getManager();
@@ -218,7 +235,7 @@ class ComandaController extends Controller{
         'msg' => 'S\'ha guardat l\'usuari'
         ));
 
-    return $this->redirect($this->generateurl('hotel_bundle_reserva_homepage'));
+    return $this->redirect($this->generateurl('hotel_bundle_reserva_acabarReserva'));
 
   };
 
@@ -231,20 +248,35 @@ class ComandaController extends Controller{
 
   //edicio de reservas XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-public function buscarReservaAction($id,Request $request)
+public function buscarReservaAction(Request $request)
 {
-  $comanda = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findOneById($id);
+   
+  $form = $this->createFormBuilder()
+  ->add('codi', TextType::class, array('label' => 'Codi comanda','attr' => array(
+    'class' => 'form-control'),
+  'label_attr'=> array('class' => 'label_text spaceTop')))
+  ->add('save', SubmitType::class, array('label' => 'Buscar reserva' ,'attr' => array(
+    'class' => 'btn btn-warning mt')))
+  ->getForm();
+
+  $form->handleRequest($request);
+
+  if ($form->isSubmitted() && $form->isValid()) {
+    $session = $request->getSession();
+
+  $comanda = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findOneById($form->get('codi')->getData());
   $client = $this->getDoctrine()->getRepository('HotelBundle:Client')->findOneById($comanda->getClient()->getId());
   $lineasComanda = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findBy(array('comanda' => $comanda->getId()));
-  
+
   return $this->render('HotelBundleReservaBundle:Default:editarComanda.html.twig', array(
     'arrayLinea' => $lineasComanda , 'comanda' => $comanda, 'client' => $client
     ));
-}
+}  
+return $this->render('HotelBundleReservaBundle:Default:buscarComanda.html.twig', array(
+    'titol' => 'Buscar comanda',
+    'form' => $form->createView()
+    ));
 
-
-public function editarLineaAction($id,Request $request)
-{
 }
 
 public function editarClientAction($id, Request $request){
@@ -252,6 +284,13 @@ public function editarClientAction($id, Request $request){
 }
 
 public function editarComandaAction($id,Request $request)
+{
+}
+
+public function editarLineaAdminAction($id,Request $request)
+{
+}
+public function eliminarLineaAdminAction($id,Request $request)
 {
 }
 
