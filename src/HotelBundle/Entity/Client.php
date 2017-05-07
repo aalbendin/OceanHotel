@@ -50,7 +50,7 @@ class Client
     private $nif;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="Client" , cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="Client")
      * @ORM\JoinColumn(name="userId", referencedColumnName="id")
      */
     private $user;
