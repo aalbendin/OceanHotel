@@ -44,6 +44,10 @@ public function retornaClient(){
     return $client;
 }
 
+public function retornaUser(){
+  return  $this->container->get('security.token_storage')->getToken()->getUser();
+}
+
   //creacio de reservas
 public function afegirLiniaAction($id, Request $request){
   $habitacio = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findOneById($id);
@@ -79,7 +83,7 @@ public function afegirLiniaAction($id, Request $request){
 
   return $this->redirect($this->generateurl('hotel_bundle_reserva_comanda')); 
 
-}
+  }
 
 public function eliminarLiniaAction($id, Request $request){
 
@@ -112,12 +116,6 @@ public function eliminarLiniaAction($id, Request $request){
 public function completarReservaAction(Request $request){
   $session = $request->getSession();
   if (!$session->has('client')){
-    //client incomplet:
-                $this->get('session')->getFlashBag()->add(
-                    'notice',array(
-                    'type' => 'info',
-                    'msg' => 'Necesitamos tus datos de cliente!'
-            ));
     return $this->redirect($this->generateurl('hotel_bundle_reserva_completarCliente'));
 
   //TO-DO un elseif que compruebe la comanda
@@ -127,7 +125,7 @@ public function completarReservaAction(Request $request){
   }else{
     //completar reserva
     $em = $this->getDoctrine()->getManager();
-    //TO-DO peta el persist, posiblmenete se pueda hacer persist en cascada para guardar la comanda
+    
     if($session->has('comanda')){
       $comanda = $session->get('comanda');
       $client = $this->retornaClient();
@@ -139,8 +137,6 @@ public function completarReservaAction(Request $request){
       $em->persist($reserva);
     }
 
-
-     
      $em->flush();
 
      $this->get('session')->getFlashBag()->add(
@@ -167,6 +163,7 @@ public function fichaClienteAction(Request $request){
                     'type' => 'info',
                     'msg' => 'Necesitamos tus datos de cliente!'
             ));
+          $client = new Client();
         }
 
         $form = $this->createFormBuilder($client)
@@ -192,12 +189,20 @@ public function fichaClienteAction(Request $request){
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $session = $request->getSession();
+
+            $user = $this->retornaUser();
+
+            if ($user != "anon." || $user != null){
+            $client->setUser($user);
             $session->set('client', $client);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($client);
-            $em->flush();
+            $try = $session->get('client');
 
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($try);
+            $em->flush();
+          }
             $this->get('session')->getFlashBag()->add(
                     'notice',array(
                     'type' => 'success',
