@@ -18,34 +18,26 @@ hotel_bundle_reserva_llistaHabitacionsFrontend:
     path:     /habitacions
     defaults: { _controller: HotelBundleReservaBundle:LlistaHabitacions:index }
 
+
 hotel_bundle_reserva_afegirLiniaComanda:
     path:     /afegirLinia/{id}
     defaults: { _controller: HotelBundleReservaBundle:Comanda:afegirLinia }
 
-hotel_bundle_reserva_habitacio_delete:
+hotel_bundle_reserva_eliminarLineaComanda:
     path:     /eliminarLinia/{id}
     defaults: { _controller: HotelBundleReservaBundle:Comanda:eliminarLinia }
 
 
 
+hotel_bundle_reserva_homepage_reservas:
+    path:     /reservas
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:indexReservas }
+
+hotel_bundle_reserva_veureReserva:
+    path:     /reservas/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:veureReserva }
 
 
-
-hotel_bundle_reserva_buscaComanda:
-    path:     /buscarReserva/{id}
-    defaults: { _controller: HotelBundleReservaBundle:Comanda:buscarReserva }
-
-hotel_bundle_reserva_editarLiniaComanda:
-    path:     /editarLineaComanda/{id}
-    defaults: { _controller: HotelBundleReservaBundle:Comanda:editarLinea }
-
-hotel_bundle_reserva_editarComanda:
-    path:     /editarReserva/{id}
-    defaults: { _controller: HotelBundleReservaBundle:Comanda:editarComanda }
-
-hotel_bundle_reserva_editarClient:
-    path:     /editarClient/{id}
-    defaults: { _controller: HotelBundleReservaBundle:Client:editarClient }
 
 
 

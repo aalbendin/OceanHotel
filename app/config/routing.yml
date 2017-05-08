@@ -6,6 +6,10 @@ hotel_bundle_tasca:
     resource: "@HotelBundleTascaBundle/Resources/config/routing.yml"
     prefix:   /tasca
 
+hotel_bundle_admin_tasca:
+    resource: "@HotelBundleTascaBundle/Resources/config/adminRouting.yml"
+    prefix:   /backend/admin/tasca
+
 hotel_bundle_admin:
     resource: "@HotelBundleAdminBundle/Resources/config/routing.yml"
     prefix:   /backend/admin
@@ -13,6 +17,11 @@ hotel_bundle_admin:
 hotel_bundle_reserva:
     resource: "@HotelBundleReservaBundle/Resources/config/routing.yml"
     prefix:   /reserva
+
+hotel_bundle_admin_reserva:
+    resource: "@HotelBundleReservaBundle/Resources/config/adminRouting.yml"
+    prefix:   /backend/admin/reserva
+    
 
 hotel:
     resource: "@HotelBundle/Resources/config/routing.yml"

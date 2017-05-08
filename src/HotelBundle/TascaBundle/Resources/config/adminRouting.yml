@@ -1,0 +1,3 @@
+hotel_bundle_tasca_homepage:
+    path:     /
+    defaults: { _controller: HotelBundleTascaBundle:Default:index }

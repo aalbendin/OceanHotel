@@ -1,0 +1,33 @@
+hotel_bundle_admin_reserva_buscaComanda:
+    path:     /buscarReserva
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:buscarReserva }
+
+
+hotel_bundle_admin_reserva_donarBaixaComanda:
+    path:     /donarBaixaComanda/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:donarBaixaComanda }
+
+hotel_bundle_admin_reserva_editarClientByComanda:
+    path:     /editarClient/{idComanda}/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:editarClient }
+
+hotel_bundle_admin_reserva_eliminarLineaComanda:
+    path:     /eliminarLinea/{idComanda}/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:eliminarLineaAdmin }
+
+#Client
+hotel_bundle_admin_reserva_llistaClient:
+    path:     /llistaClient/
+    defaults: { _controller: HotelBundleReservaBundle:Client:index }
+
+hotel_bundle_admin_reserva_afegirClient:
+    path:     /afegirClient/
+    defaults: { _controller: HotelBundleReservaBundle:Client:afegirClient }
+
+hotel_bundle_admin_reserva_editarClient:
+    path:     /editarClient/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Client:editarClient }
+
+hotel_bundle_admin_reserva_eliminarClient:
+    path:     /eliminarClient/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Client:eliminarClient }

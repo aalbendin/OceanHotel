@@ -22,7 +22,9 @@
 							</div>
 						{% endfor %}	
 
-
+						<div class="row">
+							<a href="{{path('hotel_bundle_reserva_homepage_reservas') }}" class="btn btn-warning btn-afegir"><span class="fa fa-plus"/> Tornar</a>
+						</div>
 
 							<div class="table-responsive">
 
@@ -42,9 +44,7 @@
 
 											<th>Preu</th>		
 
-											<th>Modalitat</th>									
-
-											<th><span class="fa fa-cogs"></span> Config</th>
+											<th>Modalitat</th>								
 
 										</tr>
 
@@ -64,9 +64,7 @@
 
 											<th>Preu</th>		
 
-											<th>Modalitat</th>										
-
-											<th><span class="fa fa-cogs"></span> Config</th>
+											<th>Modalitat</th>									
 
 										</tr>
 
@@ -74,7 +72,7 @@
 
 									<tbody>
 
-										{% for reserva in arrayLinea %}
+										{% for reserva in arrayReserva %}
 
 										<tr>
 
@@ -89,16 +87,6 @@
 											<td>{{reserva.habitacio.getPreu()}}</td>
 
 											<td> MODALITAT ENCARA NO DISPONIBLE </td>
-
-											<td>
-
-												<center>
-												
-												<a  href="{{path('hotel_bundle_reserva_eliminarLineaComanda', { 'id': reserva.habitacio.getId() }) }}"class="btn btn-xs btn-danger"><span class="fa fa-trash"></span></a>
-
-												</center>
-
-											</td>
 
 										</tr>
 
@@ -148,22 +136,10 @@
 
 							</div>
 
-							</div>
-
-							<div class="col-md-6">	
-
-							<a href="{{path('hotel_bundle_reserva_llistaHabitacionsFrontend' )}}" class="btn btn-warning btn-afegir">Continuar</a>							
-
-							<a href="{{path('hotel_bundle_reserva_acabarReserva' )}}" class="btn btn-warning btn-afegir"><span class="fa fa-plus"/>Acabar reserva</a>							
-
-							</div>						
+							</div>					
 
 						</div>
-
 					</div>
-
 				</div>
-
 			</div>	
-
 	{% endblock %}	
