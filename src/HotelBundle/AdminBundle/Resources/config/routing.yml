@@ -59,3 +59,22 @@ hotel_bundle_editTipusHabitacio:
 hotel_bundle_deleteTipusHabitacio:
     path:     /deleteTipusHabitacio/{id}
     defaults: { _controller: HotelBundleAdminBundle:TipusHabitacio:deleteTipusHabitacio }
+
+#modalitats
+hotel_bundle_modalitats:
+    path:     /modalitats
+    defaults: { _controller: HotelBundleAdminBundle:Modalitat:index }
+
+hotel_bundle_addModalitat:
+    path:     /addModalitat
+    defaults: { _controller: HotelBundleAdminBundle:Modalitat:addModalitat }
+
+hotel_bundle_editModalitat:
+    path:     /editModalitat/{id}
+    defaults: { _controller: HotelBundleAdminBundle:Modalitat:editModalitat }
+
+hotel_bundle_deleteModalitat:
+    path:     /deleteModalitat/{id}
+    defaults: { _controller: HotelBundleAdminBundle:Modalitat:deleteModalitat }
+
+
