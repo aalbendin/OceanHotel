@@ -59,7 +59,7 @@ class ProfileFormType extends AbstractType
         ));
         
 
-        $this->addRolesToForm($builder);
+       /* $this->addRolesToForm($builder);*/
         
     }
 

@@ -8,7 +8,7 @@ hotel_bundle_usuari_editprofile:
 
 hotel_bundle_usuari_edit:
     path:     /edit/{id}
-    defaults: { _controller: FOSUserBundle:Profile:editUser }
+    defaults: { _controller: HotelBundleUsuariBundle:Default:edit }
 
 hotel_bundle_usuari_delete:
     path:     /delete/{id}

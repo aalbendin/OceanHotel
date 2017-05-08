@@ -83,6 +83,7 @@
 					<ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
 						<li><a href="{{path('hotel_bundle_llistaHabitacions')}}" >Habitacions</a></li>
 						<li><a href="{{path('hotel_bundle_tipusHabitacio')}}">Tipus d'Habitacions</a></li>
+						<li><a href="{{path('hotel_bundle_modalitats')}}">Modalitats</a></li>
 					</ul>
 				</li>		
 				<li><a href="#" id="btn-1" data-toggle="collapse" data-target="#submenu2" aria-expanded="false" {% if app.request.get('_route') == 'hotel_bundle_llistaHabitacions' %} class="active" {% endif %}><span class="fa fa-briefcase"></span> Treballadors <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -96,7 +97,7 @@
 				</a>
 					<ul class="nav collapse" id="submenu3" role="menu" aria-labelledby="btn-1">
 						<li><a href="#" >Tasques</a></li>
-						<li><a href="#">Tipus de Tasques</a></li>
+						<li><a href="{{path('hotel_bundle_tasca_homepage')}}">Tipus de Tasques</a></li>
 					</ul>
 				</li>																			
 				<li>
