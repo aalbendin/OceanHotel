@@ -52,7 +52,7 @@
 											<td>{{reserva.getHabitacio().getTipusHabitacio().getDescripcio()}}</td>
 											<td>{{reserva.getHabitacio().getPlaces()}}</td>
 											<td>{{reserva.getHabitacio().getPreu()}}</td>
-											<td> NO DISPONIBLE </td>
+											<td>{{reserva.modalitat.getDescripcio()}}</td>
 											<td>
 												<center>
 												<a  href="{{path('hotel_bundle_admin_reserva_eliminarLineaComanda', { 'idComanda':comanda.id  , 'id': reserva.habitacio.id }) }}"class="btn btn-xs btn-danger"><span class="fa fa-trash"></span></a>

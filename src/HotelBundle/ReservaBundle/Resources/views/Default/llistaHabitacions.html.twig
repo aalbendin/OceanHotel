@@ -18,10 +18,7 @@
 							<div class="col-md-12">
 								<h1 class="text-center">Habitacions disponibles</h1>
 							</div>
-							<div class="col-xs-12 mt">
-								<div class="col-md-2">
-									<p><span class="fa fa-search"/> Cercar Habitació:</p>
-								</div>
+							<div class="col-xs-12 mt">								
 								<div class="col-md-3">
 									<div class="form-group">
 										<div class="input-group">
@@ -38,6 +35,9 @@
 										</div>
 									</div>
 								</div>
+							<div class="col-md-2">
+								<a class="btn btn-warning" href=""> Modificar Dates</a>
+							</div>
 							<div class="col-md-3">							
 								<div class="form-group">
 									<div class="input-group">
@@ -45,10 +45,7 @@
 										<input class="form-control" id="searchHabitacions" placeholder="Buscar">
 									</div>
 								</div>
-							</div>
-							<div class="col-md-1">
-								<a class="btn btn-warning" href=""> Cercar</a>
-							</div>
+							</div>							
 						</div>
 					</div>
 				</div>
@@ -62,20 +59,31 @@
 										      <img src="{{habitacio.tipusHabitacio.getImatge()}}">
 										      <div class="caption">
 										        <div class="row">
-															<div id="nomMiniHabitacio" class="col-xs-9">
-																<h3>{{habitacio.tipusHabitacio.getDescripcio()}}</h3>
-															</div>
-															<div id="preuMiniHabitacio" class="col-xs-3 ">
-																 <h3>{{habitacio.preu}}</h3>
-															</div>
-												</div>
-												<div class="row">
 													<div id="nomMiniHabitacio" class="col-xs-8">
-														<h4>Places: {{habitacio.places}}</h4>
+																<h3>{{habitacio.tipusHabitacio.getDescripcio()}}</h3>
 													</div>
 													<div id="preuMiniHabitacio" class="col-xs-4 ">
-														 <a href="{{ path('hotel_bundle_reserva_afegirLiniaComanda', { 'id': habitacio.id }) }}" type="button" class="btn btn-primary">Reservar</a>
+																 <h3>{{habitacio.preu}} €</h3>
 													</div>
+												</div>
+												<div class="row">
+													<form action="{{ path('hotel_bundle_reserva_afegirLiniaComanda')}}" method="post">
+														<div id="nomMiniHabitacio" class="col-xs-8">
+															<h4>Modalitat:</h4>
+															<select class="form-control" name="modalitat">
+															{% for modalitat in arrayModalitat %}
+																<option value="{{modalitat.id}}">{{modalitat.descripcio}}</option>
+																{% endfor %}
+															</select>
+														</div>
+														<div id="nomMiniHabitacio" class="col-xs-4">
+															<h4>Places: {{habitacio.places}}</h4>
+														</div>
+														<input hidden type="text" name="id" value="{{habitacio.id}}"/>
+														<div id="preuMiniHabitacio" class="col-xs-4 ">
+															<input type="submit" class="btn btn-primary" value="Reservar">
+														</div>
+												</form>
 											    </div>
 										      </div>
 										  	</div>
