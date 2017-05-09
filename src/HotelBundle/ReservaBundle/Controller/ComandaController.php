@@ -72,12 +72,15 @@ class ComandaController extends Controller{
   }
 
   //creacio de reservas
-  public function afegirLiniaAction($id, Request $request){
+  public function afegirLiniaAction(Request $request){
     $usuari =  $this->container->get('security.token_storage')->getToken()->getUser();
+    $id =  $request->get('id');
+    $modalitat =  $request->get('modalitat');
     if($usuari == "anon."){
       return $this->redirect($this->generateurl('fos_user_security_login'));
     }else{
       $habitacio = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findOneById($id);
+      $modalitat = $this->getDoctrine()->getRepository('HotelBundle:Modalitat')->findOneById($modalitat);
 
       $session = $request->getSession();
 
@@ -98,6 +101,7 @@ class ComandaController extends Controller{
 
       $reserva = new Reserva();
       $reserva->setHabitacio($habitacio);
+      $reserva->setModalitat($modalitat);
       array_push($arrayReserva,$reserva);
 
       $arrayReserva = $session->set('arrayReserva', $arrayReserva);

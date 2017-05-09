@@ -20,7 +20,7 @@ hotel_bundle_reserva_llistaHabitacionsFrontend:
 
 
 hotel_bundle_reserva_afegirLiniaComanda:
-    path:     /afegirLinia/{id}
+    path:     /afegirLinia/
     defaults: { _controller: HotelBundleReservaBundle:Comanda:afegirLinia }
 
 hotel_bundle_reserva_eliminarLineaComanda:

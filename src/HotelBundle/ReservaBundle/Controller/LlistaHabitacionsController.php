@@ -9,8 +9,10 @@ class LlistaHabitacionsController extends Controller
 {
     public function indexAction(){
     	$habitacio = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findAll();
+    	$modalitat = $this->getDoctrine()->getRepository('HotelBundle:Modalitat')->findAll();
         return $this->render('HotelBundleReservaBundle:Default:llistaHabitacions.html.twig', array(
-                    'array' => $habitacio
+                    'array' => $habitacio,
+                    'arrayModalitat' => $modalitat
         ));
     }
 
