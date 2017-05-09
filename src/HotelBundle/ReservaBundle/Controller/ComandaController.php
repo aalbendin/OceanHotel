@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ComandaController extends Controller{
 
-  public function indexAction(Request $request){
+   public function indexAction(Request $request){
     $session = $request->getSession();
 
     if($session->has('arrayReserva')){
@@ -23,12 +23,51 @@ class ComandaController extends Controller{
     }else{
       $lineasComanda = array();
     }
+    $session->set('session',1);
+    
+    $preu = $this->calcularPreu($request);
+      $modalitat = $preu[0];
+      $habitacions = $preu[1];
+      $total = $preu[2];
+
+    
 
     return $this->render('HotelBundleReservaBundle:Default:veureComanda.html.twig', array(
       'arrayLinea' => $lineasComanda,
-      'client' => $this->retornaClient()
+      'client' => $this->retornaClient(),
+      'totalModalitat' => $modalitat,
+      'totalHabitacio' => $habitacions,
+      'total' => $total
       ));
 
+  }
+
+  public function calcularPreu(Request $request){
+      $session = $request->getSession();
+      $modalitat = 0;
+      $habitacions = 0;
+      $total = 0;
+
+
+    if($session->has('session')){
+      $reserva =$session->get('arrayReserva');
+      foreach ($reserva as $value) {
+        $modalitat = $modalitat + $value->getModalitat()->getPreu();
+        $habitacions = $habitacions + $value->getHabitacio()->getPreu();
+        $total = $total + $modalitat + $habitacions;
+      }
+      $session->remove('session');
+    }else{
+      $id =$session->get('id');
+      $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findBy($id);
+      $modalitat = $modalitat + $value->getModalitat()->getPreu();
+      $habitacions = $habitacions + $value->getHabitacio()->getPreu();
+      $total = $total + $modalitat + $habitacions;
+
+      $session->remove('session');
+    }  
+
+    return array($modalitat,$habitacions,$total);    
   }
 
   public function indexReservasAction(Request $request){
@@ -99,6 +138,14 @@ class ComandaController extends Controller{
         $arrayReserva = array();
       }
 
+      $valid = true;
+      foreach ($arrayReserva as $reserva) {
+        if($reserva->getHabitacio()->getId() == $id){
+          $valid = false;
+        }
+      }
+
+      if($valid){
       $reserva = new Reserva();
       $reserva->setHabitacio($habitacio);
       $reserva->setModalitat($modalitat);
@@ -113,6 +160,14 @@ class ComandaController extends Controller{
           ));
 
       return $this->redirect($this->generateurl('hotel_bundle_reserva_comanda')); 
+    }else{
+      $this->get('session')->getFlashBag()->add(
+        'notice',array(
+          'type' => 'warning',
+          'msg' => 'Aquesta habitació ja la tenias reservada!'
+          ));
+      return $this->redirect($this->generateurl('hotel_bundle_reserva_llistaHabitacionsFrontend')); 
+    }
     }
   }
 
@@ -182,7 +237,7 @@ class ComandaController extends Controller{
             'type' => 'success',
             'msg' => 'S\'ha completat la reserva!'
             ));
-        return $this->redirect($this->generateurl('hotel_bundle_reserva_homepage'));
+        return $this->redirect($this->generateurl('hotel_bundle_reserva_homepage_reservas'));
       }else{
     //TO-DO crear/buscar comanda
        return $this->redirect($this->generateurl('hotel_bundle_reserva_homepage'));
@@ -258,28 +313,13 @@ class ComandaController extends Controller{
 
   //edicio de reservas XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-public function buscarReservaAction(Request $request)
+public function veureLlistaReservasAction(Request $request)
 {
-   
-  $form = $this->createFormBuilder()
-  ->add('codi', TextType::class, array('label' => 'Codi comanda','attr' => array(
-    'class' => 'form-control'),
-  'label_attr'=> array('class' => 'label_text spaceTop')))
-  ->add('save', SubmitType::class, array('label' => 'Buscar reserva' ,'attr' => array(
-    'class' => 'btn btn-warning mt')))
-  ->getForm();
-
-  $form->handleRequest($request);
-
-  if ($form->isSubmitted() && $form->isValid()) {
-    $session = $request->getSession();
-
-    $codiComanda = $form->get('codi')->getData();
-    return $this->redirectBuscarReserva($codiComanda);
-  } 
+   $comandes = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findAll();
+ 
   return $this->render('HotelBundleReservaBundle:Default:buscarComanda.html.twig', array(
     'titol' => 'Buscar comanda',
-    'form' => $form->createView()
+    'comandes' => $comandes
   ));
 
 }
@@ -294,6 +334,11 @@ public function redirectBuscarReserva($codiComanda){
     'arrayLinea' => $lineasComanda , 'comanda' => $comanda, 'client' => $client
     ));
 }
+
+public function buscarReservaAction($id,Request $request){
+  return $this->redirectBuscarReserva($id);
+}
+
 
 public function editarClientAction($idComanda, $id, Request $request){
     {
@@ -366,12 +411,17 @@ public function donarBaixaComandaAction($id,Request $request){
         'type' => 'success',
         'msg' => $msg
         ));
-  return $this->redirect($this->generateurl('hotel_bundle_admin_reserva_buscaComanda'));
+  return $this->redirect($this->generateurl('hotel_bundle_admin_reserva_veureLlistaReservas'));
 }
 
   public function eliminarLineaAdminAction($idComanda,$id,Request $request)
   {
     $lineaComanda = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findOneById($id);
+    $reservas = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findBy(array('comanda' => $idComanda));
+
+    if(count($reservas) == 1){
+      return $this->donarBaixaComandaAction($idComanda, $request);
+    } else{
 
     $dinero= $lineaComanda->getHabitacio()->getPreu();
 
@@ -385,7 +435,8 @@ public function donarBaixaComandaAction($id,Request $request){
           'type' => 'success',
           'msg' => $msg
           ));
-
     return $this->redirectBuscarReserva($idComanda);
+
+      }
   }
 }
