@@ -6,3 +6,12 @@ hotel_homepage_backend:
     path:     /backend
     defaults: { _controller: HotelBundle:Default:backend }
 
+#pagina publica
+
+hotel_page_ubicacio:
+    path:     /ubicacio
+    defaults: { _controller: HotelBundle:Default:ubicacio }
+
+hotel_page_contacte:
+    path:     /contacte
+    defaults: { _controller: HotelBundle:Default:contacte }

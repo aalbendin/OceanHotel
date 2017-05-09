@@ -1,6 +1,7 @@
   <!DOCTYPE html>
   <html lang="es">
     <head>
+      {% block head %}
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +18,7 @@
 
     <!-- Datepicker-->
      <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
-        
+      {% endblock %}  
     </head>
   <!-- NAVBAR
   ================================================== -->
@@ -42,8 +43,8 @@
                   <li><a href="{{path('hotel_bundle_reserva_llistaHabitacionsFrontend')}}">Habitacions</a></li>
                   <li><a href="#about">Instal·lacions</a></li>
                   <li><a href="#about">Fotografies</a></li>
-                  <li><a href="#about">Ubicació</a></li>
-                  <li><a href="#contact">Contacte</a></li>               
+                  <li><a href="{{path('hotel_page_ubicacio')}}">Ubicació</a></li>
+                  <li><a href="{{path('hotel_page_contacte')}}">Contacte</a></li>               
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{path('hotel_bundle_reserva_comanda')}}"><span class="fa fa-ticket" /> <span class="badge">{{app.session.get('arrayReserva')|length}}</span></a></li>
@@ -228,7 +229,7 @@
         <!-- Pie -->
         <footer>
           <div class="container">
-            <p class="pull-right"><a href="#"><span class="flecha glyphicon glyphicon-arrow-up"></span></a></p>
+            <p class="pull-right"><a href="#"><span class="fa fa-chevron-circle-up fa-3x"></span></a></p>
           <p>&copy; 2017 Hotel Ocean, Todos los derechos reservados | Creado por Gobal System </p>
           <p><a href="#">Privacidad</a> &middot; <a href="#">Terminos</a></p>
           </div>
