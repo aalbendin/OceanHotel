@@ -142,7 +142,8 @@ class ComandaController extends Controller{
 
   public function completarReservaAction(Request $request){
     $session = $request->getSession();
-    if (!$session->has('client')){
+    $cli = $this->retornaClient() ;
+    if ( $cli == null ||$cli->getNom()== null){
       return $this->redirect($this->generateurl('hotel_bundle_reserva_completarCliente'));
     }else{
     //completar reserva
@@ -157,6 +158,10 @@ class ComandaController extends Controller{
         foreach ($arrayReserva as $reserva) {
           $res = new Reserva();
           $habitacio = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findOneById($reserva->getHabitacio()->getId());
+          if (!is_null($reserva->getModalitat())){
+            $modalitat = $this->getDoctrine()->getRepository('HotelBundle:Modalitat')->findOneById($reserva->getModalitat()->getId());
+            $res->setModalitat($modalitat);
+          }
           $res->setHabitacio($habitacio);
           $res->setComanda($comanda);
           $em->persist($res);
