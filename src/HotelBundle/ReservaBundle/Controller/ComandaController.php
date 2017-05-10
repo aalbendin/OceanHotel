@@ -17,7 +17,7 @@ class ComandaController extends Controller{
 
    public function indexAction(Request $request){
     $session = $request->getSession();
-    
+
     $modalitat = 0;
     $habitacions = 0;
     $total = 0;
@@ -26,15 +26,16 @@ class ComandaController extends Controller{
       
       $lineasComanda =$session->get('arrayReserva');
       
-      $session->set('session',1);
-      $preu = $this->calcularPreu($request);
-      $modalitat = $preu[0];
-      $habitacions = $preu[1];
-      $total = $preu[2];
-
     }else{
       $lineasComanda = array();
     }
+      $em = $this->getDoctrine()->getManager();
+      $comanda = new Comanda();
+      $com = $em->getRepository('HotelBundle:Comanda');
+      $preu = $com->calcularPreu($request,$comanda);
+      $modalitat = $preu[0];
+      $habitacions = $preu[1];
+      $total = $preu[2];
 
     return $this->render('HotelBundleReservaBundle:Default:veureComanda.html.twig', array(
       'arrayLinea' => $lineasComanda,
@@ -44,34 +45,6 @@ class ComandaController extends Controller{
       'total' => $total
       ));
 
-  }
-
-  public function calcularPreu(Request $request){
-      $session = $request->getSession();
-      $modalitat = 0;
-      $habitacions = 0;
-      $total = 0;
-
-
-    if($session->has('session')){
-      $reserva =$session->get('arrayReserva');
-      foreach ($reserva as $value) {
-        $modalitat = $modalitat + $value->getModalitat()->getPreu();
-        $habitacions = $habitacions + $value->getHabitacio()->getPreu();
-        $total = $total + $modalitat + $habitacions;
-      }
-      $session->remove('session');
-    }else{
-      $id =$session->get('id');
-      $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findBy($id);
-      $modalitat = $modalitat + $value->getModalitat()->getPreu();
-      $habitacions = $habitacions + $value->getHabitacio()->getPreu();
-      $total = $total + $modalitat + $habitacions;
-
-      $session->remove('session');
-    }  
-
-    return array($modalitat,$habitacions,$total);    
   }
 
   public function indexReservasAction(Request $request){
@@ -90,16 +63,13 @@ class ComandaController extends Controller{
       $client = $this->retornaClient();
       $comanda = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findOneById($id);
       $reservas = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findBy(array('comanda' => $comanda->getId()));
-    
-      $modalitat = 0;
-      $habitacions = 0;
-      $total = 0;
-
-      /*$session->set('session',1);
-      $preu = $this->calcularPreu($request);
+          
+      $em = $this->getDoctrine()->getManager();
+      $com = $em->getRepository('HotelBundle:Comanda');
+      $preu = $com->calcularPreu($request,$comanda);
       $modalitat = $preu[0];
       $habitacions = $preu[1];
-      $total = $preu[2];*/
+      $total = $preu[2];
 
     return $this->render('HotelBundleReservaBundle:Default:veureReserva.html.twig', array(
       'comanda' => $comanda,
