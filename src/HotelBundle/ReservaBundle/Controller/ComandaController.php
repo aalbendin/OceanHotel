@@ -35,7 +35,6 @@ class ComandaController extends Controller{
     }else{
       $lineasComanda = array();
     }
-   
 
     return $this->render('HotelBundleReservaBundle:Default:veureComanda.html.twig', array(
       'arrayLinea' => $lineasComanda,
