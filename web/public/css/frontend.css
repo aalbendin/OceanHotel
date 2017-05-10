@@ -36,6 +36,11 @@ a:focus, a:hover {
     border-color: #d58512;
 }
 
+.btn-warning, .btn-warning:hover, .btn-primary, .btn-primary:hover ,
+.btn-success, .btn-success:hover, .btn-danger, .btn-danger:hover, .btn-info, .btn-info:hover{
+ color: #fff !important;
+}
+
 .btn-default {
     color: #333 !important;
 }
@@ -88,6 +93,7 @@ a:focus, a:hover {
     margin-top: 10px;
     color:#fff !important;
 }
+
 
 .badge{
   background-color: #ec971f;
