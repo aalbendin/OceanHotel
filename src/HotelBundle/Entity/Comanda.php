@@ -65,7 +65,7 @@ class Comanda
     public function setDataEntrada($dataEntrada)
     {
         $this->dataEntrada = $dataEntrada;
-    
+
         return $this;
     }
 
@@ -89,7 +89,7 @@ class Comanda
     public function setDataSortida($dataSortida)
     {
         $this->dataSortida = $dataSortida;
-    
+
         return $this;
     }
 
@@ -113,7 +113,7 @@ class Comanda
     public function setClient(\HotelBundle\Entity\Client $client = null)
     {
         $this->client = $client;
-    
+
         return $this;
     }
 
@@ -126,4 +126,5 @@ class Comanda
     {
         return $this->client;
     }
+
 }
