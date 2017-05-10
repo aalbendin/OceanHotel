@@ -34,28 +34,48 @@ Array.prototype.formateaLista = function () {
     return codigoHtml;
 };
 
-function autocompleta() {
-
+function comprovaDates(){
     var desde = $("#from").val();
     var hasta = $("#to").val();
     var desdeDate =  desde.split('/')[1]+""+desde.split('/')[0] +""+ desde.split('/')[2];
     var hastaDate =  hasta.split('/')[1]+""+hasta.split('/')[0] +""+ hasta.split('/')[2];
     var dif =  parseInt(hastaDate)-parseInt(desdeDate);
+
+    var res = "";
+
     if(desde.length>0){
         if(hasta.length>0){
                
             if(dif>0){
-                alert("Fecha correcta");
+                $("#errorHasta").html("");
+                $("#errorDesde").html("");
             }else{
-                alert("Pepe no esta");
+                $("#errorHasta").html("La data d'arribada ha de ser anterior a la data de sortida");
             }
 
         }else{
-            alert("Debes introducir la fecha de final de reserva.");
+            $("#errorDesde").html("");
+            $("#errorHasta").html("Has d'introduïr la data de final de reserva."); //alert("");
         }
     }else{
-        alert("Debes introducir la fecha de inicio de reserva.");
+        $("#errorHasta").html("");
+        $("#errorDesde").html("Has d'introduïr la data d'inici de reserva.");
     }
+}
+
+function comprovaDataInici(){
+    if($("#from").val().length>0){
+        $("#errorDesde").html("");
+         comprovaDates();
+    }else{
+        $("#errorHasta").html("");
+        $("#errorDesde").html("Has d'introduïr la data d'inici de reserva.");
+    }
+}
+
+function autocompleta() {
+
+    //comprovaDates();
 
     
 
@@ -164,6 +184,9 @@ function stat(action, user) {
 window.onload = function () {
 
     $("#searchHabitacions").keyup(autocompleta);
+    
+    $("#to").change(comprovaDates);
+    $("#from").change(comprovaDataInici);
     //$("#searchHabitacions").focus();
     compruebaHabilitados();
 
