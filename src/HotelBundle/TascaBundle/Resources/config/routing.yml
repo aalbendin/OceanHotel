@@ -25,7 +25,7 @@ hotel_bundle_estat_addEstat:
 
 hotel_bundle_estat_editarEstat:
     path:     /editEstat/{id}
-    defaults: { _controller: HotelBundleTascaBundle:Estat:editarEstat }
+    defaults: { _controller: HotelBundleTascaBundle:Estat:editEstat }
 
 hotel_bundle_estat_eliminarEstat:
     path:     /deleteEstat/{id}
