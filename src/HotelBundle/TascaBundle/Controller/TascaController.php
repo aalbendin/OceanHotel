@@ -13,15 +13,37 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 class TascaController extends Controller
 {
     public function indexAction(){
-             $em = $this->getDoctrine()->getManager();
+      $container= $this->container;
+      $em = $this->getDoctrine()->getManager();
       $treb = $em->getRepository('HotelBundle:Treballador');
-      $treballador = $treb->retornaTreballador();
-      $tasques = $this->getDoctrine()->getRepository('HotelBundle:Tasca')->findBy(array('TipusTreballador' => $treballador->getTipusTreballador()->getId(),'Estat' => 1));
+      $treballador = $treb->retornaTreballador($container);
+      $tasques = $this->getTasques($treballador);
 
         return $this->render('HotelBundleTascaBundle:Default:llistaTreballadorTasca.html.twig', array(
                     'array' => $tasques
         ));
     }
 
-    
+    public function getTasques(){
+         $em = $this->getDoctrine()->getManager();
+    $query = $em->createQuery(
+    'SELECT p.id
+    FROM HotelBundle:Tasca p
+    WHERE p.estatId = 1 and p.tipusTasca NOT IN
+    (SELECT r
+     FROM HotelBundle:TipusTasca r
+     where r.id not in 
+     (select d
+      from Hotelbundle:TipusTreballador d
+      where d.id = :tipusTreballador
+         )
+    )'
+    )->setParameter('tipusTreballador', $tipusTreballador->getId());
+
+    $array= array();
+    foreach ($query as $key => $value) {
+        array_push($array, $value);
+    }
+    return $array;
+    }
 }
