@@ -33,7 +33,7 @@ class TipusTascaController extends Controller
                 'multiple' => FALSE,
                 'label_attr'=> array('class' => 'label_text spaceTop'), 
                 'attr' => array('class' => 'form-control')))    
-            ->add('save', SubmitType::class, array('label' => 'Crear Tipus d\'Habitació',
+            ->add('save', SubmitType::class, array('label' => 'Crear Tipus Tasca',
                     'attr' => array(
                         'class' => 'btn btn-warning mt')))
             ->getForm();
@@ -73,7 +73,7 @@ class TipusTascaController extends Controller
                 'multiple' => FALSE,
                 'label_attr'=> array('class' => 'label_text spaceTop'), 
                 'attr' => array('class' => 'form-control')))    
-            ->add('save', SubmitType::class, array('label' => 'Editar Tipus d\'Habitació',
+            ->add('save', SubmitType::class, array('label' => 'Editar Tipus tasca',
                     'attr' => array(
                         'class' => 'btn btn-warning mt')))
             ->getForm();
