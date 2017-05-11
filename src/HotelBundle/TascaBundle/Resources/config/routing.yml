@@ -1,5 +1,5 @@
 hotel_bundle_tasca_homepage:
-    path:     /
+    path:     /tipusTasca
     defaults: { _controller: HotelBundleTascaBundle:TipusTasca:index }
 
 hotel_bundle_tasca_addTipusTasca:
@@ -13,3 +13,20 @@ hotel_bundle_tasca_editarTipusTasca:
 hotel_bundle_tasca_eliminarTipusTasca:
     path:     /deleteTipusTasca/{id}
     defaults: { _controller: HotelBundleTascaBundle:TipusTasca:deleteTipusTasca }
+
+
+hotel_bundle_estat_homepage:
+    path:     /
+    defaults: { _controller: HotelBundleTascaBundle:Estat:index }
+
+hotel_bundle_estat_addEstat:
+    path:     /addEstat
+    defaults: { _controller: HotelBundleTascaBundle:Estat:addEstat }
+
+hotel_bundle_estat_editarEstat:
+    path:     /editEstat/{id}
+    defaults: { _controller: HotelBundleTascaBundle:Estat:editarEstat }
+
+hotel_bundle_estat_eliminarEstat:
+    path:     /deleteEstat/{id}
+    defaults: { _controller: HotelBundleTascaBundle:Estat:deleteEstat }
