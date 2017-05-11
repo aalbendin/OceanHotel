@@ -16,7 +16,7 @@ hotel_bundle_tasca_eliminarTipusTasca:
 
 
 hotel_bundle_estat_homepage:
-    path:     /
+    path:     /estat
     defaults: { _controller: HotelBundleTascaBundle:Estat:index }
 
 hotel_bundle_estat_addEstat:
@@ -30,3 +30,8 @@ hotel_bundle_estat_editarEstat:
 hotel_bundle_estat_eliminarEstat:
     path:     /deleteEstat/{id}
     defaults: { _controller: HotelBundleTascaBundle:Estat:deleteEstat }
+
+
+hotel_bundle_treballador_tasca_homepage:
+    path:     /treballador/tasca
+    defaults: { _controller: HotelBundleTascaBundle:Tasca:index }
