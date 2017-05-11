@@ -10,4 +10,16 @@ namespace HotelBundle\Repository;
  */
 class TreballadorRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function retornaTreballador(){
+     $usuari =  $this->container->get('security.token_storage')->getToken()->getUser();
+    $treballador = new Treballador();
+
+    if($usuari == "anon."){
+      $treballador->setNom(null);
+    }else{
+      $treballador = $this->getDoctrine()->getRepository('HotelBundle:Treballador')->findOneByUser($usuari->getId());
+    }
+
+    return $treballador;
+  }
 }
