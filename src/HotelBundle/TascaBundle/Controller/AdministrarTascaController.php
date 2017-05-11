@@ -4,8 +4,9 @@ namespace HotelBundle\TascaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use HotelBundle\Entity\TipusTasca;
 use HotelBundle\Entity\Tasca;
+use HotelBundle\Entity\TipusTasca;
+use HotelBundle\Entity\TipusTreballador;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -40,7 +41,7 @@ class AdministrarTascaController extends Controller
                 'choice_label' => 'descripcio',
                 'multiple' => FALSE,
                 'label_attr'=> array('class' => 'label_text spaceTop'), 
-                'attr' => array('class' => 'form-control')))  
+                'attr' => array('class' => 'form-control')))            
             ->add('save', SubmitType::class, array('label' => 'Crear Tasca',
                     'attr' => array(
                         'class' => 'btn btn-warning mt')))
@@ -85,7 +86,7 @@ class AdministrarTascaController extends Controller
                 'choice_label' => 'descripcio',
                 'multiple' => FALSE,
                 'label_attr'=> array('class' => 'label_text spaceTop'), 
-                'attr' => array('class' => 'form-control')))  
+                'attr' => array('class' => 'form-control')))              
             ->add('save', SubmitType::class, array('label' => 'Editar Tasca',
                     'attr' => array(
                         'class' => 'btn btn-warning mt')))
