@@ -2,6 +2,12 @@
 
 namespace HotelBundle\Repository;
 
+use Symfony\Component\HttpFoundation\Request;
+
+use Doctrine\ORM\EntityRepository;
+
+use HotelBundle\Entity\Comanda;
+use HotelBundle\Entity\Reserva;
 /**
  * ComandaRepository
  *
@@ -10,8 +16,34 @@ namespace HotelBundle\Repository;
  */
 class ComandaRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function addReserva($reserva){
-		
-	}
+
+	public function calcularPreu(Request $request, $comanda){
+        $session = $request->getSession();
+        $modalitat = 0;
+        $habitacions = 0;
+        $total = 0;
+
+
+    	$em = $this->getEntityManager();
+
+        if($comanda->getId() == null ){
+            $reserva =$session->get('arrayReserva');
+            foreach ($reserva as $value) {
+                $modalitat = $modalitat + $value->getModalitat()->getPreu();
+                $habitacions = $habitacions + $value->getHabitacio()->getPreu();
+                $total = $total + $modalitat + $habitacions;
+            }
+        }else{
+            $reserva =$em->getRepository('HotelBundle:Reserva')->findBy(array('comanda' => $comanda->getId()));
+            foreach ($reserva as $value) {
+              $modalitat = $modalitat + $value->getModalitat()->getPreu();
+              $habitacions = $habitacions + $value->getHabitacio()->getPreu();
+              $total = $total + $modalitat + $habitacions;
+            }
+        }  
+
+    return array($modalitat,$habitacions,$total);  
+    }
+	
 
 }
