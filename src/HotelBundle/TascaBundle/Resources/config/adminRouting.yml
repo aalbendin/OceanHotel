@@ -1,3 +1,15 @@
-hotel_bundle_tasca_homepage:
+hotel_bundle_admintasca_homepage:
     path:     /
-    defaults: { _controller: HotelBundleTascaBundle:Default:index }
+    defaults: { _controller: HotelBundleTascaBundle:AdministrarTasca:index }
+
+hotel_bundle_admintasca_addTasca:
+    path:     /add/Tasca
+    defaults: { _controller: HotelBundleTascaBundle:AdministrarTasca:addTasca }
+
+hotel_bundle_admintasca_editarTasca:
+    path:     /edit/Tasca/{id}
+    defaults: { _controller: HotelBundleTascaBundle:AdministrarTasca:editTasca }
+
+hotel_bundle_admintasca_eliminarTasca:
+    path:     /deleteTipusTasca/{id}
+    defaults: { _controller: HotelBundleTascaBundle:AdministrarTasca:deleteTasca }
