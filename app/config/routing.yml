@@ -4,6 +4,10 @@ hotel_bundle_usuari:
 
 hotel_bundle_tasca:
     resource: "@HotelBundleTascaBundle/Resources/config/routing.yml"
+    prefix:   /backend/tasca
+
+hotel_bundle_admin_tasca:
+    resource: "@HotelBundleTascaBundle/Resources/config/adminRouting.yml"
     prefix:   /backend/admin/tasca
 
 hotel_bundle_admin:
