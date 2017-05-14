@@ -2,6 +2,10 @@
 
 namespace HotelBundle\Repository;
 
+
+use HotelBundle\Entity\TipusTasca;
+use HotelBundle\Entity\Treballador;
+
 /**
  * TreballadorRepository
  *
@@ -10,4 +14,18 @@ namespace HotelBundle\Repository;
  */
 class TreballadorRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function retornaTreballador($container){
+     $usuari =  $container->get('security.token_storage')->getToken()->getUser();
+    $treballador = new Treballador();
+
+    if($usuari == "anon."){
+      $treballador->setNom(null);
+    }else{
+
+      $em = $this->getEntityManager();
+      $treballador = $em->getRepository('HotelBundle:Treballador')->findOneBy(array('usuari' =>$usuari->getId()));
+    }
+
+    return $treballador;
+  }
 }

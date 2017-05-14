@@ -94,6 +94,13 @@ a:focus, a:hover {
     color:#fff !important;
 }
 
+/*perfil */
+
+.nav-tabs > li.active > a {
+  color: #555 !important;
+  font-size: 22px !important;
+}
+
 
 .badge{
   background-color: #ec971f;

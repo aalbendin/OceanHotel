@@ -213,7 +213,7 @@ class ProfileController extends Controller
 
         return $this->render('@FOSUser/Profile/administrar.html.twig', array(
             'form' => $form->createView(),
-            'titol' => 'Editar Usuari'
+            'titol' => 'Editar Perfil'
         ));
     }
 
