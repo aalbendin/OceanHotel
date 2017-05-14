@@ -1,3 +1,4 @@
+#Tipus Tasca
 hotel_bundle_tasca_homepage:
     path:     /tipusTasca
     defaults: { _controller: HotelBundleTascaBundle:TipusTasca:index }
@@ -8,13 +9,13 @@ hotel_bundle_tasca_addTipusTasca:
 
 hotel_bundle_tasca_editarTipusTasca:
     path:     /edit/TipusTasca/{id}
-    defaults: { _controller: HotelBundleTascaBundle:TipusTasca:editarTipusTasca }
+    defaults: { _controller: HotelBundleTascaBundle:TipusTasca:editTipusTasca }
 
 hotel_bundle_tasca_eliminarTipusTasca:
     path:     /deleteTipusTasca/{id}
     defaults: { _controller: HotelBundleTascaBundle:TipusTasca:deleteTipusTasca }
 
-
+#Estat de tasques
 hotel_bundle_estat_homepage:
     path:     /estat
     defaults: { _controller: HotelBundleTascaBundle:Estat:index }
@@ -31,7 +32,19 @@ hotel_bundle_estat_eliminarEstat:
     path:     /deleteEstat/{id}
     defaults: { _controller: HotelBundleTascaBundle:Estat:deleteEstat }
 
-
-hotel_bundle_treballador_tasca_homepage:
-    path:     /treballador/tasca
+#Tasques Treballadors
+hotel_bundle_treballadors_tasca_homepage:
+    path:     /treballadors/tasques
     defaults: { _controller: HotelBundleTascaBundle:Tasca:index }
+
+hotel_bundle_treballadors_assignar_tasca:
+    path:     /treballadors/assignar_tasques/{idTasca}
+    defaults: { _controller: HotelBundleTascaBundle:Tasca:assignarTasca }
+
+hotel_bundle_treballadors_finalitzar_tasca:
+    path:     /treballadors/finalitzar_tasques/{idTasca}
+    defaults: { _controller: HotelBundleTascaBundle:Tasca:finalitzarTasca }
+
+hotel_bundle_treballador_tasca_llista:
+    path:     /treballador/les-meves-tasques
+    defaults: { _controller: HotelBundleTascaBundle:Tasca:tasquesTreballador }

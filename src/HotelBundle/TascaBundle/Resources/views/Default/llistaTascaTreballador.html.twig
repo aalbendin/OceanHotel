@@ -5,16 +5,14 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-lg-12">
-						<h1 class="text-center">Tasca</h1>
+						<h1 class="text-center">Les meves taques</h1>
 						{% for flashMessage in app.session.flashbag.get('notice') %}
 							<div class="alert alert-{{ flashMessage.type }}">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 								<h4 class="text-center">{{ flashMessage.msg }}</h4>
 							</div>
 						{% endfor %}	
-						<div class="row">
-							<a href="{{path('hotel_bundle_admintasca_addTasca')}}" class="btn btn-warning btn-afegir"><span class="fa fa-plus"/>  Afegir Tasca</a>
-						</div>
+						
 						<div class="row">									
 						</div>
 							<div class="table-responsive">
@@ -25,7 +23,7 @@
 											<th>Data d'alta</th>
 											<th>Tipus Tasca</th>
 											<th>Estat</th>
-											<th><span class="fa fa-cogs"></span> Config</th>
+											<th>Finalitzar Tasca</th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -34,11 +32,12 @@
 											<th>Data d'alta</th>
 											<th>Tipus Treballador</th>
 											<th>Estat</th>
-											<th><span class="fa fa-cogs"></span> Config</th>
+											<th>Finalitzar Tasca</th>
 										</tr>
 									</tfoot>
 									<tbody>
-										{% for tasca in array %}
+										
+										{% for tasca in arrayTasca %}
 										<tr>
 											<td>{{tasca.descripcio}}</td>
 											<td>{{tasca.dataAlta|date('d/m/Y')}}</td>
@@ -46,22 +45,36 @@
 											<td>{{tasca.tipusTasca.getDescripcio()}}</td>
 											{% else %}
 											<td>Sense tipus</td>
-											{% endif %}
-											{% if arrayEstat != null %}
-											{% for treball in arrayEstat %}
+											{% endif %}											
+											{% if arrayTreball != null %}
+											{% for treball in arrayTreball %}
 												{% if treball.tasca.getId() == tasca.id %}
-												<td>{{treball.estat.getDescripcio()}}</td>
+													{% if treball.estat.getDescripcio() == "proces"%}
+													<td class="bg-warning text-blanc">{{treball.estat.getDescripcio()}}</td>
+													{% endif %}
+													{% if treball.estat.getDescripcio() == "pendent"%}
+													<td class="bg-success text-blanc">{{treball.estat.getDescripcio()}}</td>
+													{% endif %}
+													{% if treball.estat.getDescripcio() == "finalitzada"%}
+													<td class="bg-danger text-blanc">{{treball.estat.getDescripcio()}}</td>
+													{% endif %}
 												{% endif %}
+
 											{% endfor %} 
 											{% else %}
 											<td>Sense Estat</td>	
 											{% endif %}
-											<td>
-												<center>
-												<a href="{{ path('hotel_bundle_admintasca_editarTasca', { 'id': tasca.id }) }}" class="btn btn-xs btn-info"><span class="fa fa-pencil"></span></a>
-												<a  href="{{path('hotel_bundle_admintasca_eliminarTasca', { 'id': tasca.id }) }}"class="btn btn-xs btn-danger"><span class="fa fa-trash"></span></a>
-												</center>
-											</td>
+											{% for treball in arrayTreball %}
+												{% if treball.tasca.getId() == tasca.id %}
+													{% if treball.estat.getDescripcio() == "proces"%}
+													<td id="td-assignar"><a id="btn-assignar" href="{{path('hotel_bundle_treballadors_finalitzar_tasca', { 'idTasca': tasca.id })}}" class="btn btn-xs btn-danger" onclick="desactivar()">Finalitzar</a></td>
+													{% else %}
+														<td>Finalitzada el {{treball.datafi| date('d/m/Y')}}</td>
+													{% endif %}
+												{% endif %}
+
+											{% endfor %} 
+											
 										</tr>
 										 {% endfor %} 										
 									</tbody>
@@ -71,4 +84,5 @@
 					</div>
 				</div>
 			</div>	
+			
 	{% endblock %}	

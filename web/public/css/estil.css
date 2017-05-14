@@ -183,6 +183,10 @@ input,select, textarea {
     margin: 20px;
 }
 
+.text-blanc{
+    color: #fff !important;
+}
+
 /* FOOTER*/
 footer{
    position:fixed;
