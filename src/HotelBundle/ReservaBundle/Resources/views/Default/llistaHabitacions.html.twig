@@ -1,10 +1,9 @@
 {% extends "HotelBundle:Default:index.html.twig" %}
 
 {% block title %}Habitacions{% endblock %}
-	{% block page_content %} 
-	
-	
 
+{% block page_content %} 
+	
 		<div id="contingut">
 			<div class="container">
 				<div class="row">
@@ -58,7 +57,7 @@
 
 
 						<!--HABITACIONES -->
-						<div class="row">									
+						<div class="row" id="habitacions">									
 							{% for habitacio in array %}
 										<div class="col-sm-6 col-md-4">
 										    <div class="thumbnail">
@@ -76,7 +75,7 @@
 													<form action="{{ path('hotel_bundle_reserva_afegirLiniaComanda')}}" method="post">
 														<div id="nomMiniHabitacio" class="col-xs-8">
 															<h4>Modalitat:</h4>
-															<select class="form-control" name="modalitat">
+															<select class="form-control" name="modalitat"><!--ESTOY AQUI-->
 															{% for modalitat in arrayModalitat %}
 																<option value="{{modalitat.id}}">{{modalitat.descripcio}}</option>
 																{% endfor %}
@@ -100,6 +99,188 @@
 				</div>
 			</div>	
 
-	<script src="{{ asset('public/js/search.js') }}"></script>
+	<!--<script src="{{ asset('public/js/search.js') }}"></script>-->
+
+	<script>
+	
+	 /*#AITOR FUNCION PARA SABER LOS DIAS DE DIFERENCIA
+            var desdeDate =  new Date(desde.split('/')[1]+"/"+desde.split('/')[0] +"/"+ desde.split('/')[2]);
+            var hastaDate =  new Date(hasta.split('/')[1]+""+hasta.split('/')[0] +""+ hasta.split('/')[2]);
+            var timeDiff = Math.abs(hastaDate.getTime() - desdeDate.getTime());
+            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); */
+
+
+var peticion = null;
+var elementoSeleccionado = -1;
+var sugerencias = null;
+var cacheSugerencias = {};
+
+function inicializa_xhr() {
+    if (window.XMLHttpRequest) {
+        return new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        return new ActiveXObject("Microsoft.XMLHTTP");
+    }
+}
+
+function comprovaDates(){
+    var desde = $("#from").val();
+    var hasta = $("#to").val();
+    var desdeDate =  desde.split('/')[1]+""+desde.split('/')[0] +""+ desde.split('/')[2];
+    var hastaDate =  hasta.split('/')[1]+""+hasta.split('/')[0] +""+ hasta.split('/')[2];
+    var dif =  parseInt(hastaDate)-parseInt(desdeDate);
+
+    var res = "";
+
+    if(desde.length>0){
+        if(hasta.length>0){
+               
+            if(dif>0){
+                $("#errorHasta").html("");
+                $("#errorDesde").html("");
+            }else{
+                $("#errorHasta").html("La data d'arribada ha de ser anterior a la data de sortida");
+            }
+
+        }else{
+            $("#errorDesde").html("");
+            //$("#errorHasta").html("Has d'introduir la data de final de reserva."); //alert("");
+        }
+    }else{
+        $("#errorHasta").html("");
+        $("#errorDesde").html("Has d'introduir la data d'inici de reserva.");
+    }
+}
+
+function comprovaDataInici(){
+    if($("#from").val().length>0){
+        $("#errorDesde").html("");
+         comprovaDates();
+    }else{
+        $("#errorHasta").html("");
+        $("#errorDesde").html("Has d'introduir la data d'inici de reserva.");
+    }
+}
+
+function autocompleta() {
+	var elEvento = arguments[0] || window.event;
+	var tecla = elEvento.keyCode;
+
+    if (!(tecla == 40 || tecla == 39 || tecla == 38 || tecla == 37 || tecla == 13)) { //flechas arriba y abajo y enter
+
+   	if($("#searchHabitacions").val().length > 1 || $("#searchHabitacions").val().length == 0){
+    $.ajax({
+                method: "POST",
+                url: "{{ url('hotel_bundle_reserva_cercaHabitacions') }}",
+                data: {dataInici : $("#from").val(), dataFi : $("#to").val(), str : $("#searchHabitacions").val() },
+                dataType: 'json',
+                success: function(data)
+                {
+                    if(data.hasOwnProperty("response") && data.response === "success")
+                    {
+                        //alert("HA LLEGADOOOO!!!!!");
+                        var html = "";
+                        if(data.hasOwnProperty("habitacions"))
+                        {
+                            //http://stackoverflow.com/questions/3710204/how-to-check-if-a-string-is-a-valid-json-string-in-javascript-without-using-try/3710226
+                            if (/^[\],:{}\s]*$/.test(data.habitacions.replace(/\\["\\\/bfnrtu]/g, '@').
+                                    replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+                                    replace(/(?:^|:|,)(?:\s*\[)+/g, '')))
+                            {
+                                var habs = JSON.parse(data.habitacions);
+                                var mods = [];
+                                if(data.hasOwnProperty("modalitats"))
+                        			{
+                                		mods = JSON.parse(data.modalitats);
+                            		}
+
+                                if(habs.length > 0)
+                                {
+                                    //alert("Pepe");
+                                    //alert(habs);
+                                    
+                                    for(d in habs)
+                                    {
+                                    	html += '<div class="col-sm-6 col-md-4"><div class="thumbnail">';
+                                    	html += '<img src="'+habs[d].tipusHabitacio.imatge+'">';
+                                    	html += '<div class="caption"><div class="row"><div id="nomMiniHabitacio" class="col-xs-8">';
+                                    	html += '<h3>'+habs[d].tipusHabitacio.descripcio+'</h3>';
+                                    	html += '</div><div id="preuMiniHabitacio" class="col-xs-4 ">';
+                                        html += '<h3>'+habs[d].preu+' €</h3>';
+                                        html += '</div></div><div class="row">';
+                                        html += "<form action='{{ path('hotel_bundle_reserva_afegirLiniaComanda')}}' method='post'>";
+                                        html += '<div id="nomMiniHabitacio" class="col-xs-8"><h4>Modalitat:</h4><select class="form-control" name="modalitat">';
+                                        if(mods.length > 0)
+                                		{
+                                			for(e in mods)
+                                    			{
+                                    				html += '<option value="'+mods[e].id+'">'+mods[e].descripcio+'</option>';
+                                    			}	
+                                		}
+
+                                		html += '</select>														</div>														<div id="nomMiniHabitacio" class="col-xs-4">';
+                                		html += '<h4>Places: '+habs[d].places+'</h4>';
+                                		html += '</div>';
+                                		html += '<input hidden type="text" name="id" value="'+habs[d].id+'"/>';
+                                		html += '<div id="preuMiniHabitacio" class="col-xs-4 "><input type="submit" class="btn btn-primary" value="Reservar"></div>	</form></div></div></div></div>';
+
+                                        
+
+
+
+                                    };
+                                    
+                                    
+
+                                }
+                            }
+                            else
+                            {
+                                console.log("INVALID JSON STRING");
+                            }
+                        }
+                        else
+                        {
+                            console.log("HABITACIONS NOT FOUND");
+                        }
+                        $("#habitacions").html(html);
+                    }
+                },
+                error: function(jqXHR, exception)
+                {
+                    if(jqXHR.status === 405)
+                    {
+                        console.error("METHOD NOT ALLOWED!");
+                    }
+                }
+            });
+	}
+    }
+    
+}
+
+
+function sinResultados() {
+    document.getElementById("sugerencias").innerHTML = "No s'han trobat habitacions";
+    document.getElementById("sugerencias").style.display = "block";
+}
+
+window.onload = function () {
+
+    $("#searchHabitacions").keyup(autocompleta);
+    
+    $("#to").change(comprovaDates);
+    $("#from").change(comprovaDataInici);
+    //$("#searchHabitacions").focus();
+    //compruebaHabilitados();
+
+}
+</script>
 
 	{% endblock %}
+
+
+
+
+
+
