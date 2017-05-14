@@ -75,10 +75,56 @@ function comprovaDataInici(){
 
 function autocompleta() {
 
-    //comprovaDates();
-
+   
+    $.ajax({
+                method: "GET",
+                url: "{{ url('ajax_posts') }}",
+                dataType: 'json',
+                success: function(data)
+                {
+                    if(data.hasOwnProperty("response") && data.response === "success")
+                    {
+                        alert("HA LLEGADOOOO!!!!!");
+                        if(data.hasOwnProperty("habitacions"))
+                        {
+                            //http://stackoverflow.com/questions/3710204/how-to-check-if-a-string-is-a-valid-json-string-in-javascript-without-using-try/3710226
+                            if (/^[\],:{}\s]*$/.test(data.habitacions.replace(/\\["\\\/bfnrtu]/g, '@').
+                                    replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+                                    replace(/(?:^|:|,)(?:\s*\[)+/g, '')))
+                            {
+                                var posts = JSON.parse(data.habitacions);
+                                if(posts.length > 0)
+                                {
+                                    alert("Pepe");
+                                    /*var html = "";
+                                    for(d in posts)
+                                    {
+                                        html += "<p>" + JSON.stringify(posts[d]) + "</p>";
+                                    }
+                                    $("#containerPosts").append(html);*/
+                                }
+                            }
+                            else
+                            {
+                                console.log("INVALID JSON STRING");
+                            }
+                        }
+                        else
+                        {
+                            console.log("POSTS NOT FOUND");
+                        }
+                    }
+                },
+                error: function(jqXHR, exception)
+                {
+                    if(jqXHR.status === 405)
+                    {
+                        console.error("METHOD NOT ALLOWED!");
+                    }
+                }
+            });
     
-
+    //comprovaDates();
     /*var elEvento = arguments[0] || window.event;
     var tecla = elEvento.keyCode;
 
