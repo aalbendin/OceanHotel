@@ -49,7 +49,7 @@ class CercaHabitacionsController extends Controller{
       $serializer = new Serializer($normalizers, $encoders);
 
       $em = $this->getDoctrine()->getManager();
-      $habitacions =  $this->getHabitacions($request, $request->get('dataInici'), $request->get('dataFi'), $request->get('str'));
+      $habitacions =  $this->getHabitacions($request, $request->get('dataInici'), $request->get('dataFi'));
       //$habitacions = 1;
       /*$arrayHabitacions = array();
       foreach ($habitacions as $value) {
@@ -71,7 +71,7 @@ class CercaHabitacionsController extends Controller{
 
   }
 
-  public function retornaHabitacions($dataInici, $dataFi, $str){
+  /*public function retornaHabitacions($dataInici, $dataFi, $str){
     $connection = $em->getConnection();
     $statement = $connection->prepare("SELECT * FROM habitacio --WHERE id = :id");
     //$statement->bindValue('id', 123);
@@ -79,12 +79,12 @@ class CercaHabitacionsController extends Controller{
     $results = $statement->fetchAll();
 
     return $results;
-  }
+  }*/
 
-  public function getHabitacions(Request $request, $dataInici, $dataFi, $str){
+  public function getHabitacions(Request $request, $dataInici, $dataFi){
     $em = $this->getDoctrine()->getManager();
     
-    if($str > 0 && $dataInici > 0 && $dataFi > 0){
+    if($dataInici > 0 && $dataFi > 0){
 
       $query = $em->createQuery(
       'SELECT p.id
@@ -96,12 +96,13 @@ class CercaHabitacionsController extends Controller{
         where c.dataInici >= :dataInici and c.dataFi <= :dataFi)'
     )->setParameter('dataInici', $dataInici)->setParameter('dataFi', $dataFi);
 
-    }else if ($str > 0){
+    }/*else if (strlen($str) > 0){
       $query = $em->createQuery(
-            'SELECT p
-            FROM HotelBundle:Habitacio p where p.places = :str'
-          )->setParameter('str', $str);
-    }
+            "SELECT h
+              FROM HotelBundle:Habitacio h 
+              INNER JOIN HotelBundle:TipusHabitacio th WITH th = h.tipusHabitacio WHERE th.descripcio LIKE '%hab%'"
+          )//->setParameter('str', $str); INNER JOIN MembersBundle:Address a WITH md = a.empID
+    }*/
     else {
       $query = $em->createQuery(
             'SELECT p

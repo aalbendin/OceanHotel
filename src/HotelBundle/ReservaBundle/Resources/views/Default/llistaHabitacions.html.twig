@@ -115,6 +115,10 @@ var elementoSeleccionado = -1;
 var sugerencias = null;
 var cacheSugerencias = {};
 
+var habs = [];
+var mods = [];
+var html = "";
+
 function inicializa_xhr() {
     if (window.XMLHttpRequest) {
         return new XMLHttpRequest();
@@ -162,17 +166,77 @@ function comprovaDataInici(){
     }
 }
 
+function processaDades(){
+
+                                
+                                var habsFil = [];
+                                html = "";
+
+                              if(habs.length > 0)
+                              {
+                                    //alert("Pepe");
+                                    //alert(habs);
+
+                                    for(h in habs)
+                                    {
+                                        if(habs[h].tipusHabitacio.descripcio.toLowerCase().includes($("#searchHabitacions").val().trim())){
+
+                                            habsFil.push(habs[h]);
+
+                                        }
+                                    }
+
+                                    if(habsFil.length > 0)
+                                    {
+
+                                        for(d in habsFil)
+                                        {
+                                         html += '<div class="col-sm-6 col-md-4"><div class="thumbnail">';
+                                         html += '<img src="'+habsFil[d].tipusHabitacio.imatge+'">';
+                                         html += '<div class="caption"><div class="row"><div id="nomMiniHabitacio" class="col-xs-8">';
+                                         html += '<h3>'+habsFil[d].tipusHabitacio.descripcio+'</h3>';
+                                         html += '</div><div id="preuMiniHabitacio" class="col-xs-4 ">';
+                                         html += '<h3>'+habsFil[d].preu+' €</h3>';
+                                         html += '</div></div><div class="row">';
+                                         html += "<form action='{{ path('hotel_bundle_reserva_afegirLiniaComanda')}}' method='post'>";
+                                         html += '<div id="nomMiniHabitacio" class="col-xs-8"><h4>Modalitat:</h4><select class="form-control" name="modalitat">';
+                                         if(mods.length > 0)
+                                         {
+                                           for(e in mods)
+                                           {
+                                            html += '<option value="'+mods[e].id+'">'+mods[e].descripcio+'</option>';
+                                        }   
+                                    }
+
+                                    html += '</select>                                                      </div>                                                      <div id="nomMiniHabitacio" class="col-xs-4">';
+                                    html += '<h4>Places: '+habsFil[d].places+'</h4>';
+                                    html += '</div>';
+                                    html += '<input hidden type="text" name="id" value="'+habsFil[d].id+'"/>';
+                                    html += '<div id="preuMiniHabitacio" class="col-xs-4 "><input type="submit" class="btn btn-primary" value="Reservar"></div> </form></div></div></div></div>';
+
+
+
+
+
+                                };
+
+
+                            }
+                            $("#habitacions").html(html);
+                        }
+}
+
 function autocompleta() {
 	var elEvento = arguments[0] || window.event;
 	var tecla = elEvento.keyCode;
 
     if (!(tecla == 40 || tecla == 39 || tecla == 38 || tecla == 37 || tecla == 13)) { //flechas arriba y abajo y enter
 
-   	if($("#searchHabitacions").val().length > 1 || $("#searchHabitacions").val().length == 0){
-    $.ajax({
+        if($("#searchHabitacions").val().trim().length == 1 || $("#searchHabitacions").val().length == 0){
+            $.ajax({
                 method: "POST",
                 url: "{{ url('hotel_bundle_reserva_cercaHabitacions') }}",
-                data: {dataInici : $("#from").val(), dataFi : $("#to").val(), str : $("#searchHabitacions").val() },
+                data: {dataInici : $("#from").val(), dataFi : $("#to").val() },
                 dataType: 'json',
                 success: function(data)
                 {
@@ -184,79 +248,45 @@ function autocompleta() {
                         {
                             //http://stackoverflow.com/questions/3710204/how-to-check-if-a-string-is-a-valid-json-string-in-javascript-without-using-try/3710226
                             if (/^[\],:{}\s]*$/.test(data.habitacions.replace(/\\["\\\/bfnrtu]/g, '@').
-                                    replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
-                                    replace(/(?:^|:|,)(?:\s*\[)+/g, '')))
+                                replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+                                replace(/(?:^|:|,)(?:\s*\[)+/g, '')))
                             {
-                                var habs = JSON.parse(data.habitacions);
-                                var mods = [];
-                                if(data.hasOwnProperty("modalitats"))
-                        			{
-                                		mods = JSON.parse(data.modalitats);
-                            		}
+                                habs = JSON.parse(data.habitacions);
 
-                                if(habs.length > 0)
+                                if(data.hasOwnProperty("modalitat"))
                                 {
-                                    //alert("Pepe");
-                                    //alert(habs);
-                                    
-                                    for(d in habs)
-                                    {
-                                    	html += '<div class="col-sm-6 col-md-4"><div class="thumbnail">';
-                                    	html += '<img src="'+habs[d].tipusHabitacio.imatge+'">';
-                                    	html += '<div class="caption"><div class="row"><div id="nomMiniHabitacio" class="col-xs-8">';
-                                    	html += '<h3>'+habs[d].tipusHabitacio.descripcio+'</h3>';
-                                    	html += '</div><div id="preuMiniHabitacio" class="col-xs-4 ">';
-                                        html += '<h3>'+habs[d].preu+' €</h3>';
-                                        html += '</div></div><div class="row">';
-                                        html += "<form action='{{ path('hotel_bundle_reserva_afegirLiniaComanda')}}' method='post'>";
-                                        html += '<div id="nomMiniHabitacio" class="col-xs-8"><h4>Modalitat:</h4><select class="form-control" name="modalitat">';
-                                        if(mods.length > 0)
-                                		{
-                                			for(e in mods)
-                                    			{
-                                    				html += '<option value="'+mods[e].id+'">'+mods[e].descripcio+'</option>';
-                                    			}	
-                                		}
-
-                                		html += '</select>														</div>														<div id="nomMiniHabitacio" class="col-xs-4">';
-                                		html += '<h4>Places: '+habs[d].places+'</h4>';
-                                		html += '</div>';
-                                		html += '<input hidden type="text" name="id" value="'+habs[d].id+'"/>';
-                                		html += '<div id="preuMiniHabitacio" class="col-xs-4 "><input type="submit" class="btn btn-primary" value="Reservar"></div>	</form></div></div></div></div>';
-
-                                        
-
-
-
-                                    };
-                                    
-                                    
-
+                                  mods = JSON.parse(data.modalitat);
                                 }
-                            }
-                            else
-                            {
-                                console.log("INVALID JSON STRING");
-                            }
-                        }
-                        else
-                        {
-                            console.log("HABITACIONS NOT FOUND");
-                        }
-                        $("#habitacions").html(html);
+
+                                processaDades();
+                             
                     }
-                },
-                error: function(jqXHR, exception)
-                {
-                    if(jqXHR.status === 405)
+                    else
                     {
-                        console.error("METHOD NOT ALLOWED!");
+                        console.log("INVALID JSON STRING");
                     }
                 }
-            });
-	}
-    }
-    
+                else
+                {
+                    console.log("HABITACIONS NOT FOUND");
+                }
+
+                
+            }
+        },
+        error: function(jqXHR, exception)
+        {
+            if(jqXHR.status === 405)
+            {
+                console.error("METHOD NOT ALLOWED!");
+            }
+        }
+    });
+}else{
+    processaDades();
+}
+}
+
 }
 
 
