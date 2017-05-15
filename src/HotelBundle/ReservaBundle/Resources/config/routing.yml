@@ -37,6 +37,10 @@ hotel_bundle_reserva_veureReserva:
     path:     /reservas/{id}
     defaults: { _controller: HotelBundleReservaBundle:Comanda:veureReserva }
 
+hotel_bundle_reserva_cercaHabitacions:
+    path:     /habitacions/buscar
+    defaults: { _controller: HotelBundleReservaBundle:CercaHabitacions:habitacions }
+
 
 
 

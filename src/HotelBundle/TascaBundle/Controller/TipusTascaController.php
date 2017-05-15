@@ -61,7 +61,7 @@ class TipusTascaController extends Controller
 
     public function editTipusTascaAction($id,Request $request)
     {
-        $TipusTasca = $this->getDoctrine()->getRepository('HotelBundle:TipusTasca')->findOneById($id);
+        $tipusTasca = $this->getDoctrine()->getRepository('HotelBundle:TipusTasca')->findOneById($id);
  
         $form = $this->createFormBuilder($tipusTasca)
             ->add('descripcio', TextType::class, array('label' => 'Descripció','attr' => array(
@@ -82,7 +82,7 @@ class TipusTascaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($TipusTasca);
+            $em->persist($tipusTasca);
             $em->flush();
 
             $this->get('session')->getFlashBag()->add(
@@ -101,9 +101,16 @@ class TipusTascaController extends Controller
 
     public function deleteTipusTascaAction($id){
         $tipusTasca = $this->getDoctrine()->getRepository('HotelBundle:TipusTasca')->findOneById($id);
+        $tasca = $this->getDoctrine()->getRepository('HotelBundle:Tasca')->findByTipusTasca($id);
 
         if ($tipusTasca != null) {
             $em = $this->getDoctrine()->getManager();
+            foreach ($tasca as $value) {
+                var_dump($value); exit();
+               $value->setTipusTasca(null);
+               $em->persist($value);
+               $em->flush();
+            }            
             $em->remove($tipusTasca);
             $em->flush();
             $this->get('session')->getFlashBag()->add(
