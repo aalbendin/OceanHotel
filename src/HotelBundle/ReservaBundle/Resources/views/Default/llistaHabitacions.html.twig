@@ -86,7 +86,7 @@
 														</div>
 														<input hidden type="text" name="id" value="{{habitacio.id}}"/>
 														<div id="preuMiniHabitacio" class="col-xs-4 ">
-															<input type="submit" class="btn btn-primary" value="Reservar">
+															<input type="submit" class="btnReservar btn btn-primary" value="Reservar" disabled>
 														</div>
 												</form>
 											    </div>
@@ -118,6 +118,25 @@ var cacheSugerencias = {};
 var habs = [];
 var mods = [];
 var html = "";
+var btnsReservar = [];
+var datesValides = false;
+var datesValides2 = false;
+
+window.onload = function () {
+
+    $("#searchHabitacions").keyup(autocompleta);
+    
+    $("#to").change(comprovaDates);
+    $("#from").change(comprovaDataInici);
+    //$("#searchHabitacions").focus();
+    //compruebaHabilitados();
+
+
+}
+
+function comprovaDisponibilitat(){
+
+}
 
 function inicializa_xhr() {
     if (window.XMLHttpRequest) {
@@ -142,6 +161,7 @@ function comprovaDates(){
             if(dif>0){
                 $("#errorHasta").html("");
                 $("#errorDesde").html("");
+                datesValides = true;
             }else{
                 $("#errorHasta").html("La data d'arribada ha de ser anterior a la data de sortida");
             }
@@ -166,7 +186,7 @@ function comprovaDataInici(){
     }
 }
 
-function processaDades(){
+function processaDadesHab(){
 
                                 
                                 var habsFil = [];
@@ -212,17 +232,19 @@ function processaDades(){
                                     html += '<h4>Places: '+habsFil[d].places+'</h4>';
                                     html += '</div>';
                                     html += '<input hidden type="text" name="id" value="'+habsFil[d].id+'"/>';
+                                    if(datesValides2){
                                     html += '<div id="preuMiniHabitacio" class="col-xs-4 "><input type="submit" class="btn btn-primary" value="Reservar"></div> </form></div></div></div></div>';
-
-
-
-
-
-                                };
-
-
+                                    }else{
+                                    html += '<div id="preuMiniHabitacio" class="col-xs-4 "><input type="submit" class="btn btn-primary" value="Reservar" disabled></div> </form></div></div></div></div>';   
+                                    }
+                                }
+                                ;
                             }
-                            $("#habitacions").html(html);
+                            if(html.length > 0){
+                                $("#habitacions").html(html);
+                            }else{
+                                $("#habitacions").html("Sense resultats.");
+                            }
                         }
 }
 
@@ -242,7 +264,7 @@ function autocompleta() {
                 {
                     if(data.hasOwnProperty("response") && data.response === "success")
                     {
-                        //alert("HA LLEGADOOOO!!!!!");
+                        
                         var html = "";
                         if(data.hasOwnProperty("habitacions"))
                         {
@@ -258,7 +280,10 @@ function autocompleta() {
                                   mods = JSON.parse(data.modalitat);
                                 }
 
-                                processaDades();
+                                if(datesValides){
+                                datesValides2 = true;
+                                }
+                                processaDadesHab();
                              
                     }
                     else
@@ -283,7 +308,7 @@ function autocompleta() {
         }
     });
 }else{
-    processaDades();
+    processaDadesHab();
 }
 }
 
@@ -295,16 +320,7 @@ function sinResultados() {
     document.getElementById("sugerencias").style.display = "block";
 }
 
-window.onload = function () {
 
-    $("#searchHabitacions").keyup(autocompleta);
-    
-    $("#to").change(comprovaDates);
-    $("#from").change(comprovaDataInici);
-    //$("#searchHabitacions").focus();
-    //compruebaHabilitados();
-
-}
 </script>
 
 	{% endblock %}
