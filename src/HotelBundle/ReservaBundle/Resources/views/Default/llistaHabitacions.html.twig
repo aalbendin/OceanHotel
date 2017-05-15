@@ -41,7 +41,7 @@
 									</div>
 								</div>
 							<div class="col-md-2">
-								<a class="btn btn-warning" id="modDates" href=""> Modificar Dates</a>
+								<a class="btn btn-warning" style="display:none;" id="modDates" href=""> Modificar Dates</a>
 							</div>
 							<div class="col-md-3">							
 								<div class="form-group">
@@ -137,9 +137,9 @@ window.onload = function () {
 function compruebaBtnModificarFecha(){
 
     if($("#to").prop("disabled") == true && $("#from").prop("disabled") == true){
-        $("#modDates").prop("disabled") = false;
+        $("#modDates").css("display", "block");
     }else{
-        $("#modDates").prop("disabled") = true;
+        $("#modDates").css("display", "none");
     }
 
 }
@@ -172,17 +172,21 @@ function comprovaDates(){
                 $("#errorHasta").html("");
                 $("#errorDesde").html("");
                 datesValides = true;
+                autocompleta();
             }else{
                 $("#errorHasta").html("La data d'arribada ha de ser anterior a la data de sortida");
+                datesValides = false;
             }
 
         }else{
             $("#errorDesde").html("");
             //$("#errorHasta").html("Has d'introduir la data de final de reserva."); //alert("");
+            datesValides = false;
         }
     }else{
         $("#errorHasta").html("");
         $("#errorDesde").html("Has d'introduir la data d'inici de reserva.");
+        datesValides = false;
     }
 }
 
@@ -266,7 +270,7 @@ function autocompleta() {
     var hasta2 = $("#to").val();
     var desdeDate2 =  desde2.split('/')[2]+"-"+desde2.split('/')[1] +"-"+ desde2.split('/')[0];
     var hastaDate2 =  hasta2.split('/')[2]+"-"+hasta2.split('/')[1] +"-"+ hasta2.split('/')[0];
-    
+
     if (!(tecla == 40 || tecla == 39 || tecla == 38 || tecla == 37 || tecla == 13)) { //flechas arriba y abajo y enter
 
         if($("#searchHabitacions").val().trim().length == 1 || $("#searchHabitacions").val().length == 0){
