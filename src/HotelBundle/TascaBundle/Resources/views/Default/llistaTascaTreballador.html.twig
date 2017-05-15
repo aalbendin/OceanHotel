@@ -49,13 +49,13 @@
 											{% if arrayTreball != null %}
 											{% for treball in arrayTreball %}
 												{% if treball.tasca.getId() == tasca.id %}
-													{% if treball.estat.getDescripcio() == "proces"%}
+													{% if treball.estat.getId() == 1 %}
 													<td class="bg-warning text-blanc">{{treball.estat.getDescripcio()}}</td>
 													{% endif %}
-													{% if treball.estat.getDescripcio() == "pendent"%}
+													{% if treball.estat.getId() == 2 %}
 													<td class="bg-success text-blanc">{{treball.estat.getDescripcio()}}</td>
 													{% endif %}
-													{% if treball.estat.getDescripcio() == "finalitzada"%}
+													{% if treball.estat.getId() == 3 %}
 													<td class="bg-danger text-blanc">{{treball.estat.getDescripcio()}}</td>
 													{% endif %}
 												{% endif %}

@@ -1,7 +1,8 @@
-	<?php
+<?php
 
-	namespace HotelBundle\Repository;
+namespace HotelBundle\Repository;
 
+	use HotelBundle\Entity\Treballador;
 	/**
 	 * TascaRepository
 	 *
@@ -16,11 +17,12 @@
 	      $em = $this->getEntityManager();
 	      $query = $em->createQuery(
 	      'SELECT p
-	      FROM HotelBundle:Tasca p
-	      INNER join p.tipusTasca r with p.tipusTasca=r.id
-	      Inner join r.tipusTreballador d with r.tipusTreballador=d.id
-	      WHERE p.estat = 1 and d.id=:treb'
-	      )->setParameter('treb', $treballador->getTipusTreballador()->getId());
+			FROM HotelBundle:Treball p 
+				INNER join p.tasca t WITH p.tasca = t.id 
+				INNER join t.tipusTasca r WITH t.tipusTasca = r.id 
+				INNER join r.tipusTreballador d WITH r.tipusTreballador = d.id 
+			WHERE p.estat = 1 and d.id=:treb' 
+			)->setParameter('treb', $treballador->getTipusTreballador()->getId());
 
 	      return  $query->getResult();
 	    
