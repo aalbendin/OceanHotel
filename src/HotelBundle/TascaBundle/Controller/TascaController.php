@@ -53,18 +53,18 @@ class TascaController extends Controller
      $estatExis = false;
    
      foreach ($estatArray as $value) {
-      if ($value->getDescripcio() == 'proces') {
+      if ($value->getId() == 2) {
         $estatExis = true ;
         break;
       }
     }
     if ($estatExis != true){
       $estat = new Estat();
-      $estatTasca = $estat->setDescripcio('proces');
+      $estatTasca = $estat->setDescripcio('En Proces');
       $em->persist($estatTasca);
       $em->flush();
     }else{
-      $estatTasca = $this->getDoctrine()->getRepository('HotelBundle:Estat')->findOneByDescripcio('proces');
+      $estatTasca = $this->getDoctrine()->getRepository('HotelBundle:Estat')->findOneById(2);
     }
 
   //  var_dump($estatTasca); exit();
@@ -113,18 +113,18 @@ class TascaController extends Controller
     $estatExis = false;
    
      foreach ($estatArray as $value) {
-      if ($value->getDescripcio() == 'finalitzada') {
+      if ($value->getId() == 3) {
         $estatExis = true ;
         break;
       }
     }
     if ($estatExis != true){
       $estat = new Estat();
-      $estatTasca = $estat->setDescripcio('finalitzada');
+      $estatTasca = $estat->setDescripcio('Finalitzada');
       $em->persist($estatTasca);
       $em->flush();
     }else{
-      $estatTasca = $this->getDoctrine()->getRepository('HotelBundle:Estat')->findOneByDescripcio('finalitzada');
+      $estatTasca = $this->getDoctrine()->getRepository('HotelBundle:Estat')->findOneById(3);
     }
      $dataFi =  new \DateTime('now');
      $treball->setDataFi($dataFi);

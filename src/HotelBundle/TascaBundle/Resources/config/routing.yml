@@ -15,23 +15,6 @@ hotel_bundle_tasca_eliminarTipusTasca:
     path:     /deleteTipusTasca/{id}
     defaults: { _controller: HotelBundleTascaBundle:TipusTasca:deleteTipusTasca }
 
-#Estat de tasques
-hotel_bundle_estat_homepage:
-    path:     /estat
-    defaults: { _controller: HotelBundleTascaBundle:Estat:index }
-
-hotel_bundle_estat_addEstat:
-    path:     /addEstat
-    defaults: { _controller: HotelBundleTascaBundle:Estat:addEstat }
-
-hotel_bundle_estat_editarEstat:
-    path:     /editEstat/{id}
-    defaults: { _controller: HotelBundleTascaBundle:Estat:editEstat }
-
-hotel_bundle_estat_eliminarEstat:
-    path:     /deleteEstat/{id}
-    defaults: { _controller: HotelBundleTascaBundle:Estat:deleteEstat }
-
 #Tasques Treballadors
 hotel_bundle_treballadors_tasca_homepage:
     path:     /treballadors/tasques
