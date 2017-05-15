@@ -25,38 +25,21 @@ class TascaController extends Controller
     //YYYYYYYYYYYYYYYYYYYYYYYYYYY
     //no funciona la query para hacer el filtro
     //he puesto esto para que se vea la pagina y provar lo del boton de assignar
+
+      $tascaRepository = $em->getRepository('HotelBundle:Tasca');
+      $treballs = $tascaRepository->getTasquesByTreballadorType($treballador);
+
+
     $tasques = $this->getDoctrine()->getRepository('HotelBundle:Tasca')->findAll();
-    $treball = $this->getDoctrine()->getRepository('HotelBundle:Treball')->findAll();
+    //$treball = $this->getDoctrine()->getRepository('HotelBundle:Treball')->findAll();
     //var_dump($estat[0]->getId()); exit();
     return $this->render('HotelBundleTascaBundle:Default:llistaTreballadorsTasca.html.twig', array(
-      'array' => $tasques,
-      'arrayTreball' => $treball
+      'array' => $treballs,
+      'arrayTreball' => $treballs
       ));
   }
 
-  public function getTasques($treballador){
-    $em = $this->getDoctrine()->getManager();
-    $tipusTreballador = $treballador->getTipusTreballador();
-    $query = $em->createQuery(
-      'SELECT p.id
-      FROM HotelBundle:Tasca p
-      WHERE p.estatId = 1 and p.tipusTasca NOT IN
-      (SELECT r
-      FROM HotelBundle:TipusTasca r
-      where r.id not in 
-      (select d
-      from Hotelbundle:TipusTreballador d
-      where d.id = :tipusTreballador
-      )
-      )'
-      )->setParameter('tipusTreballador', $tipusTreballador->getId());
 
-    $array= array();
-    foreach ($query as $key => $value) {
-      array_push($array, $value);
-    }
-    return $array;
-  }
 
   public function assignarTascaAction($idTasca){
     $em = $this->getDoctrine()->getManager();

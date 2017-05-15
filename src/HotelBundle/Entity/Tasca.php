@@ -43,14 +43,6 @@ class Tasca
     protected $tipusTasca;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Treballador", inversedBy="Tasca")
-     * @ORM\JoinColumn(name="treballadorId", referencedColumnName="id")
-     */
-    protected $treballador;
-
-
-
-    /**
      * Get id
      *
      * @return integer
@@ -132,29 +124,4 @@ class Tasca
         return $this->tipusTasca;
     }
 
-    
-
-    /**
-     * Set treballador
-     *
-     * @param \HotelBundle\Entity\Treballador $treballador
-     *
-     * @return Tasca
-     */
-    public function setTreballador(\HotelBundle\Entity\Treballador $treballador = null)
-    {
-        $this->treballador = $treballador;
-
-        return $this;
-    }
-
-    /**
-     * Get treballador
-     *
-     * @return \HotelBundle\Entity\Treballador
-     */
-    public function getTreballador()
-    {
-        return $this->treballador;
-    }
 }

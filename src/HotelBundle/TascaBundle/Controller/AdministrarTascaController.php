@@ -20,7 +20,6 @@ class AdministrarTascaController extends Controller
     {
         $tasca = $this->getDoctrine()->getRepository('HotelBundle:Tasca')->findAll();
         $estat = $this->getDoctrine()->getRepository('HotelBundle:Treball')->findAll();
-        //var_dump(); exit();
         return $this->render('HotelBundleTascaBundle:Default:llistaTasca.html.twig', array(
             'array' => $tasca,
             'arrayEstat' => $estat
@@ -61,13 +60,13 @@ class AdministrarTascaController extends Controller
             $estatArray = $this->getDoctrine()->getRepository('HotelBundle:Estat')->findAll();
             if ($estatArray != null) {
                foreach ($estatArray as $value) {
-                  if (strcasecmp($value->getDescripcio(), 'pendent') == 0 ) {
+                  if ($value->getId() == 1 ) {
                      $estatTasca = $value;
                     }
                 }
             }else{
                 $estat = new Estat();
-                $estatTasca = $estat->setDescripcio('pendent');
+                $estatTasca = $estat->setDescripcio('Pendent');
                 $em->persist($estatTasca);
                 $em->flush();
             }     
