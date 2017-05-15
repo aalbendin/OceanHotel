@@ -86,15 +86,7 @@ class CercaHabitacionsController extends Controller{
     
     if($dataInici > 0 && $dataFi > 0){
 
-      $query = $em->createQuery(
-      'SELECT p.id
-       FROM HotelBundle:Habitacio p
-      WHERE p.id NOT IN
-      (SELECT r.habitacio
-        FROM HotelBundle:Reserva r
-        INNER JOIN HotelBundle:Comanda c on r.comanda = c.id
-        where c.dataInici >= :dataInici and c.dataFi <= :dataFi)'
-    )->setParameter('dataInici', $dataInici)->setParameter('dataFi', $dataFi);
+      
 
     }/*else if (strlen($str) > 0){
       $query = $em->createQuery(
@@ -108,15 +100,22 @@ class CercaHabitacionsController extends Controller{
             'SELECT p
             FROM HotelBundle:Habitacio p '
           );
+      $habitacions = $query->getResult();
     }
     
 
-  $habitacions = $query->getResult();
+  
 
   return $habitacions;
 
   //return $query;
   }
+
+  /*
+  action="{{ path('hotel_bundle_reserva_afegirLiniaComanda')}}" method="post"
+
+  type="submit"
+  */
 
 /*
 WHERE p.id NOT IN
@@ -143,5 +142,18 @@ $query = $em->createQuery(
     );->setParameter('dataInici', $dataInici)->setParameter('dataFi', $dataFi);
 
 */
+    /*
+$query = $em->createQuery(
+      'SELECT p.id
+       FROM HotelBundle:Habitacio p
+      WHERE p.id NOT IN
+      (SELECT r.habitacio
+        FROM HotelBundle:Reserva r
+        INNER JOIN HotelBundle:Comanda c on r.comanda = c.id
+        where c.dataInici >= :dataInici and c.dataFi <= :dataFi)'
+    )->setParameter('dataInici', $dataInici)->setParameter('dataFi', $dataFi);
+
+
+    */
 
 }
