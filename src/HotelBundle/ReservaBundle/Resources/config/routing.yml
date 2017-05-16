@@ -41,6 +41,10 @@ hotel_bundle_reserva_cercaHabitacions:
     path:     /habitacions/buscar
     defaults: { _controller: HotelBundleReservaBundle:CercaHabitacions:habitacions }
 
+hotel_bundle_reserva_eliminarCarret:
+    path:     /reservas/eliminarCarret
+    defaults: { _controller: HotelBundleReservaBundle:CercaHabitacions:eliminarCarret }
+
 
 
 

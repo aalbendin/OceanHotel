@@ -131,6 +131,7 @@ window.onload = function () {
     //$("#searchHabitacions").focus();
     $("#modDates").click(habilitarFecha)
     compruebaBtnModificarFecha();
+    autocompleta();
 
 
 }
@@ -147,6 +148,31 @@ function habilitarFecha(){
 }
 
 function eliminarCarret(){
+
+    $.ajax({
+        method: "POST",
+        url: "{{ url('hotel_bundle_reserva_eliminarCarret') }}",
+        dataType: 'json',
+        success: function(data)
+        {
+            if(data.hasOwnProperty("response") && data.response === "success")
+            {
+                $(".badge")[0].val("0");
+                alert("Reserves eliminades.")
+
+                
+            }else{
+                alert("Error eliminant reserves.")
+            }
+        },
+        error: function(jqXHR, exception)
+        {
+            if(jqXHR.status === 405)
+            {
+                console.error("METHOD NOT ALLOWED!");
+            }
+        }
+    });
 
 }
 
