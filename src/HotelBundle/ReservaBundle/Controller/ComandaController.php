@@ -110,8 +110,13 @@ public function afegirLiniaAction(Request $request){
   //TO-DO session comanda provisional.
     if(!$session->has('comanda')){
       $comanda = new Comanda();
-        //$comanda->setDataEntrada('2017-01-01');
-        //$comanda->setDataSortida('2017-01-15');
+
+      $dataInici =  new \DateTime($request->get('dataInici'));
+      $dataFi =  new \DateTime($request->get('dataFi'));
+
+      $comanda->setDataEntrada($dataInici);
+      $comanda->setDataSortida($dataFi);
+
       $session->set('comanda',$comanda);
     }
 
