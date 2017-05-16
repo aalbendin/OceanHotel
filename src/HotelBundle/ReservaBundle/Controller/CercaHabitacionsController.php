@@ -85,18 +85,14 @@ class CercaHabitacionsController extends Controller{
     $em = $this->getDoctrine()->getManager();
     
     if($dataInici > 0 && $dataFi > 0){
-
+      $dataInici =  new \DateTime($dataInici);
+    $dataFi =  new \DateTime($dataFi);
+      //return   $em->getRepository('HotelBundle:Habitacio')->getHabitacionsByDate($dataInici, $dataFi);
 
       $habitacions = $em->getRepository('HotelBundle:Habitacio')->getHabitacionsByDate($dataInici, $dataFi);
 
 
-    }/*else if (strlen($str) > 0){
-      $query = $em->createQuery(
-            "SELECT h
-              FROM HotelBundle:Habitacio h 
-              INNER JOIN HotelBundle:TipusHabitacio th WITH th = h.tipusHabitacio WHERE th.descripcio LIKE '%hab%'"
-          )//->setParameter('str', $str); INNER JOIN MembersBundle:Address a WITH md = a.empID
-    }*/
+    }
     else {
       $query = $em->createQuery(
             'SELECT p

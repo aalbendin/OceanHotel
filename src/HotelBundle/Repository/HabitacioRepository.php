@@ -14,13 +14,14 @@ namespace HotelBundle\Repository;
 		public function getHabitacionsByDate($dataInici, $dataFi){
 		  $em = $this->getEntityManager();
 		  $query = $em->createQuery(
-		    'SELECT h 
-			from HotelBundle:Habitacio h
-			INNER JOIN h.reserva r WITH r.habitacio = h.id
-			INNER JOIN r.comanda c WITH r.comanda = c.id
-		    WHERE c.dataInici >= :dataInici and c.dataFi <= :dataFi
-		    ORDER BY p.preu ASC'
-		    )->setParameter('dataInici', $dataInici)->setParameter('dataFi', $dataFi);
+		  	'SELECT h From HotelBundle:Habitacio h
+			 WHERE h not in (
+			 	SELECT IDENTITY(r.habitacio)
+				FROM HotelBundle:Reserva r
+			 	INNER JOIN r.comanda c WITH r.comanda=c.id 
+			 	WHERE c.dataEntrada >= :dataInici and c.dataSortida <= :dataFi ) 
+			 	ORDER BY h.preu ASC'
+		    )->setParameter('dataInici', $dataInici->format('Y-m-d'))->setParameter('dataFi', $dataFi->format('Y-m-d'));
 
 		  return $query->getResult();
 		}
