@@ -24,7 +24,11 @@
 									<div class="form-group">
 										<div class="input-group">
 											<div class="input-group-addon"><span class="glyphicon glyphicon-calendar"/></div>
-											<input class="js-datepicker form-control" id="from" placeholder="Desde" >
+                                            {% if comanda == null %}
+											<input class="js-datepicker form-control" id="from" placeholder="Desde"  >
+                                            {% else %}
+                                            <input class="js-datepicker form-control" id="from" placeholder="Desde" value="{{ comanda.dataEntrada|date('d/m/Y') }}" disabled>
+                                            {% endif %}
 											
 										</div>
 										<span id="errorDesde" class="error"></span>
@@ -34,7 +38,11 @@
 									<div class="form-group">
 										<div class="input-group">
 											<div class="input-group-addon"><span class="glyphicon glyphicon-calendar"/></div>
+                                            {% if comanda == null %}
 											<input class="js-datepicker form-control" id="to" placeholder="Hasta">
+                                            {% else %}
+                                            <input class="js-datepicker form-control" id="to" placeholder="Hasta" value="{{ comanda.dataSortida|date('d/m/Y') }}" disabled>
+                                            {% endif %}
 
 										</div>
 										<span id="errorHasta" class="error"></span>
@@ -78,7 +86,7 @@
 															<select class="form-control" name="modalitat">
 															{% for modalitat in arrayModalitat %}
 																<option value="{{modalitat.id}}">{{modalitat.descripcio}}</option>
-																{% endfor %}
+															{% endfor %}
 															</select>
 														</div>
 														<div id="nomMiniHabitacio" class="col-xs-4">
@@ -160,7 +168,8 @@ function eliminarCarret(){
             if(data.hasOwnProperty("response") && data.response === "success")
             {
                 $("#countCarret").html("0");
-                
+                $("#modDates").css("display", "none");   
+                autocompleta();             
 
             }else{
                 alert("Error eliminant reserves.")
@@ -182,8 +191,9 @@ function compruebaBtnModificarFecha(){
 
     if($("#to").prop("disabled") == true && $("#from").prop("disabled") == true){
         $("#modDates").css("display", "block");
+        datesValides = true;
     }else{
-        $("#modDates").css("display", "block");
+        $("#modDates").css("display", "none");
     }
 
 }
