@@ -25,6 +25,7 @@
 											<th>Data d'alta</th>
 											<th>Tipus Tasca</th>
 											<th>Estat</th>
+											<th>Data Finalització</th>
 											<th><span class="fa fa-cogs"></span> Config</th>
 										</tr>
 									</thead>
@@ -34,10 +35,12 @@
 											<th>Data d'alta</th>
 											<th>Tipus Treballador</th>
 											<th>Estat</th>
+											<th>Data Finalització</th>
 											<th><span class="fa fa-cogs"></span> Config</th>
 										</tr>
 									</tfoot>
 									<tbody>
+
 										{% for tasca in array %}
 										<tr>
 											<td>{{tasca.descripcio}}</td>
@@ -50,11 +53,14 @@
 											{% if arrayEstat != null %}
 											{% for treball in arrayEstat %}
 												{% if treball.tasca.getId() == tasca.id %}
-												<td>{{treball.estat.getDescripcio()}}</td>
+													<td>{{treball.estat.getDescripcio()}}</td>
+													{% if treball.datafi != null %}
+													<td>{{treball.datafi |date('d/m/Y')}}</td>
+													{% else %}
+													<td>Encara no s'ha finalitzat</td>
+													{% endif %}
 												{% endif %}
 											{% endfor %} 
-											{% else %}
-											<td>Sense Estat</td>	
 											{% endif %}
 											<td>
 												<center>
