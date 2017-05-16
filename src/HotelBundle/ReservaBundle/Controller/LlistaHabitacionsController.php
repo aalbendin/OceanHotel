@@ -13,7 +13,7 @@ class LlistaHabitacionsController extends Controller
     	if($session->has('comanda')){
     		$comanda = $session->get('comanda');
     	}else{
-    		$comanda = new Comanda();
+    		$comanda = null;
     	}
 
     	$habitacio = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findAll();
