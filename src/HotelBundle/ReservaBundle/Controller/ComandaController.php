@@ -53,6 +53,7 @@ class ComandaController extends Controller{
 }
 
 public function indexReservasAction(Request $request){
+  $em = $this->getDoctrine()->getManager();
   $clientRepository = $em->getRepository('HotelBundle:Client');
   $client = $clientRepository->retornaClient($this->container);
   $comandes = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findBy(array('client' => $client->getId()));
@@ -65,13 +66,12 @@ public function indexReservasAction(Request $request){
 
 public function veureReservaAction($id,Request $request){
   $session = $request->getSession();
-
+  $em = $this->getDoctrine()->getManager();
   $clientRepository = $em->getRepository('HotelBundle:Client');
   $client = $clientRepository->retornaClient($this->container);
   $comanda = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findOneById($id);
   $reservas = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findBy(array('comanda' => $comanda->getId()));
   
-  $em = $this->getDoctrine()->getManager();
   $com = $em->getRepository('HotelBundle:Comanda');
   $preu = $com->calcularPreu($request,$comanda);
   $modalitat = $preu[0];
@@ -184,13 +184,14 @@ public function eliminarLiniaAction($id, Request $request){
 
 public function completarReservaAction(Request $request){
   $session = $request->getSession();
+  $em = $this->getDoctrine()->getManager();
   $clientRepository = $em->getRepository('HotelBundle:Client');
   $client = $clientRepository->retornaClient($this->container);
   if ( $client == null ||$client->getNom()== null){
     return $this->redirect($this->generateurl('hotel_bundle_reserva_completarCliente'));
   }else{
     //completar reserva
-    $em = $this->getDoctrine()->getManager();
+    
 
     if($session->has('comanda')){
       $comanda = $session->get('comanda');
@@ -231,7 +232,7 @@ public function completarReservaAction(Request $request){
 }
 
 public function fichaClienteAction(Request $request){
-  
+  $em = $this->getDoctrine()->getManager();
   $clientRepository = $em->getRepository('HotelBundle:Client');
   $client = $clientRepository->retornaClient($this->container);
 
@@ -384,7 +385,8 @@ public function donarBaixaComandaAction($id,Request $request){
   $lineasComanda = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findBy(array('comanda' => $comanda->getId()));
   $em = $this->getDoctrine()->getManager();
   foreach ($lineasComanda as $reserva) {
-    $preuFinal = $preuFinal + $reserva->getHabitacio()->getPreu();
+    $preuModalitat = $reserva->getModalitat()->getPreu();
+    $preuFinal = $preuFinal + $reserva->getHabitacio()->getPreu() + $preuModalitat;
     $em->remove($reserva);
   }
   $em->remove($comanda);
@@ -407,8 +409,8 @@ public function eliminarLineaAdminAction($idComanda,$id,Request $request)
   if(count($reservas) == 1){
     return $this->donarBaixaComandaAction($idComanda, $request);
   } else{
-
-    $dinero= $lineaComanda->getHabitacio()->getPreu();
+    $modalitatPreu = $lineaComanda->getModalitat()->getPreu();
+    $dinero= $lineaComanda->getHabitacio()->getPreu() + $modalitatPreu;
 
     $em = $this->getDoctrine()->getManager();
     $em->remove($lineaComanda);
