@@ -39,6 +39,9 @@ class ModalitatController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $descripcio = $form->get('descripcio')->getData();
+            $preu = $form->get('preu')->getData();
+            $Modalitat->setDescripcio($descripcio. ' (+'.$preu.' €)');
             $em = $this->getDoctrine()->getManager();
             $em->persist($Modalitat);
             $em->flush();

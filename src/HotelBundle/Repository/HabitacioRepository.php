@@ -1,6 +1,6 @@
-	<?php
+<?php
 
-	namespace HotelBundle\Repository;
+namespace HotelBundle\Repository;
 
 	/**
 	 * HabitacioRepository
