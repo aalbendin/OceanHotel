@@ -41,7 +41,7 @@
 									</div>
 								</div>
 							<div class="col-md-2">
-								<a class="btn btn-warning" style="display:none;" id="modDates" href=""> Modificar Dates</a>
+								<a class="btn btn-warning" style="display:none;" id="modDates"> Modificar Dates</a>
 							</div>
 							<div class="col-md-3">							
 								<div class="form-group">
@@ -75,7 +75,7 @@
 													<form action="{{ path('hotel_bundle_reserva_afegirLiniaComanda')}}" method="post">
 														<div id="nomMiniHabitacio" class="col-xs-8">
 															<h4>Modalitat:</h4>
-															<select class="form-control" name="modalitat"><!--ESTOY AQUI-->
+															<select class="form-control" name="modalitat">
 															{% for modalitat in arrayModalitat %}
 																<option value="{{modalitat.id}}">{{modalitat.descripcio}}</option>
 																{% endfor %}
@@ -129,9 +129,24 @@ window.onload = function () {
     $("#to").change(comprovaDates);
     $("#from").change(comprovaDataInici);
     //$("#searchHabitacions").focus();
-
+    $("#modDates").click(habilitarFecha)
     compruebaBtnModificarFecha();
 
+
+}
+
+function habilitarFecha(){
+    var r = confirm("Si modifiques les dates s'esborraran totes les reserves del carret, n'estas segur?");
+    if (r == true) {
+        eliminarCarret();
+        $("#to").val("");
+        $("#to").prop("disabled", false);
+        $("#from").val("");
+        $("#from").prop("disabled", false);
+    }
+}
+
+function eliminarCarret(){
 
 }
 
@@ -141,7 +156,7 @@ function compruebaBtnModificarFecha(){
     if($("#to").prop("disabled") == true && $("#from").prop("disabled") == true){
         $("#modDates").css("display", "block");
     }else{
-        $("#modDates").css("display", "none");
+        $("#modDates").css("display", "block");
     }
 
 }
@@ -276,7 +291,7 @@ function autocompleta() {
 
     if (!(tecla == 40 || tecla == 39 || tecla == 38 || tecla == 37 || tecla == 13)) { //flechas arriba y abajo y enter
 
-        if($("#searchHabitacions").val().trim().length == 1 || $("#searchHabitacions").val().length == 0){
+        if($("#searchHabitacions").val().trim().length == 1 || $("#searchHabitacions").val().length == 0 || datesValides){
             $.ajax({
                 method: "POST",
                 url: "{{ url('hotel_bundle_reserva_cercaHabitacions') }}",
