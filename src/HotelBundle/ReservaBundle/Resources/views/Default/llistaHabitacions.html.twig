@@ -85,6 +85,8 @@
 															<h4>Places: {{habitacio.places}}</h4>
 														</div>
 														<input hidden type="text" name="id" value="{{habitacio.id}}"/>
+                                                        <input hidden type="text" name="dataInici" value=""/>
+                                                        <input hidden type="text" name="dataFi" value=""/>
 														<div id="preuMiniHabitacio" class="col-xs-4 ">
 															<input type="submit" class="btnReservar btn btn-primary" value="Reservar" disabled>
 														</div>
@@ -157,10 +159,9 @@ function eliminarCarret(){
         {
             if(data.hasOwnProperty("response") && data.response === "success")
             {
-                $(".badge")[0].val("0");
-                alert("Reserves eliminades.")
-
+                $("#countCarret").html("0");
                 
+
             }else{
                 alert("Error eliminant reserves.")
             }
@@ -246,6 +247,10 @@ function comprovaDataInici(){
 
 function processaDadesHab(){
 
+    var dataFrom = $("#from").val();
+    var dataTo = $("#to").val();
+    var dateFrom =  dataFrom.split('/')[2]+"-"+dataFrom.split('/')[1] +"-"+ dataFrom.split('/')[0];
+    var dateTo =  dataTo.split('/')[2]+"-"+dataTo.split('/')[1] +"-"+ dataTo.split('/')[0];
                                 
                                 var habsFil = [];
                                 html = "";
@@ -290,6 +295,9 @@ function processaDadesHab(){
                                     html += '<h4>Places: '+habsFil[d].places+'</h4>';
                                     html += '</div>';
                                     html += '<input hidden type="text" name="id" value="'+habsFil[d].id+'"/>';
+
+                                    html += '<input hidden type="text" name="dataInici" value="'+dateFrom+'"/>';
+                                    html += '<input hidden type="text" name="dataFi" value="'+dateTo+'"/>';
                                     if(datesValides2){
                                     html += '<div id="preuMiniHabitacio" class="col-xs-4 "><input type="submit" class="btn btn-primary" value="Reservar"></div> </form></div></div></div></div>';
                                     }else{
