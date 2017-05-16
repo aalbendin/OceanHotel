@@ -2,6 +2,7 @@
 
 namespace HotelBundle\Repository;
 
+use HotelBundle\Entity\Client;
 /**
  * ClientRepository
  *
@@ -19,7 +20,7 @@ class ClientRepository extends \Doctrine\ORM\EntityRepository
 	    if($usuari == "anon."){
 	      $client->setNom(null);
 	    }else{
-	      $em->getEntityManager();
+	      $em = $this->getEntityManager();
 	      $client = $em->getRepository('HotelBundle:Client')->findOneByUser($usuari->getId());
 	    }
 
