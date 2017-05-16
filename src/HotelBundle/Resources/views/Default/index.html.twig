@@ -47,7 +47,7 @@
                   <li><a href="{{path('hotel_page_contacte')}}">Contacte</a></li>               
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{path('hotel_bundle_reserva_comanda')}}"><span class="fa fa-ticket" /> <span class="badge">{{app.session.get('arrayReserva')|length}}</span></a></li>
+                <li><a href="{{path('hotel_bundle_reserva_comanda')}}"><span class="fa fa-ticket" /> <span id="countCarret" class="badge">{{app.session.get('arrayReserva')|length}}</span></a></li>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}                
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">                  
