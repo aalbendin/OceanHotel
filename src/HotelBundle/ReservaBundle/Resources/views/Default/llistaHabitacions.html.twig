@@ -41,7 +41,7 @@
 									</div>
 								</div>
 							<div class="col-md-2">
-								<a class="btn btn-warning" href=""> Modificar Dates</a>
+								<a class="btn btn-warning" style="display:none;" id="modDates" href=""> Modificar Dates</a>
 							</div>
 							<div class="col-md-3">							
 								<div class="form-group">
@@ -129,8 +129,20 @@ window.onload = function () {
     $("#to").change(comprovaDates);
     $("#from").change(comprovaDataInici);
     //$("#searchHabitacions").focus();
-    //compruebaHabilitados();
 
+    compruebaBtnModificarFecha();
+
+
+}
+
+
+function compruebaBtnModificarFecha(){
+
+    if($("#to").prop("disabled") == true && $("#from").prop("disabled") == true){
+        $("#modDates").css("display", "block");
+    }else{
+        $("#modDates").css("display", "none");
+    }
 
 }
 
@@ -162,17 +174,22 @@ function comprovaDates(){
                 $("#errorHasta").html("");
                 $("#errorDesde").html("");
                 datesValides = true;
+
+                autocompleta();
             }else{
                 $("#errorHasta").html("La data d'arribada ha de ser anterior a la data de sortida");
+                datesValides = false;
             }
 
         }else{
             $("#errorDesde").html("");
             //$("#errorHasta").html("Has d'introduir la data de final de reserva."); //alert("");
+            datesValides = false;
         }
     }else{
         $("#errorHasta").html("");
         $("#errorDesde").html("Has d'introduir la data d'inici de reserva.");
+        datesValides = false;
     }
 }
 
@@ -252,13 +269,18 @@ function autocompleta() {
 	var elEvento = arguments[0] || window.event;
 	var tecla = elEvento.keyCode;
 
+    var desde2 = $("#from").val();
+    var hasta2 = $("#to").val();
+    var desdeDate2 =  desde2.split('/')[2]+"-"+desde2.split('/')[1] +"-"+ desde2.split('/')[0];
+    var hastaDate2 =  hasta2.split('/')[2]+"-"+hasta2.split('/')[1] +"-"+ hasta2.split('/')[0];
+
     if (!(tecla == 40 || tecla == 39 || tecla == 38 || tecla == 37 || tecla == 13)) { //flechas arriba y abajo y enter
 
         if($("#searchHabitacions").val().trim().length == 1 || $("#searchHabitacions").val().length == 0){
             $.ajax({
                 method: "POST",
                 url: "{{ url('hotel_bundle_reserva_cercaHabitacions') }}",
-                data: {dataInici : $("#from").val(), dataFi : $("#to").val() },
+                data: {dataInici : desdeDate2, dataFi : hastaDate2 },
                 dataType: 'json',
                 success: function(data)
                 {
@@ -283,6 +305,7 @@ function autocompleta() {
                                 if(datesValides){
                                 datesValides2 = true;
                                 }
+
                                 processaDadesHab();
                              
                     }
@@ -295,8 +318,6 @@ function autocompleta() {
                 {
                     console.log("HABITACIONS NOT FOUND");
                 }
-
-                
             }
         },
         error: function(jqXHR, exception)
