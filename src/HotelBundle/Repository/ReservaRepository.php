@@ -10,4 +10,23 @@ namespace HotelBundle\Repository;
  */
 class ReservaRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function comprovarHabitacioByDate($dataInici, $dataFi, $habitacio){
+		  $em = $this->getEntityManager();
+		  $query = $em->createQuery(
+		  	'SELECT IDENTITY(r.habitacio)
+				FROM HotelBundle:Reserva r
+			 	INNER JOIN r.comanda c WITH r.comanda=c.id 
+			 	WHERE c.dataEntrada >= :dataInici and c.dataSortida <= :dataFi'
+		    )->setParameter('dataInici', $dataInici->format('Y-m-d'))->setParameter('dataFi', $dataFi->format('Y-m-d'));
+
+		  
+		  $habitacions = $query->getResult();
+		  $semafor = true;
+		  foreach ($habitacions as $hab) {
+		  	if($habitacio->getId() == $hab->getId())$semafor= false;
+		  }
+
+		  return $semafor;
+		}
 }
