@@ -11,8 +11,8 @@ namespace HotelBundle\Repository;
 	class HabitacioRepository extends \Doctrine\ORM\EntityRepository
 	{
 
-		public function getHabitacionsByDate(Request $request, $dataInici, $dataFi){
-		  $em = $this->getDoctrine()->getManager();
+		public function getHabitacionsByDate($dataInici, $dataFi){
+		  $em = $this->getEntityManager();
 		  $query = $em->createQuery(
 		    'SELECT h 
 			from HotelBundle:Habitacio h
