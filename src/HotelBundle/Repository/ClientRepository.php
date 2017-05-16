@@ -2,6 +2,7 @@
 
 namespace HotelBundle\Repository;
 
+use HotelBundle\Entity\Client;
 /**
  * ClientRepository
  *
