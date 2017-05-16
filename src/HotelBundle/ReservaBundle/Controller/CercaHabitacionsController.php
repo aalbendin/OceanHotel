@@ -38,6 +38,29 @@ class CercaHabitacionsController extends Controller{
   /**
      * @Method({"GET"})
      */
+  public function eliminarCarretAction(Request $request)
+  {
+    if($request->isXmlHttpRequest())
+    {
+
+      $session = $request->getSession();
+      $session->remove('comanda');
+      $session->remove('arrayReserva');
+
+      $response = new JsonResponse();
+      $response->setStatusCode(200);
+      $response->setData(array(
+        'response' => 'success'
+        ));
+      return $response;
+    }
+
+  }
+
+
+  /**
+     * @Method({"GET"})
+     */
   public function habitacionsAction(Request $request)
   {
     if($request->isXmlHttpRequest())
