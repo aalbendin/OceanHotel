@@ -41,8 +41,8 @@
 										{% for comanda in arrayComanda %}
 											<tr>
 												<td>{{comanda.id}}</td>
-												<td>{{comanda.dataEntrada}}</td>
-												<td>{{comanda.dataSortida}}</td>
+												<td>{{comanda.dataEntrada|date('Y-m-d')}}</td>
+												<td>{{comanda.dataSortida|date('Y-m-d')}}</td>
 												<td>
 													<center>
 														<a href="{{ path('hotel_bundle_reserva_veureReserva', { 'id': comanda.id }) }}" class="btn btn-xs btn-info"><span class="fa fa-eye"></span></a>
