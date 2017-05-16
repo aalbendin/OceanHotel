@@ -86,7 +86,9 @@ class CercaHabitacionsController extends Controller{
     
     if($dataInici > 0 && $dataFi > 0){
 
+
       $habitacions = $em->getRepository('HotelBundle:Habitacio')->getHabitacionsByDate($dataInici, $dataFi);
+
 
     }/*else if (strlen($str) > 0){
       $query = $em->createQuery(

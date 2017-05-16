@@ -129,10 +129,12 @@ window.onload = function () {
     $("#to").change(comprovaDates);
     $("#from").change(comprovaDataInici);
     //$("#searchHabitacions").focus();
+
     compruebaBtnModificarFecha();
 
 
 }
+
 
 function compruebaBtnModificarFecha(){
 
@@ -172,6 +174,7 @@ function comprovaDates(){
                 $("#errorHasta").html("");
                 $("#errorDesde").html("");
                 datesValides = true;
+
                 autocompleta();
             }else{
                 $("#errorHasta").html("La data d'arribada ha de ser anterior a la data de sortida");
