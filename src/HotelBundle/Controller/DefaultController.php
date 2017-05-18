@@ -20,15 +20,12 @@ class DefaultController extends Controller
     public function backendAction() {
         $habitacions = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findAll();
         $habitacions = count($habitacions);
-        $treballadors = $this->getDoctrine()->getRepository('HotelBundle:Treballador')->findAll();
-        $treballadors = count($treballadors);
         $reserves = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findAll();
         $reserves = count($reserves);
         $client = $this->getDoctrine()->getRepository('HotelBundle:Client')->findAll();
         $client = count($client);
         return $this->render('HotelBundle:Default:backend.html.twig', array(
-                    'numHabitacions' => $habitacions,
-                    'numTreballadors' => $treballadors,
+                    'numHabitacions' => $habitacions,,
                     'numReserves' => $reserves,
                     'numClient' => $client
         ));
