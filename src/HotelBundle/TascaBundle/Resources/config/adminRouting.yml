@@ -13,3 +13,21 @@ hotel_bundle_admintasca_editarTasca:
 hotel_bundle_admintasca_eliminarTasca:
     path:     /deleteTipusTasca/{id}
     defaults: { _controller: HotelBundleTascaBundle:AdministrarTasca:deleteTasca }
+
+    #Tipus Tasca
+hotel_bundle_tasca_homepage:
+    path:     /tipusTasca
+    defaults: { _controller: HotelBundleTascaBundle:TipusTasca:index }
+
+hotel_bundle_tasca_addTipusTasca:
+    path:     /addTipusTasca
+    defaults: { _controller: HotelBundleTascaBundle:TipusTasca:addTipusTasca }
+
+hotel_bundle_tasca_editarTipusTasca:
+    path:     /edit/TipusTasca/{id}
+    defaults: { _controller: HotelBundleTascaBundle:TipusTasca:editTipusTasca }
+
+hotel_bundle_tasca_eliminarTipusTasca:
+    path:     /deleteTipusTasca/{id}
+    defaults: { _controller: HotelBundleTascaBundle:TipusTasca:deleteTipusTasca }
+
