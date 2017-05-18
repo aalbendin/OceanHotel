@@ -23,24 +23,30 @@ class ComandaRepository extends \Doctrine\ORM\EntityRepository
         $habitacions = 0;
         $total = 0;
 
+        $datetime1 = $comanda->getDataEntrada();
+        $datetime2 = $comanda->getDataSortida();
+        $interval = $datetime1->diff($datetime2);
+        $interval = intval($interval->format('%d'));
 
-    	$em = $this->getEntityManager();
+        $em = $this->getEntityManager();
 
         if($comanda->getId() == null ){
             $reserva =$session->get('arrayReserva');
             foreach ($reserva as $value) {
-                $modalitat = $modalitat + $value->getModalitat()->getPreu();
+                $modalitat =  $modalitat + ($value->getModalitat()->getPreu() * $value->getHabitacio()->getPlaces());
                 $habitacions = $habitacions + $value->getHabitacio()->getPreu();
-                $total = $total + $modalitat + $habitacions;
             }
         }else{
             $reserva =$em->getRepository('HotelBundle:Reserva')->findBy(array('comanda' => $comanda->getId()));
             foreach ($reserva as $value) {
-              $modalitat = $modalitat + $value->getModalitat()->getPreu();
+              $modalitat =  $modalitat + ($value->getModalitat()->getPreu() * $value->getHabitacio()->getPlaces());
               $habitacions = $habitacions + $value->getHabitacio()->getPreu();
-              $total = $total + $modalitat + $habitacions;
+             
             }
         }  
+        $modalitat = $modalitat * $interval;
+        $habitacions = $habitacions *$interval;
+        $total = ($modalitat+$habitacions);// * $interval;
 
     return array($modalitat,$habitacions,$total);  
     }
