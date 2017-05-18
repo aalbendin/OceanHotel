@@ -27,7 +27,7 @@ namespace HotelBundle\ReservaBundle\Controller;
     if($session->has('arrayReserva')){
 
       $lineasComanda =$session->get('arrayReserva');
-      $comanda = new Comanda();
+      $comanda = $session->get('comanda');
       $com = $em->getRepository('HotelBundle:Comanda');
       $preu = $com->calcularPreu($request,$comanda);
       $modalitat = $preu[0];
@@ -208,7 +208,7 @@ namespace HotelBundle\ReservaBundle\Controller;
 
         //semafor
         $valid = true;
-        $arrayFinal;
+        $arrayFinal= array();
         foreach ($arrayReserva as $key => $reserva) {
           $reservaRepository = $em->getRepository('HotelBundle:Reserva');
           $habitacio = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findOneById($reserva->getHabitacio()->getId());
@@ -219,7 +219,7 @@ namespace HotelBundle\ReservaBundle\Controller;
             $valid = true;
           }
 
-          if(length($arrayReserva) == length($arrayFinal)){
+          if(count($arrayReserva) == count($arrayFinal)){
             $em->persist($comanda);
             foreach ($arrayFinal as $reserva) {
               $res = new Reserva();
