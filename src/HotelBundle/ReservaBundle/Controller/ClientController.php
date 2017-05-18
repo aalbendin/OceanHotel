@@ -128,9 +128,10 @@ class ClientController extends Controller
     }
 
     public function eliminarClientAction($id){
-    	$client = $this->getDoctrine()->getRepository('HotelBundle:Client')->findOneById($id);
+        $client = $this->getDoctrine()->getRepository('HotelBundle:Client')->findOneById($id);
+    	$clientComandes = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findOneByClient($client);
 
-    	if ($client != null) {
+    	if ($clientComandes == null) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($client);
             $em->flush();
@@ -143,7 +144,7 @@ class ClientController extends Controller
             $this->get('session')->getFlashBag()->add(
                     'notice',array(
                     'type' => 'danger',
-                    'msg' => 'No s\'ha eliminat el client'
+                    'msg' => 'No es pot eliminar el client perque te reserves realitzades'
             ));
         }
         $arrayClient = $this->getDoctrine()->getRepository('HotelBundle:Client')->findAll();
