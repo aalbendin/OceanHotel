@@ -71,7 +71,7 @@ class ProfileFormType extends AbstractType
 
         return $builder->add('roles', ChoiceType::class, array('label' => 'Rol', 
             'attr' => ['class' => 'selectRol'],
-            'required' => true, 'choices' => array("Serv. de Neteja" => 'ROLE_CLEAN',"Serv. de manteniment" => 'ROLE_MANT', "Administrador" => 'ROLE_ADMIN', "Usuari" => 'ROLE_USER'), 'multiple' => true));
+            'required' => true, 'choices' => array("Treballador" => 'ROLE_TREBALLADOR', "Administrador" => 'ROLE_ADMIN', "Usuari" => 'ROLE_USER'), 'multiple' => true));
     }
 
     /**
