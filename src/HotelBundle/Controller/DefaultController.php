@@ -25,7 +25,7 @@ class DefaultController extends Controller
         $client = $this->getDoctrine()->getRepository('HotelBundle:Client')->findAll();
         $client = count($client);
         return $this->render('HotelBundle:Default:backend.html.twig', array(
-                    'numHabitacions' => $habitacions,
+                    'numHabitacions' => $habitacions,,
                     'numReserves' => $reserves,
                     'numClient' => $client
         ));
