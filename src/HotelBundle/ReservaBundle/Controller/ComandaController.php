@@ -37,8 +37,6 @@ namespace HotelBundle\ReservaBundle\Controller;
       $lineasComanda = array();
     }
 
-
-
     $clientRepository = $em->getRepository('HotelBundle:Client');
     $client = $clientRepository->retornaClient($this->container);
 
@@ -122,6 +120,8 @@ namespace HotelBundle\ReservaBundle\Controller;
 
       if($session->has('arrayReserva')){
         $arrayReserva = $session->get('arrayReserva');    
+
+
       }else{
         $arrayReserva = array();
       }
