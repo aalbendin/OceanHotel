@@ -23,9 +23,9 @@
 		<!-- Datepicker-->
 		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
 
-
 		<!-- Select2 -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />	
+
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -49,7 +49,6 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li>
 							{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-
 								<p>	<a href="{{ path('fos_user_security_logout') }}" class="btn btn-warning btn-xs btn-logout"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></p>                     
 								{% else %}
 									<a class="btn btn-info" href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}
@@ -76,9 +75,7 @@
 							</a>
 						</li>
 						<li>
-
-							<a href="{{path('hotel_bundle_admin_homepage')}}"  {% if app.request.get('_route') == 'hotel_bundle_admin_homepage' %} class="active" {% endif %}><span class="fa fa-tachometer"></span>  Dashboard</a>
-
+							<a href="{{path('hotel_homepage_backend')}}"  {% if app.request.get('_route') == 'hotel_bundle_admin_homepage' %} class="active" {% endif %}><span class="fa fa-tachometer"></span>  Dashboard</a>
 						</li>
 						<li><a href="#" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false" {% if app.request.get('_route') == 'hotel_bundle_llistaHabitacions' %} class="active" {% endif %}><span class="fa fa-bed"></span> Habitacions <i class="fa fa-caret-down" aria-hidden="true"></i>
 						</a>
@@ -127,78 +124,42 @@
 				<div class="col-lg-12">
 					<div class="row">
 						<div class="col-lg-8 main-chart">
-                                <h4>Estadistiques de l'hotel:</h4>
-                                <div class="row">
-                                    <div class="col-md-2 col-sm-2  box0">
-
+							 <h2 class="text-center">Estadistiques de l'hotel</h2>
+                                <div class="row mt">
+                                    <div class="col-md-3 col-md-push-1 col-sm-2  box0 bg-primary">
                                         <div class="box1">
                                             <h5>Habitacions</h5>
                                             <span class="fa fa-bed"</span>
                                             <h3>{{numHabitacions}}</h3>
                                         </div>
-
-                                        <p>El número total de {{numHabitacions}} habitacions que hi ha són </p>
-                                    </div>
-                                    <div class="col-md-2 col-sm-2 box0">
-                                        <div class="box1">
-                                            <h5>Treballadors</h5>
-                                            <span class="fa fa-users"></span>
-                                            <h3>{{numTreballadors}}</h3>
-                                        </div>
-                                        <p>L'hotel compta amb un total de {{numTreballadors}} treballadors. </p>
-                                    </div>                                    
-                                    <div class="col-md-2 col-sm-2 box0">
-                                        <div class="box1">
-                                            <h5>Tasques</h5>
-                                            <span class="fa fa-list-alt"></span>
-                                            <h3></h3>
-                                        </div>
-                                        <p>Actualment existeixen  directors en aquesta agència </p>
-                                    </div>
-                                    <div class="col-md-2 col-sm-2 box0">
-
+                                        <p>En aquest hotel hi ha un total de {{numHabitacions}} habitacions</p>
+                                    </div>                                   
+                                    <div class="col-md-3 col-md-push-2 col-sm-2 box0 bg-primary">
                                         <div class="box1">
                                             <h5>Reserves</h5>
                                             <span class="fa fa-ticket"></span>
                                             <h3>{{numReserves}}</h3>
                                         </div>
-
-                                        <p>Actualment existeixen  directors en aquesta agència </p>
+                                        <p>Existeixen {{numReserves}} Reserves realitzades a l'hotel. </p>
                                     </div>
-                                    <div class="col-md-2 col-sm-2 box0">
-
+                                    <div class="col-md-3 col-md-push-3  col-sm-2 box0 bg-primary">
                                         <div class="box1">
                                             <h5>Clients</h5>
                                             <span class="fa fa-users"></span>
                                             <h3>{{numClient}}</h3>
                                         </div>
-
-                                        <p>Actualment existeixen  directors en aquesta agència </p>
+                                        <p>Actualment hi han {{numClient}} en aquest hotel. </p>
                                     </div>
-
-                                    <div class="col-md-2 col-sm-2 box0">
-                                        <div class="box1">
-                                            <h5>Servidor</h5>
-                                            <span class="fa fa-database"></span>
-                                            <h3></h3>
-                                        </div>
-                                        <p>HTTP Status ok!</p>
-                                    </div>
-                                        
                                 </div><!-- /row mt -->	                               
                         </div>                          
-                        <div class="col-lg-4 ds mt">
-
+                        <div class="col-lg-3 col-lg-push-1 ds mt">
                                 <!--Informació d'usuari-->
                                 <h3>Informació d'usuari connectat</h3>
                                 <div class="desc">
                                     <div class="col-lg-12">                                     
-
-                                        <div class="col-lg-6">
-                                            <p><strong>Nom:</strong>  {{app.user.username | title}}</p>
-											{# <h4>Rol:  {{ app.user.roles }}</h4>#}
-                                        </div>                                        
-
+                                        <p><strong>Nom:</strong>  {{app.user.username | title}}</p>
+                                        <p><strong>Email:</strong>  {{app.user.email | title}}</p>
+                                        <p><strong>Última Conneció:</strong>  {{app.user.lastlogin | date('d/m/Y')}}</p>                                           
                                     </div>
                                 </div>
                         </div><!-- /col-lg-3 informacio d'usuari connectat-->				
