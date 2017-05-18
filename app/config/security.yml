@@ -38,3 +38,6 @@ security:
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/backend/admin/, role: ROLE_ADMIN }
         - { path: ^/backend/, role: ROLE_TREBALLADOR }
+
+
+    access_denied_url: /login
