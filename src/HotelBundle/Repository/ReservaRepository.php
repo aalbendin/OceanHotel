@@ -24,7 +24,7 @@ class ReservaRepository extends \Doctrine\ORM\EntityRepository
 		  $habitacions = $query->getResult();
 		  $semafor = true;
 		  foreach ($habitacions as $hab) {
-		  	if($habitacio->getId() == $hab->getId())$semafor= false;
+		  	if($habitacio->getId() == $hab)$semafor= false;
 		  }
 
 		  return $semafor;
