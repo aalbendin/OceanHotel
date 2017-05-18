@@ -27,11 +27,14 @@ security:
 
     role_hierarchy:
         ROLE_USER:        ROLE_USER
-        ROLE_ADMIN:       ROLE_ADMIN
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_TREBALLADOR: ROLE_TREBALLADOR
+        ROLE_ADMIN:       [ROLE_ADMIN, ROLE_TREBALLADOR]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_TREBALLADOR]
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/backend/admin/, role: ROLE_ADMIN }
+        - { path: ^/backend/, role: ROLE_TREBALLADOR }
