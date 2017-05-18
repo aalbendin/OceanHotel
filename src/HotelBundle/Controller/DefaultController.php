@@ -17,9 +17,18 @@ class DefaultController extends Controller
         return $this->render('HotelBundle:Default:index.html.twig');
     }
 
-    public function backendAction()
-    {
-        return $this->render('HotelBundle:Default:backend.html.twig');
+    public function backendAction() {
+        $habitacions = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findAll();
+        $habitacions = count($habitacions);
+        $reserves = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findAll();
+        $reserves = count($reserves);
+        $client = $this->getDoctrine()->getRepository('HotelBundle:Client')->findAll();
+        $client = count($client);
+        return $this->render('HotelBundle:Default:backend.html.twig', array(
+                    'numHabitacions' => $habitacions,,
+                    'numReserves' => $reserves,
+                    'numClient' => $client
+        ));
     }
 
     public function UbicacioAction()

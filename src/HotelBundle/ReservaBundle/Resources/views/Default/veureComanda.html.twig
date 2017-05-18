@@ -12,7 +12,7 @@
 
 					<div class="col-lg-12">
 
-						<h1 class="text-center">Habitacions</h1>
+						<h1 class="text-center">Reservar</h1>
 
 						{% for flashMessage in app.session.flashbag.get('notice') %}
 
@@ -69,10 +69,9 @@
 									</tfoot>
 
 									<tbody>
-
+									{% if arrayLinea != null %}
 										{% for reserva in arrayLinea %}
-
-										{% if reserva != null %}
+										
 										<tr>
 
 
@@ -97,13 +96,12 @@
 
 											</td>
 
-										</tr>
-										{% else %}
-											<td>No hi ha cap habitació en la llista</td>
-										{% endif %}
+										</tr>										
 
 										{% endfor %} 										
-
+									{% else %}
+											<td colspan="6" class="text-center">No hi ha cap habitació en la llista de comandes</td>
+										{% endif %}
 									</tbody>
 
 								</table>
@@ -162,7 +160,7 @@
 										<p>No hi han dades de client.</p>
 										</div>
 										<div class="col-sm-2">
-										<a class="btn btn-warning" href="{{path('hotel_bundle_reserva_completarCliente' )}}">Afrgir dades</a>
+										<a class="btn btn-warning" href="{{path('fos_user_security_login' )}}">Iniciar Sessió</a>
 										</div>
 
 								{% endif %}
@@ -176,7 +174,7 @@
 
 							<div class="col-md-6" style="margin-bottom: 10%; ">	
 
-							<div class="col-md-12 text-center" style="margin-bottom: 10%; margin-top:10%;">
+							<div class="col-md-12 text-center" style="margin-bottom: 10%; margin-top:2%;">
 					
 							<p><strong>Total Habitacions:</strong> {{totalHabitacio|number_format(2, '.', ',')}}€</p>
 							<p><strong>Total Modalitats:</strong> {{totalModalitat|number_format(2, '.', ',')}}€</p>
