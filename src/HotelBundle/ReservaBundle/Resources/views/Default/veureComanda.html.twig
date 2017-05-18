@@ -1,6 +1,6 @@
 {% extends "HotelBundle:Default:index.html.twig" %}
 
-{% block title %}Habitacions{% endblock %}
+{% block title %}Comanda{% endblock %}
 
 	{% block page_content %} 
 
@@ -12,7 +12,7 @@
 
 					<div class="col-lg-12">
 
-						<h1 class="text-center">Habitacions</h1>
+						<h1 class="text-center">Comanda</h1>
 
 						{% for flashMessage in app.session.flashbag.get('notice') %}
 
@@ -33,8 +33,6 @@
 
 											<th>Num. Habitació</th>
 
-											<th>Tipus d'habitació</th>	
-
 											<th>Places</th>
 
 											<th>Preu</th>		
@@ -53,8 +51,6 @@
 
 
 											<th>Num. Habitació</th>
-
-											<th>Tipus d'habitació</th>	
 
 											<th>Places</th>
 
@@ -78,8 +74,7 @@
 
 											<td>{{reserva.habitacio.getNumHabitacio()}}</td>
 
-											<td>{{reserva.habitacio.getTipusHabitacio().getDescripcio()}}</td>
-
+										
 											<td>{{reserva.habitacio.getPlaces()}}</td>
 
 
