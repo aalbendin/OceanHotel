@@ -45,6 +45,43 @@ a:focus, a:hover {
     color: #333 !important;
 }
 
+/** TopBar **/
+
+.navbar-topbar{
+  background-color: #0064BB !important;
+  color: #fff;
+  margin: 0;
+  padding: 5px 0 5px 0;
+  border-radius: 0 !important;
+  height: 25px !important;
+  min-height: 0px;
+ 
+}
+
+.navbar-topbar ul li {
+   font-size: 12px !important;
+   margin-right: 30px !important;
+}
+.topbar-icon {
+  color: #ec971f !important; 
+}
+.navbar-topbar ul li a{
+  display: inline-block;
+  padding: 0;
+  color: #fff !important;
+}
+.navbar-topbar ul li a:hover{
+  background-color: transparent !important;
+  text-decoration: underline;
+}
+.navbar-topbar ul li a:focus{
+  background-color: transparent !important;
+}
+.email-info{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    line-height: 0;
+}
 /*====MENU====*/ 
 
 .navbar-wrapper {
@@ -81,13 +118,29 @@ a:focus, a:hover {
 	color:#fff !important;
 }
 
-.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:active {
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:active, 
+.navbar-inverse .navbar-nav>.open>a:hover, 
+.navbar-inverse .navbar-nav>.open>a:active, .navbar-inverse .navbar-nav>.open>a:focus {
 	color:#d58512 !important;
 	border-bottom:5px solid #ec971f;
 	text-shadow:1px 1px 1px #000;
 	background-color:rgba(69, 68, 68, 0.7);
 }
 
+/* dropdown */
+
+.dropdown-menu, .dropdown-menu>li>a{
+      color: #fff !important;
+    background-color: rgba(69, 68, 68, 0.7) !important;
+
+}
+
+.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+   color:#d58512 !important;
+  border-bottom:5px solid #ec971f;
+  text-shadow:1px 1px 1px #000;
+  background-color:rgba(69, 68, 68, 0.7);
+}
 .text-nav{
     padding: 10px;
     margin-top: 10px;
@@ -151,7 +204,7 @@ a:focus, a:hover {
     display: inline-block;
     float: none;
     z-index:100;
-    background-color:rgba(256, 151, 31, 0.7);
+    background-color:rgba(0, 100, 187,0.6);
     cursor:pointer;
     position:relative; 
 }
@@ -166,12 +219,18 @@ a:focus, a:hover {
 }
 .marketing h2 {
   font-weight: normal;
+  color: #ec971f;
+  text-shadow: 1px 1px 1px #575757;
 }
 .marketing .col-lg-4 p {
   margin-right: 10px !important;
   margin-left: 10px  !important;
 }
 
+
+.tex-marketing{
+  font-size: 35px;
+}
 
 
 
@@ -189,13 +248,26 @@ a:focus, a:hover {
   letter-spacing: -1px;
 }
 
+/** Datepicker **/
+
+.datepicker-dropdown {
+   color: #fff !important;
+    background-color: rgba(69, 68, 68, 0.9) !important;
+}
+.datepicker table tr td.day:hover, .datepicker table tr td.day.focused,
+.datepicker .datepicker-switch:hover, .datepicker .prev:hover, 
+.datepicker .next:hover, .datepicker tfoot tr th:hover {
+    background: #ec971f !important;
+    cursor: pointer;
+}
+
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 
 @media (min-width: 768px) {
   /* Navbar positioning foo */
   .navbar-wrapper {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
   }
   .navbar-wrapper .container {
     padding-right: 15px;
@@ -207,7 +279,7 @@ a:focus, a:hover {
   }
 
   .navbar-wrapper .navbar {
-    border-radius: 4px;
+   /* border-radius: 4px;*/
   }
 
   .carousel-caption p {
