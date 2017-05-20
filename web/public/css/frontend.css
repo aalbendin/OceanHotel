@@ -45,6 +45,7 @@ a:focus, a:hover {
     color: #333 !important;
 }
 
+
 /** TopBar **/
 
 .navbar-topbar{
@@ -116,6 +117,7 @@ a:focus, a:hover {
 
 .navbar-inverse .navbar-nav>li>a {
 	color:#fff !important;
+  transition: all 0.6s;
 }
 
 .navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:active, 
@@ -135,7 +137,7 @@ a:focus, a:hover {
 
 }
 
-.dropdown-menu>li>a:focus, .dropdown-menu>li>a:hover {
+.dropdown-menu>li>a:hover {
    color:#d58512 !important;
   border-bottom:5px solid #ec971f;
   text-shadow:1px 1px 1px #000;
@@ -166,6 +168,12 @@ a:focus, a:hover {
 }
 .carousel-caption {
   z-index: 10;
+  background-color: rgba(69, 68, 68, 0.5) !important;
+  padding: 0;
+}
+
+.carousel-indicators {
+  display: none;
 }
 
 .carousel .item {
@@ -261,6 +269,127 @@ a:focus, a:hover {
     cursor: pointer;
 }
 
+
+/* Carousel habitacions */ 
+
+.carousel-hab{
+  height: 400px !important;
+    margin-bottom: 0;
+        position: relative;
+}
+
+.carousel .caixa {
+    height: 300px !important;
+    background-color: transparent !important;
+}
+
+.thumbnail-box {
+    min-height: 270px !important;
+        display: block;
+    padding: 4px;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+img { max-width:100%; }
+
+.thumbnails li> .fff .caption { 
+    background:#fff !important; 
+    padding:10px
+}
+
+ul.thumbnails { 
+    margin-bottom: 0px;
+}
+
+
+
+/* Thumbnail Box */
+.caption h4 {
+    color: #444;
+}
+
+.caption p {  
+    color: #999;
+}
+
+
+/* Carousel Control */
+.control-box {
+    text-align: right;
+}
+.carousel-control-hab{
+    border-radius: 4px;
+    display: inline-block !important;
+    font-size: 34px;
+    font-weight: 200;
+    line-height: 18px;
+    padding: 30px;
+    position: static;
+    height: 40px;
+    width: 55px;
+}
+.carousel-control-hab i {
+  top: -20px;
+  text-align: center;
+}
+
+.pager-hab{
+    padding-left: 0;
+     margin: 0 0; 
+    text-align: right;
+    list-style: none;
+}
+
+/* Mobile Only */
+@media (max-width: 767px) {
+    .page-header, .control-box {
+        text-align: center;
+    } 
+}
+@media (max-width: 479px) {
+    .caption {
+        word-break: break-all;
+    }
+}
+
+
+li { list-style-type:none;}
+
+
+/** ubicacio */ 
+
+.caixa-ubicacio{
+  background-color: #0064BB !important;
+  padding: 30px;
+  color:#fff;
+  text-align: center !important;
+}
+
+.icon-location{
+  color: #ec971f !important;
+  text-shadow: 1px 1px 2px #000;
+}
+
+/** Servei **/
+
+.caixa-servei{
+  background-color: #0064BB !important;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+  height: 190px;
+  padding-top: 10px !important;
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after{
+  font-size: 50px !important;
+  color: #ec971f !important;
+
+}
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 
@@ -282,16 +411,40 @@ a:focus, a:hover {
    /* border-radius: 4px;*/
   }
 
-  .carousel-caption p {
+  .carousel-caption h1 {
     margin-bottom: 20px;
-    font-size: 21px;
+    margin-left: 40px;
     line-height: 1.4;
+    width: 90%;
   }
 
   .featurette-heading {
     font-size: 50px;
   }
  
+}
+
+/** botons xarxes socials **/
+.boto-xs{
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  transition: all 0.8s;
+}
+
+.boto-xs:hover{
+  font-size: 30px !important;
+  transform: rotate(1turn);
+    background-color: #0064BB;
+}
+
+.boto-xs a{
+  color: #162d50;
+  transition: all 0.1s;
+}
+
+.boto-xs a:hover{
+  color: #162d50;
 }
 
 @media (min-width: 992px) {
@@ -314,8 +467,6 @@ a:focus, a:hover {
     position: relative;
     margin-top: 100px;
 }
-
-
 
 .thumbnail{
 

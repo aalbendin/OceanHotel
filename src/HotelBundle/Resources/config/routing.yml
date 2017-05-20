@@ -8,9 +8,13 @@ hotel_homepage_backend:
 
 #pagina publica
 
-hotel_page_ubicacio:
-    path:     /ubicacio
-    defaults: { _controller: HotelBundle:Default:ubicacio }
+hotel_page_nosaltres:
+    path:     /sobrelhotel
+    defaults: { _controller: HotelBundle:Default:nosaltres }
+
+hotel_page_serveis:
+    path:     /serveis
+    defaults: { _controller: HotelBundle:Default:serveis }
 
 hotel_page_contacte:
     path:     /contacte
