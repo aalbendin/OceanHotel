@@ -65,10 +65,9 @@
 									</tfoot>
 
 									<tbody>
-
+									{% if arrayLinea != null %}
 										{% for reserva in arrayLinea %}
 
-										{% if reserva != null %}
 										<tr>
 
 
@@ -92,12 +91,11 @@
 
 											</td>
 
-										</tr>
-										{% else %}
-											<td>No hi ha cap habitació en la llista</td>
-										{% endif %}
-
-										{% endfor %} 										
+										</tr>										
+										{% endfor %}
+									{% else %}
+										<td colspan="6" class="text-center" style="font-size:17px;">No hi ha cap habitació en la llista</td>
+									{% endif %}									
 
 									</tbody>
 
@@ -157,7 +155,7 @@
 										<p>No hi han dades de client.</p>
 										</div>
 										<div class="col-sm-2">
-										<a class="btn btn-warning" href="{{path('hotel_bundle_reserva_completarCliente' )}}">Afrgir dades</a>
+										<a class="btn btn-warning" href="{{path('fos_user_security_login' )}}">Iniciar Sessió</a>
 										</div>
 
 								{% endif %}
@@ -171,7 +169,7 @@
 
 							<div class="col-md-6" style="margin-bottom: 10%; ">	
 
-							<div class="col-md-12 text-center" style="margin-bottom: 10%; margin-top:10%;">
+							<div class="col-md-12 text-center" style="margin-bottom: 10%; margin-top:2%;">
 					
 							<p><strong>Total Habitacions:</strong> {{totalHabitacio|number_format(2, '.', ',')}}€</p>
 							<p><strong>Total Modalitats:</strong> {{totalModalitat|number_format(2, '.', ',')}}€</p>
@@ -189,7 +187,7 @@
 							<a href="{{path('hotel_bundle_reserva_acabarReserva' )}}" class="btn btn-warning btn-afegir">Finalitzar</a>	
 								
 							{% else %}
-							<a href="{{path('hotel_bundle_reserva_acabarReserva' )}}" class="btn btn-warning btn-afegir" disabled>Finalitzar</a>	
+							<a href="" class="btn btn-warning btn-afegir" disabled>Finalitzar</a>	
 							{% endif %}
 							</div>
 							</div>						

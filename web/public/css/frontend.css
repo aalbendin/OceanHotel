@@ -8,11 +8,11 @@ body {
 }
 
 a {
-    color: #f0ad4e !important;
+    color: #ec971f  !important;
 }
 
 a:focus, a:hover {
-    color: #f0ad4e !important;
+    color: #ec971f  !important;
     text-decoration: underline;
 }
 
@@ -270,96 +270,6 @@ a:focus, a:hover {
 }
 
 
-/* Carousel habitacions */ 
-
-.carousel-hab{
-  height: 400px !important;
-    margin-bottom: 0;
-        position: relative;
-}
-
-.carousel .caixa {
-    height: 300px !important;
-    background-color: transparent !important;
-}
-
-.thumbnail-box {
-    min-height: 270px !important;
-        display: block;
-    padding: 4px;
-    margin-bottom: 20px;
-    line-height: 1.42857143;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-img { max-width:100%; }
-
-.thumbnails li> .fff .caption { 
-    background:#fff !important; 
-    padding:10px
-}
-
-ul.thumbnails { 
-    margin-bottom: 0px;
-}
-
-
-
-/* Thumbnail Box */
-.caption h4 {
-    color: #444;
-}
-
-.caption p {  
-    color: #999;
-}
-
-
-/* Carousel Control */
-.control-box {
-    text-align: right;
-}
-.carousel-control-hab{
-    border-radius: 4px;
-    display: inline-block !important;
-    font-size: 34px;
-    font-weight: 200;
-    line-height: 18px;
-    padding: 30px;
-    position: static;
-    height: 40px;
-    width: 55px;
-}
-.carousel-control-hab i {
-  top: -20px;
-  text-align: center;
-}
-
-.pager-hab{
-    padding-left: 0;
-     margin: 0 0; 
-    text-align: right;
-    list-style: none;
-}
-
-/* Mobile Only */
-@media (max-width: 767px) {
-    .page-header, .control-box {
-        text-align: center;
-    } 
-}
-@media (max-width: 479px) {
-    .caption {
-        word-break: break-all;
-    }
-}
-
-
-li { list-style-type:none;}
-
-
 /** ubicacio */ 
 
 .caixa-ubicacio{
@@ -390,6 +300,8 @@ li { list-style-type:none;}
   color: #ec971f !important;
 
 }
+
+
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 
@@ -421,7 +333,7 @@ li { list-style-type:none;}
   .featurette-heading {
     font-size: 50px;
   }
- 
+
 }
 
 /** botons xarxes socials **/
@@ -445,6 +357,10 @@ li { list-style-type:none;}
 
 .boto-xs a:hover{
   color: #162d50;
+}
+
+.btn-serveis {
+  margin-left:42%;
 }
 
 @media (min-width: 992px) {
@@ -493,4 +409,8 @@ li { list-style-type:none;}
       min-height: 100px !important;
 
     }
+    .btn-serveis {
+  margin-left:0;
+}
+
 }
