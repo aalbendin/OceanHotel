@@ -12,9 +12,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
-    {
-        return $this->render('HotelBundle:Default:index.html.twig');
+    public function indexAction(){
+        $habitacions = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findAll();
+        return $this->render('HotelBundle:Default:index.html.twig', array(
+                    'habitacions' => $habitacions
+        ));
     }
 
     public function backendAction() {
@@ -31,13 +33,17 @@ class DefaultController extends Controller
         ));
     }
 
-    public function UbicacioAction()
-    {
-        return $this->render('HotelBundle:public:ubicacio.html.twig');
+    public function nosaltresAction(){
+
+        return $this->render('HotelBundle:Public:nosaltres.html.twig');
+    }
+
+    public function serveisAction(){
+
+        return $this->render('HotelBundle:Public:serveis.html.twig');
     }
 
     public function contacteAction(Request $request) {
-        //Formulari creat sense objectes
         $defaultData = array('message' => 'formulari de contacte');
         $form = $this->createFormBuilder($defaultData)
                 ->add('Nom', TextType::class, array(
@@ -54,14 +60,12 @@ class DefaultController extends Controller
                     'label_attr' => ['class' => 'mt'],
                     'attr' => array('style' => 'height: 100px','class' => 'form-control')))
                 ->add('Enviar', SubmitType::class, array('attr' => array(
-                        'class' => 'btn btn-lg btn-warning mt btn-contact')))
+                        'class' => 'btn btn-lg btn-primary mt btn-contact')))
                 ->getForm();
         $form->handleRequest($request);
         if ($form->isValid()) {
-            // les dades estàn dins d'un array amb les keys "nom", "email", i "missatges"
             $data = $form->getData();
         }
-        // carrega la vista del formulari
         return $this->render('HotelBundle:Public:contacte.html.twig', array(
                     'form' => $form->createView()
         ));
