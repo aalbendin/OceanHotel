@@ -103,9 +103,6 @@
 
 							</div>	
 
-							{% set clientV = false %}
-							
-
 							{% if client != null %}
 
 									{% if client.getNom() != null %}
@@ -119,8 +116,6 @@
 							{% endif %}
 
 
-
-							
 
 							<div class="col-md-6" style="margin-bottom:15px;">
 
@@ -150,13 +145,17 @@
 									
 
 								{% else %}
-
 									<div class="col-sm-8">
 										<p>No hi han dades de client.</p>
 										</div>
 										<div class="col-sm-2">
+										{% if app.user == null %}
 										<a class="btn btn-warning" href="{{path('fos_user_security_login' )}}">Iniciar Sessió</a>
+										{% else %}
+											<a class="btn btn-warning" href="{{path('hotel_bundle_reserva_completarCliente' )}}">Afegir dades</a>
+										{% endif %}
 										</div>
+									}
 
 								{% endif %}
 
