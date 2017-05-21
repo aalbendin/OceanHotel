@@ -17,26 +17,28 @@ class TascaController extends Controller
 {
 
   public function indexAction(){
-    $container= $this->container;
     $em = $this->getDoctrine()->getManager();
     $treb = $em->getRepository('HotelBundle:Treballador');
-    $treballador = $treb->retornaTreballador($container);
-    /*$tasques = $this->getTasques($treballador);*/
-    //YYYYYYYYYYYYYYYYYYYYYYYYYYY
-    //no funciona la query para hacer el filtro
-    //he puesto esto para que se vea la pagina y provar lo del boton de assignar
+    $treballador = $treb->retornaTreballador($this->container);
+    
+    if($treballador != null){
+    $tascaRepository = $em->getRepository('HotelBundle:Tasca');
+    $treballs = $tascaRepository->getTasquesByTreballadorType($treballador);
 
-      $tascaRepository = $em->getRepository('HotelBundle:Tasca');
-      $treballs = $tascaRepository->getTasquesByTreballadorType($treballador);
-
-
-    $tasques = $this->getDoctrine()->getRepository('HotelBundle:Tasca')->findAll();
-    //$treball = $this->getDoctrine()->getRepository('HotelBundle:Treball')->findAll();
-    //var_dump($estat[0]->getId()); exit();
     return $this->render('HotelBundleTascaBundle:Default:llistaTreballadorsTasca.html.twig', array(
-      'array' => $treballs,
-      'arrayTreball' => $treballs
+      'array' => $treballs
       ));
+    }else{
+      $treballs= array();
+      $this->get('session')->getFlashBag()->add(
+          'notice',array(
+          'type' => 'danger',
+          'msg' => 'No s\'han trobat les teves dades de Treballador. Posat amb contacte amb algun administrador.'
+      ));
+      return $this->render('HotelBundleTascaBundle:Default:llistaTreballadorsTasca.html.twig', array(
+      'array' => $treballs
+      ));
+    }
   }
 
 
@@ -67,7 +69,6 @@ class TascaController extends Controller
       $estatTasca = $this->getDoctrine()->getRepository('HotelBundle:Estat')->findOneById(2);
     }
 
-  //  var_dump($estatTasca); exit();
   $dataInici =  new \DateTime('now');
   $treball->setDataInici($dataInici);
   $treball->setTreballador($treballador);
@@ -86,22 +87,37 @@ class TascaController extends Controller
 
   public function tasquesTreballadorAction(){
 
-  $usuari =  $this->container->get('security.token_storage')->getToken()->getUser();
-  $usuariId = $usuari->getId();
-  $treballador = $this->getDoctrine()->getRepository('HotelBundle:Treballador')->findOneByUsuari($usuariId);
-  $idTreballador = $treballador->getId();
-  $treball = $this->getDoctrine()->getRepository('HotelBundle:Treball')->findByTreballador($idTreballador);
-  $tascaArray = array();
-  foreach ($treball as  $value) {
-    $idTasca = $value->getTasca();
-    $tasca =  $this->getDoctrine()->getRepository('HotelBundle:Tasca')->findOneById($idTasca);
-    array_push($tascaArray, $tasca);
-  }
+  $em = $this->getDoctrine()->getManager();
+  $treb = $em->getRepository('HotelBundle:Treballador');
+  $treballador = $treb->retornaTreballador($this->container);
 
-  return $this->render('HotelBundleTascaBundle:Default:llistaTascaTreballador.html.twig', array(
-    'arrayTasca' => $tascaArray,
-    'arrayTreball' => $treball
-    ));
+  if($treballador != null){
+      $idTreballador = $treballador->getId();
+      $treball = $this->getDoctrine()->getRepository('HotelBundle:Treball')->findByTreballador($idTreballador);
+      $tascaArray = array();
+      foreach ($treball as  $value) {
+        $idTasca = $value->getTasca();
+        $tasca =  $this->getDoctrine()->getRepository('HotelBundle:Tasca')->findOneById($idTasca);
+        array_push($tascaArray, $tasca);
+      }
+
+    return $this->render('HotelBundleTascaBundle:Default:llistaTascaTreballador.html.twig', array(
+      'arrayTasca' => $tascaArray,
+      'arrayTreball' => $treball
+      ));
+  }else{
+    $tascaArray = array();
+    $treball = array();
+        $this->get('session')->getFlashBag()->add(
+          'notice',array(
+          'type' => 'danger',
+          'msg' => 'No s\'han trobat les teves dades de Treballador. Posat amb contacte amb algun administrador.'
+      ));
+       return $this->render('HotelBundleTascaBundle:Default:llistaTascaTreballador.html.twig', array(
+      'arrayTasca' => $tascaArray,
+      'arrayTreball' => $treball
+      ));
+    }
   }
 
   public function finalitzarTascaAction($idTasca){

@@ -18,6 +18,10 @@ hotel_bundle_reserva:
     resource: "@HotelBundleReservaBundle/Resources/config/routing.yml"
     prefix:   /reserva
 
+hotel_bundle_treballador_reserva:
+    resource: "@HotelBundleReservaBundle/Resources/config/treballadorRouting.yml"
+    prefix:   /backend/reserva
+
 hotel_bundle_admin_reserva:
     resource: "@HotelBundleReservaBundle/Resources/config/adminRouting.yml"
     prefix:   /backend/admin/reserva

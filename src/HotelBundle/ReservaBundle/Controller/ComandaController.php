@@ -54,12 +54,23 @@ namespace HotelBundle\ReservaBundle\Controller;
     $em = $this->getDoctrine()->getManager();
     $clientRepository = $em->getRepository('HotelBundle:Client');
     $client = $clientRepository->retornaClient($this->container);
-    $comandes = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findBy(array('client' => $client->getId()));
+    if ($client != null){
+      $comandes = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findBy(array('client' => $client->getId()));
 
-    return $this->render('HotelBundleReservaBundle:Default:veureComandes.html.twig', array(
-      'arrayComanda' => $comandes
-      ));
-
+      return $this->render('HotelBundleReservaBundle:Default:veureComandes.html.twig', array(
+        'arrayComanda' => $comandes
+        ));
+    }else{
+      $comandes = array();
+        $this->get('session')->getFlashBag()->add(
+          'notice',array(
+            'type' => 'warning',
+            'msg' => 'Encara no tens cap reserva al teu nom!'
+            ));
+      return $this->render('HotelBundleReservaBundle:Default:veureComandes.html.twig', array(
+        'arrayComanda' => $comandes
+        ));
+    }
   }
 
   public function veureReservaAction($id,Request $request){

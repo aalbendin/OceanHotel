@@ -1,0 +1,20 @@
+#Treballador
+hotel_bundle_treballador_reserva_veureLlistaReservas:
+    path:     /llista
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:veureLlistaReservas }
+
+hotel_bundle_treballador_reserva_buscaComanda:
+    path:     /buscarReserva/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:buscarReserva }
+
+hotel_bundle_treballador_reserva_donarBaixaComanda:
+    path:     /donarBaixaComanda/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:donarBaixaComanda }
+
+hotel_bundle_treballador_reserva_editarClientByComanda:
+    path:     /editarClient/{idComanda}/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:editarClient }
+
+hotel_bundle_treballador_reserva_eliminarLineaComanda:
+    path:     /eliminarLinea/{idComanda}/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:eliminarLineaAdmin }
