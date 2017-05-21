@@ -3,16 +3,71 @@
 namespace HotelBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
-    {
-        return $this->render('HotelBundle:Default:index.html.twig');
+    public function indexAction(){
+        $habitacions = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findAll();
+        return $this->render('HotelBundle:Default:index.html.twig', array(
+                    'habitacions' => $habitacions
+        ));
     }
 
-    public function backendAction()
-    {
-        return $this->render('HotelBundle:Default:backend.html.twig');
+    public function backendAction() {
+        $habitacions = $this->getDoctrine()->getRepository('HotelBundle:Habitacio')->findAll();
+        $habitacions = count($habitacions);
+        $reserves = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findAll();
+        $reserves = count($reserves);
+        $client = $this->getDoctrine()->getRepository('HotelBundle:Client')->findAll();
+        $client = count($client);
+        return $this->render('HotelBundle:Default:backend.html.twig', array(
+                    'numHabitacions' => $habitacions,
+                    'numReserves' => $reserves,
+                    'numClient' => $client
+        ));
+    }
+
+    public function nosaltresAction(){
+
+        return $this->render('HotelBundle:Public:nosaltres.html.twig');
+    }
+
+    public function serveisAction(){
+
+        return $this->render('HotelBundle:Public:serveis.html.twig');
+    }
+
+    public function contacteAction(Request $request) {
+        $defaultData = array('message' => 'formulari de contacte');
+        $form = $this->createFormBuilder($defaultData)
+                ->add('Nom', TextType::class, array(
+                    'label' => 'Nom:',
+                    'attr' => array('class' => 'form-control'),
+                    'constraints' => new Length(array('min' => 6)),))//validació
+                ->add('Email', EmailType::class, array(
+                    'label' => 'Email:',
+                    'attr' => array('class' => 'form-control'),
+                    'label_attr' => ['class' => 'mt'],
+                ))
+                ->add('Missatge', TextareaType::class, array(
+                    'label' => 'Missatge:',
+                    'label_attr' => ['class' => 'mt'],
+                    'attr' => array('style' => 'height: 100px','class' => 'form-control')))
+                ->add('Enviar', SubmitType::class, array('attr' => array(
+                        'class' => 'btn btn-lg btn-primary mt btn-contact')))
+                ->getForm();
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $data = $form->getData();
+        }
+        return $this->render('HotelBundle:Public:contacte.html.twig', array(
+                    'form' => $form->createView()
+        ));
     }
 }

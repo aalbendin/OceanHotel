@@ -1,0 +1,416 @@
+{% extends "HotelBundle:Default:index.html.twig" %}
+
+{% block title %}Habitacions{% endblock %}
+
+{% block page_content %} 
+	
+		<div id="contingut">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						{% for flashMessage in app.session.flashbag.get('notice') %}
+							<div class="alert alert-{{ flashMessage.type }}">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="text-center">{{ flashMessage.msg }}</h4>
+							</div>
+						{% endfor %}	
+						<!--BARRA DE BUSQUEDA Y TITULO -->
+						<div class="row">
+							<div class="col-md-12">
+								<h1 class="text-center">Habitacions disponibles</h1>
+							</div>
+							<div class="col-xs-12 mt">								
+								<div class="col-md-3">
+									<div class="form-group">
+										<div class="input-group">
+											<div class="input-group-addon"><span class="glyphicon glyphicon-calendar"/></div>
+                                            {% if comanda == null %}
+											<input class="js-datepicker form-control" id="from" placeholder="Desde"  >
+                                            {% else %}
+                                            <input class="js-datepicker form-control" id="from" placeholder="Desde" value="{{ comanda.dataEntrada|date('d/m/Y') }}" disabled>
+                                            {% endif %}
+											
+										</div>
+										<span id="errorDesde" class="error"></span>
+									</div>
+								</div>							
+								<div class="col-md-3">
+									<div class="form-group">
+										<div class="input-group">
+											<div class="input-group-addon"><span class="glyphicon glyphicon-calendar"/></div>
+                                            {% if comanda == null %}
+											<input class="js-datepicker form-control" id="to" placeholder="Hasta">
+                                            {% else %}
+                                            <input class="js-datepicker form-control" id="to" placeholder="Hasta" value="{{ comanda.dataSortida|date('d/m/Y') }}" disabled>
+                                            {% endif %}
+
+										</div>
+										<span id="errorHasta" class="error"></span>
+									</div>
+								</div>
+							<div class="col-md-2">
+								<a class="btn btn-warning" style="display:none;" id="modDates"> Modificar Dates</a>
+							</div>
+							<div class="col-md-3">							
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon"><span class="fa fa-search"/></div>
+										<input class="form-control" id="searchHabitacions" placeholder="Buscar">
+									</div>
+								</div>
+							</div>							
+						</div>
+					</div>
+				</div>
+
+
+						<!--HABITACIONES -->
+						<div class="row" id="habitacions">									
+							{% for habitacio in array %}
+										<div class="col-sm-6 col-md-4">
+										    <div class="thumbnail">
+										      <img src="{{habitacio.tipusHabitacio.getImatge()}}">
+										      <div class="caption">
+										        <div class="row">
+													<div id="nomMiniHabitacio" class="col-xs-8">
+																<h3>{{habitacio.tipusHabitacio.getDescripcio()}}</h3>
+													</div>
+													<div id="preuMiniHabitacio" class="col-xs-4 ">
+																 <h3>{{habitacio.preu}} €</h3>
+													</div>
+												</div>
+												<div class="row">
+													<form action="{{ path('hotel_bundle_reserva_afegirLiniaComanda')}}" method="post">
+														<div id="nomMiniHabitacio" class="col-xs-8">
+															<h4>Modalitat:</h4>
+															<select class="form-control" name="modalitat">
+															{% for modalitat in arrayModalitat %}
+																<option value="{{modalitat.id}}">{{modalitat.descripcio}}</option>
+															{% endfor %}
+															</select>
+														</div>
+														<div id="nomMiniHabitacio" class="col-xs-4">
+															<h4>Places: {{habitacio.places}}</h4>
+														</div>
+														<input hidden type="text" name="id" value="{{habitacio.id}}"/>
+                                                        <input hidden type="text" name="dataInici" value=""/>
+                                                        <input hidden type="text" name="dataFi" value=""/>
+														<div id="preuMiniHabitacio" class="col-xs-4 ">
+															<input type="submit" class="btnReservar btn btn-primary" value="Reservar" disabled>
+														</div>
+												</form>
+											    </div>
+										      </div>
+										  	</div>
+  										</div>
+							{% endfor %} 	
+						</div>
+					</div>
+				</div>
+			</div>	
+
+	<!--<script src="{{ asset('public/js/search.js') }}"></script>-->
+
+	<script>
+	
+	 /*#AITOR FUNCION PARA SABER LOS DIAS DE DIFERENCIA
+            var desdeDate =  new Date(desde.split('/')[1]+"/"+desde.split('/')[0] +"/"+ desde.split('/')[2]);
+            var hastaDate =  new Date(hasta.split('/')[1]+""+hasta.split('/')[0] +""+ hasta.split('/')[2]);
+            var timeDiff = Math.abs(hastaDate.getTime() - desdeDate.getTime());
+            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); */
+
+
+var peticion = null;
+var elementoSeleccionado = -1;
+var sugerencias = null;
+var cacheSugerencias = {};
+
+var habs = [];
+var mods = [];
+var html = "";
+var btnsReservar = [];
+var datesValides = false;
+var datesValides2 = false;
+
+window.onload = function () {
+
+    $("#searchHabitacions").keyup(autocompleta);
+    
+    $("#to").change(comprovaDates);
+    $("#from").change(comprovaDataInici);
+    //$("#searchHabitacions").focus();
+    $("#modDates").click(habilitarFecha)
+    compruebaBtnModificarFecha();
+    autocompleta();
+
+
+}
+
+function habilitarFecha(){
+    var r = confirm("Si modifiques les dates s'esborraran totes les reserves del carret, n'estas segur?");
+    if (r == true) {
+        eliminarCarret();
+        $("#to").val("");
+        $("#to").prop("disabled", false);
+        $("#from").val("");
+        $("#from").prop("disabled", false);
+        datesValides = false;
+        datesValides2 = false;
+        autocompleta();
+
+    }
+}
+
+function eliminarCarret(){
+
+    $.ajax({
+        method: "POST",
+        url: "{{ url('hotel_bundle_reserva_eliminarCarret') }}",
+        dataType: 'json',
+        success: function(data)
+        {
+            if(data.hasOwnProperty("response") && data.response === "success")
+            {
+                $("#countCarret").html("0");
+                $("#modDates").css("display", "none");   
+                autocompleta();             
+
+            }else{
+                alert("Error eliminant reserves.")
+            }
+        },
+        error: function(jqXHR, exception)
+        {
+            if(jqXHR.status === 405)
+            {
+                console.error("METHOD NOT ALLOWED!");
+            }
+        }
+    });
+
+}
+
+
+function compruebaBtnModificarFecha(){
+
+    if($("#to").prop("disabled") == true && $("#from").prop("disabled") == true){
+        $("#modDates").css("display", "block");
+        datesValides = true;
+    }else{
+        $("#modDates").css("display", "none");
+    }
+
+}
+
+function comprovaDisponibilitat(){
+
+}
+
+function inicializa_xhr() {
+    if (window.XMLHttpRequest) {
+        return new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        return new ActiveXObject("Microsoft.XMLHTTP");
+    }
+}
+
+function comprovaDates(){
+    var desde = $("#from").val();
+    var hasta = $("#to").val();
+    var desdeDate =  desde.split('/')[1]+""+desde.split('/')[0] +""+ desde.split('/')[2];
+    var hastaDate =  hasta.split('/')[1]+""+hasta.split('/')[0] +""+ hasta.split('/')[2];
+    var dif =  parseInt(hastaDate)-parseInt(desdeDate);
+
+    var res = "";
+
+    if(desde.length>0){
+        if(hasta.length>0){
+               
+            if(dif>0){
+                $("#errorHasta").html("");
+                $("#errorDesde").html("");
+                datesValides = true;
+
+                autocompleta();
+            }else{
+                $("#errorHasta").html("La data d'arribada ha de ser anterior a la data de sortida");
+                datesValides = false;
+            }
+
+        }else{
+            $("#errorDesde").html("");
+            //$("#errorHasta").html("Has d'introduir la data de final de reserva."); //alert("");
+            datesValides = false;
+        }
+    }else{
+        $("#errorHasta").html("");
+        $("#errorDesde").html("Has d'introduir la data d'inici de reserva.");
+        datesValides = false;
+    }
+}
+
+function comprovaDataInici(){
+    if($("#from").val().length>0){
+        $("#errorDesde").html("");
+         comprovaDates();
+    }else{
+        $("#errorHasta").html("");
+        $("#errorDesde").html("Has d'introduir la data d'inici de reserva.");
+    }
+}
+
+function processaDadesHab(){
+
+    var dataFrom = $("#from").val();
+    var dataTo = $("#to").val();
+    var dateFrom =  dataFrom.split('/')[2]+"-"+dataFrom.split('/')[1] +"-"+ dataFrom.split('/')[0];
+    var dateTo =  dataTo.split('/')[2]+"-"+dataTo.split('/')[1] +"-"+ dataTo.split('/')[0];
+                                
+                                var habsFil = [];
+                                html = "";
+
+                              if(habs.length > 0)
+                              {
+                                    //alert("Pepe");
+                                    //alert(habs);
+
+                                    for(h in habs)
+                                    {
+                                        if(habs[h].tipusHabitacio.descripcio.toLowerCase().includes($("#searchHabitacions").val().trim())){
+
+                                            habsFil.push(habs[h]);
+
+                                        }
+                                    }
+
+                                    if(habsFil.length > 0)
+                                    {
+
+                                        for(d in habsFil)
+                                        {
+                                         html += '<div class="col-sm-6 col-md-4"><div class="thumbnail">';
+                                         html += '<img src="'+habsFil[d].tipusHabitacio.imatge+'">';
+                                         html += '<div class="caption"><div class="row"><div id="nomMiniHabitacio" class="col-xs-8">';
+                                         html += '<h3>'+habsFil[d].tipusHabitacio.descripcio+'</h3>';
+                                         html += '</div><div id="preuMiniHabitacio" class="col-xs-4 ">';
+                                         html += '<h3>'+habsFil[d].preu+' €</h3>';
+                                         html += '</div></div><div class="row">';
+                                         html += "<form action='{{ path('hotel_bundle_reserva_afegirLiniaComanda')}}' method='post'>";
+                                         html += '<div id="nomMiniHabitacio" class="col-xs-8"><h4>Modalitat:</h4><select class="form-control" name="modalitat">';
+                                         if(mods.length > 0)
+                                         {
+                                           for(e in mods)
+                                           {
+                                            html += '<option value="'+mods[e].id+'">'+mods[e].descripcio+'</option>';
+                                        }   
+                                    }
+
+                                    html += '</select>                                                      </div>                                                      <div id="nomMiniHabitacio" class="col-xs-4">';
+                                    html += '<h4>Places: '+habsFil[d].places+'</h4>';
+                                    html += '</div>';
+                                    html += '<input hidden type="text" name="id" value="'+habsFil[d].id+'"/>';
+
+                                    html += '<input hidden type="text" name="dataInici" value="'+dateFrom+'"/>';
+                                    html += '<input hidden type="text" name="dataFi" value="'+dateTo+'"/>';
+                                    if(datesValides2){
+                                    html += '<div id="preuMiniHabitacio" class="col-xs-4 "><input type="submit" class="btn btn-primary" value="Reservar"></div> </form></div></div></div></div>';
+                                    }else{
+                                    html += '<div id="preuMiniHabitacio" class="col-xs-4 "><input type="submit" class="btn btn-primary" value="Reservar" disabled></div> </form></div></div></div></div>';   
+                                    }
+                                }
+                                ;
+                            }
+                            if(html.length > 0){
+                                $("#habitacions").html(html);
+                            }else{
+                                $("#habitacions").html('<div class="row"><div class="col-lg-12"><div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button><h4 class="text-center">No s\'ha trobat cap resultat</h4></div> </div></div>');
+                            }
+                        }
+}
+
+function autocompleta() {
+	var elEvento = arguments[0] || window.event;
+	var tecla = elEvento.keyCode;
+
+    var desde2 = $("#from").val();
+    var hasta2 = $("#to").val();
+    var desdeDate2 =  desde2.split('/')[2]+"-"+desde2.split('/')[1] +"-"+ desde2.split('/')[0];
+    var hastaDate2 =  hasta2.split('/')[2]+"-"+hasta2.split('/')[1] +"-"+ hasta2.split('/')[0];
+
+    if (!(tecla == 40 || tecla == 39 || tecla == 38 || tecla == 37 || tecla == 13)) { //flechas arriba y abajo y enter
+
+        if($("#searchHabitacions").val().trim().length == 1 || $("#searchHabitacions").val().length == 0 || datesValides){
+            $.ajax({
+                method: "POST",
+                url: "{{ url('hotel_bundle_reserva_cercaHabitacions') }}",
+                data: {dataInici : desdeDate2, dataFi : hastaDate2 },
+                dataType: 'json',
+                success: function(data)
+                {
+                    if(data.hasOwnProperty("response") && data.response === "success")
+                    {
+                        
+                        var html = "";
+                        if(data.hasOwnProperty("habitacions"))
+                        {
+                            //http://stackoverflow.com/questions/3710204/how-to-check-if-a-string-is-a-valid-json-string-in-javascript-without-using-try/3710226
+                            if (/^[\],:{}\s]*$/.test(data.habitacions.replace(/\\["\\\/bfnrtu]/g, '@').
+                                replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+                                replace(/(?:^|:|,)(?:\s*\[)+/g, '')))
+                            {
+                                habs = JSON.parse(data.habitacions);
+
+                                if(data.hasOwnProperty("modalitat"))
+                                {
+                                  mods = JSON.parse(data.modalitat);
+                                }
+
+                                if(datesValides){
+                                datesValides2 = true;
+                                }
+
+                                processaDadesHab();
+                             
+                    }
+                    else
+                    {
+                        console.log("INVALID JSON STRING");
+                    }
+                }
+                else
+                {
+                    console.log("HABITACIONS NOT FOUND");
+                }
+            }
+        },
+        error: function(jqXHR, exception)
+        {
+            if(jqXHR.status === 405)
+            {
+                console.error("METHOD NOT ALLOWED!");
+            }
+        }
+    });
+}else{
+    processaDadesHab();
+}
+}
+
+}
+
+
+function sinResultados() {
+    document.getElementById("sugerencias").innerHTML = "No s'han trobat habitacions";
+    document.getElementById("sugerencias").style.display = "block";
+}
+
+
+</script>
+
+	{% endblock %}
+
+
+
+
+
+

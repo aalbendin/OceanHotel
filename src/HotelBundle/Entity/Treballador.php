@@ -50,9 +50,8 @@ class Treballador
     private $nif;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="usuari", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="Treballador")
+     * @ORM\JoinColumn(name="usuariId", referencedColumnName="id")
      */
     private $usuari;
 
@@ -61,6 +60,7 @@ class Treballador
      * @ORM\JoinColumn(name="tipusTreballadorId", referencedColumnName="id")
      */
     protected $tipusTreballador;
+
 
 
     /**
@@ -172,11 +172,11 @@ class Treballador
     /**
      * Set usuari
      *
-     * @param integer $usuari
+     * @param \HotelBundle\Entity\User $usuari
      *
      * @return Treballador
      */
-    public function setUsuari($usuari)
+    public function setUsuari(\HotelBundle\Entity\User $usuari = null)
     {
         $this->usuari = $usuari;
     
@@ -186,7 +186,7 @@ class Treballador
     /**
      * Get usuari
      *
-     * @return integer
+     * @return \HotelBundle\Entity\User
      */
     public function getUsuari()
     {

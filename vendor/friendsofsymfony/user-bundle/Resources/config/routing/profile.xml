@@ -8,8 +8,13 @@
         <default key="_controller">FOSUserBundle:Profile:show</default>
     </route>
 
-    <route id="fos_user_profile_edit" path="/edit" methods="GET POST">
-        <default key="_controller">FOSUserBundle:Profile:edit</default>
+    <route id="fos_user_profile_edit" path="/edit/{id}" methods="GET POST">
+        <default key="_controller">FOSUserBundle:Profile:editUser</default>
+        <default key="id">1</default>
+    </route>
+
+    <route id="fos_user_profile_adminedit" path="/adminedit" methods="GET POST">
+        <default key="_controller">FOSUserBundle:Profile:administrarUser</default>
     </route>
 
 </routes>

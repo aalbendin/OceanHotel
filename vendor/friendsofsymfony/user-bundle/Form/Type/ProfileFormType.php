@@ -19,6 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ProfileFormType extends AbstractType
 {
@@ -52,22 +53,25 @@ class ProfileFormType extends AbstractType
 
         $builder->add('current_password', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'), array(
             'label' => 'Contrasenya',
+            'attr' => ['class' => 'form-control'],
             'translation_domain' => 'FOSUserBundle',
             'mapped' => false,
             'constraints' => new UserPassword($constraintsOptions),
         ));
         
 
-        $this->addRolesToFormForm($builder);
+       /* $this->addRolesToForm($builder);*/
         
     }
 
     /**
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function addRolesToFormForm(FormBuilderInterface $builder){
+    public function addRolesToForm(FormBuilderInterface $builder){
 
-        return $builder->add('roles', ChoiceType::class, array('label' => 'Rol', 'required' => true, 'choices' => array( "Administrador" => 'ROLE_ADMIN', "Usuari" => 'ROLE_USER'), 'multiple' => true));
+        return $builder->add('roles', ChoiceType::class, array('label' => 'Rol', 
+            'attr' => ['class' => 'selectRol'],
+            'required' => true, 'choices' => array("Treballador" => 'ROLE_TREBALLADOR', "Administrador" => 'ROLE_ADMIN', "Usuari" => 'ROLE_USER'), 'multiple' => true));
     }
 
     /**
@@ -109,8 +113,9 @@ class ProfileFormType extends AbstractType
     protected function buildUserForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
-            ->add('email', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
+            ->add('username', null, array('label' => 'form.username', 
+                 'attr' => ['class' => 'form-control'],'translation_domain' => 'FOSUserBundle'))
+            ->add('email', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), array('label' => 'form.email', 'attr' => ['class' => 'form-control'],'translation_domain' => 'FOSUserBundle'))
         ;
     }
 }

@@ -12,3 +12,5 @@
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /web/bundles/
+
+src/HotelBundle/Entity/Comanda\.php

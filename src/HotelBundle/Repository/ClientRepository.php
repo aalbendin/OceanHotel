@@ -2,6 +2,7 @@
 
 namespace HotelBundle\Repository;
 
+use HotelBundle\Entity\Client;
 /**
  * ClientRepository
  *
@@ -10,4 +11,20 @@ namespace HotelBundle\Repository;
  */
 class ClientRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function retornaClient($container){
+	    $usuari =  $container->get('security.token_storage')->getToken()->getUser();
+
+	    $client = new Client();
+
+	    if($usuari == "anon."){
+	      $client->setNom(null);
+	    }else{
+	      $em = $this->getEntityManager();
+	      $client = $em->getRepository('HotelBundle:Client')->findOneByUser($usuari->getId());
+	    }
+
+	    return $client;
+ 	} 	
+
 }

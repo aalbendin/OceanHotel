@@ -1,3 +1,55 @@
 hotel_bundle_reserva_homepage:
     path:     /
-    defaults: { _controller: HotelBundleReservaBundle:Default:index }
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:index }
+
+hotel_bundle_reserva_comanda:
+    path:     /veureComanda
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:index }
+
+hotel_bundle_reserva_acabarReserva:
+    path:     /completarReserva
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:completarReserva }
+
+hotel_bundle_reserva_completarCliente:
+    path:     /fichaCliente
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:fichaCliente }
+
+hotel_bundle_reserva_llistaHabitacionsFrontend:
+    path:     /habitacions
+    defaults: { _controller: HotelBundleReservaBundle:LlistaHabitacions:index }
+
+
+hotel_bundle_reserva_afegirLiniaComanda:
+    path:     /afegirLinia/
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:afegirLinia }
+
+hotel_bundle_reserva_eliminarLineaComanda:
+    path:     /eliminarLinia/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:eliminarLinia }
+
+
+
+hotel_bundle_reserva_homepage_reservas:
+    path:     /reservas
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:indexReservas }
+
+hotel_bundle_reserva_veureReserva:
+    path:     /reservas/{id}
+    defaults: { _controller: HotelBundleReservaBundle:Comanda:veureReserva }
+
+hotel_bundle_reserva_cercaHabitacions:
+    path:     /habitacions/buscar
+    defaults: { _controller: HotelBundleReservaBundle:CercaHabitacions:habitacions }
+
+hotel_bundle_reserva_eliminarCarret:
+    path:     /eliminarCarret
+    defaults: { _controller: HotelBundleReservaBundle:CercaHabitacions:eliminarCarret }
+
+
+
+
+
+
+
+
+    

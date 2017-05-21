@@ -1,0 +1,356 @@
+body {
+    overflow-x: hidden;
+ }
+
+.navbar {
+    margin-bottom: 0px !important;
+    border-radius: 0px !important;  
+}
+
+.btn-logout{
+    margin-top: 15px !important;
+    margin-right: 30px !important;
+}
+
+.dropdown-menu{
+    z-index: 1000;
+}
+
+a:hover{
+    color: #FFAF00 !important;
+}
+
+.mt{
+    margin-top: 20px;
+}
+
+.fa:a:hover{
+  color: #fff !important;
+} 
+
+/* ============ SideBar ===========*/
+
+#contenedor {    
+    margin-top: 80px;
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#contenedor.toggled {
+    padding-left: 250px;
+}
+
+
+#sidebar-contenedor {
+    z-index: 1000;
+    position: fixed;
+    top: 60px;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #182633;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#contenedor.toggled #sidebar-contenedor {
+    width: 250px;
+}
+
+#contingut {
+    width: 100%;
+    height: 750px !important;
+    position: relative;
+    padding: 15px;
+}
+
+#contenedor.toggled #contingut {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Estil */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;    
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li > ul > li > a{
+    padding-left: 20% !important;
+padding-top: 0 !important;
+padding-bottom: 0 !important;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #FFAF00;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 150px;
+    font-size: 18px;
+    line-height: 60px;
+    margin-left: 40px;
+    margin-top: 20px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    margin-left: 20px;
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #FFAF00;
+    background: none;
+}
+
+/*Form */
+
+.content-backend{
+    margin-bottom: 30px !important;
+    height: 100%;
+}
+
+textarea:focus,textarea.form-control:focus, input.form-control:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="number"]:focus, .form-control[type="text"]:focus, .form-control[type="password"]:focus, .form-control[type="email"]:focus, .form-control[type="tel"]:focus, .form-control[contenteditable]:focus{
+
+ transition: box-shadow .35s ease-in-out;
+}
+textarea:focus, textarea.form-control:focus, input.form-control:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="number"]:focus, .form-control[type="text"]:focus, .form-control[type="password"]:focus, .form-control[type="email"]:focus, .form-control[type="tel"]:focus, .form-control[contenteditable]:focus{
+    box-shadow: inset 0 -2px 0  #FE9F07 !important;
+    -webkit-box-shadow: inset 0 -2px 0  #FE9F07 !important;    
+}
+
+label.required{
+    width: 50% !important;
+    font-weight: bolder;
+    font-size: 16px ;
+    padding: 10px !important;
+}
+
+.selectRol{
+    width: 80%;
+}
+
+input,select, textarea {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px !important;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #2c3e50 !important;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn-warning {
+    color: #fff !important;
+}
+
+.btn-warning:hover {
+    color: #fff !important;
+}
+
+.btn-afegir{
+    margin: 20px;
+}
+
+.text-blanc{
+    color: #fff !important;
+}
+
+/* FOOTER*/
+footer{
+   position:fixed;
+   z-index: 4;
+   left:0px;
+   bottom:0px;
+   height:50px;
+   width:100%;
+   padding: 20px;
+   margin-top: 60px;
+   background-color: #182633;
+   color:#fff;
+   line-height: 50%;
+}
+
+.go-top{
+    float: left;
+    font-size: 30px;
+}
+/* DATA TABLE */
+
+.dataTables_wrapper{
+    margin-bottom: 30px !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    border: none !important;
+    padding: 0 0 !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    border: none !important;
+    background-color: none !important;
+    background: none !important;
+}
+
+.pagination>li>a, .pagination>li>span{
+    color: #000 !important;
+}
+
+.pagination>.active>a, .pagination>.active>span, .pagination>.active>a:hover, .pagination>.active>span:hover, .pagination>.active>a:focus, .pagination>.active>span:focus{
+        background-color: #FFAF00;
+}
+/* Dashboard*/
+.box1 {
+    padding: 15px;
+    text-align: center;
+    color: #fff;
+    border-bottom: 1px solid #989898;
+}
+.box1:hover {
+    color: #888;
+}
+.box1 span {
+    font-size: 50px;
+}
+
+.box1 h3 {
+    text-align: center;
+}
+
+.box0 h5 {
+    text-align: center;
+}
+.box0:hover{
+    border-bottom: 1px solid #ffffff;
+    background: #ffffff;
+    color: #888;
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.box0 p {
+    text-align: center;
+    font-size: 15px;
+    color: #FE9F07;
+}
+
+.ds {
+    background: #ffffff;
+    padding-top: 60px;
+}
+
+
+.ds h3 {
+    color: #ffffff;
+    font-size: 16px;
+    padding: 0 10px;
+    line-height: 60px;
+    height: 60px;
+    margin: 0;
+    background: #FE9F07;
+    text-align: center;
+}
+
+.ds i {
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.ds .desc {
+    border-bottom: 1px solid #eaeaea;
+    display: inline-block;
+    padding: 15px 0;
+    width: 100%;
+}
+
+.ds .desc:hover {
+    background: #f2f2f2;
+}
+
+.ds .thumb {
+    width: 30px;
+    margin: 0 10px 0 20px;
+    display: block;
+    float: left;
+}
+
+.ds .details {
+    width: 100%;
+    float: left;
+}
+
+.ds > .desc p {
+    font-size: 15px;
+}
+
+.ds p > muted {
+    font-size: 9px;
+    text-transform: uppercase;
+    font-style: italic;
+    color: #666666
+}
+
+.ds a {
+    color: #68dff0;
+}
+
+@media(min-width:768px) {
+    #contenedor {
+        padding-left: 0;
+    }
+
+    #contenedor.toggled {
+        padding-left: 250px;
+        display: block;
+    }
+
+    #sidebar-contenedor {
+        width: 0;        
+    }
+
+    #contenedor.toggled #sidebar-contenedor {
+        width: 250px;
+    }
+
+    #contingut {
+        padding: 20px;
+        position: relative;
+    }
+
+    #contenedor.toggled #contingut {
+        position: relative;
+        margin-right: 0;
+        z-index: 4;
+    }
+}

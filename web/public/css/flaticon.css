@@ -1,0 +1,45 @@
+	/*
+  	Flaticon icon font: Flaticon
+  	Creation date: 20/05/2017 20:12
+  	*/
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+        font-size: 20px;
+font-style: normal;
+margin-left: 20px;
+}
+
+.flaticon-holidays-1:before { content: "\f100"; }
+.flaticon-transport:before { content: "\f101"; }
+.flaticon-hotel:before { content: "\f102"; }
+.flaticon-restaurant-1:before { content: "\f103"; }
+.flaticon-arrows:before { content: "\f104"; }
+.flaticon-holidays:before { content: "\f105"; }
+.flaticon-sign:before { content: "\f106"; }
+.flaticon-washing:before { content: "\f107"; }
+.flaticon-restaurant:before { content: "\f108"; }
+.flaticon-dog:before { content: "\f109"; }
+.flaticon-weather:before { content: "\f10a"; }
+.flaticon-travel:before { content: "\f10b"; }
+.flaticon-location:before { content: "\f10c"; }
+.flaticon-computer:before { content: "\f10d"; }

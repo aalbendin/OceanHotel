@@ -1,0 +1,23 @@
+
+{% extends "HotelBundle:Default:backend.html.twig" %}
+{% block title %}{{ titol }}{% endblock %}
+{% block content %}
+        <div class="col-lg-12">
+            <div class="content-backend">
+                <div class="col-lg-11">
+                    <h2 class="text-center">{{ titol }}</h2>
+                    {% for flashMessage in app.session.flashbag.get('notice') %}
+                            <div class="alert alert-{{ flashMessage.type }}">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="text-center">{{ flashMessage.msg }}</h4>
+                            </div>
+                        {% endfor %}
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-lg-push-4">
+                        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+                        {{ form_widget(form)}}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

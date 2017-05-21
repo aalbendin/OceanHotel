@@ -1,0 +1,123 @@
+/* ======= Login ========== */
+.body-login{
+    min-width: 100%;
+    height:300px !important;
+    background-image: url("../img/bg-login.jpeg");
+    background-size: cover;    
+    background-position: 200% 0%;
+
+}
+
+.head-login{
+    padding: 10px; 
+}
+
+.head-login h1{
+     font-size: 25px !important;
+     text-align: center;
+}
+
+.btn-head-login{
+    color: #2c3e50 !important;
+    transition: box-shadow .4s ease-in-out;
+}
+
+.btn-head-login:hover{
+     box-shadow: inset 0 -2px 0  #FE9F07 !important;
+    -webkit-box-shadow: inset 0 -2px 0  #FE9F07 !important;    
+}
+
+.container-login{
+    background-color: rgba(255, 255, 255, 0.6);
+    height: 450px;
+    margin-bottom: 60px;
+    -webkit-box-shadow: 4px 6px 3px 1px rgba(0,0,0,0.22);
+-moz-box-shadow: 4px 6px 3px 1px rgba(0,0,0,0.22);
+box-shadow: 4px 6px 3px 1px rgba(0,0,0,0.22);
+}
+
+
+.form-login{
+    font-size: 17px;
+    padding:30px;
+}
+
+.img-logo {
+    margin-left:70px;
+    margin-top:50px;
+    width:200px !important;
+}
+
+.login-arrow {
+    position:absolute;   
+}
+
+.btn-login{
+   background-color: transparent;
+   color: #2c3e50 !important;
+   border:1px solid #ccc !important;
+   font-weight: bold;
+}
+
+.btn-login:hover{
+    background-color: #FFBF33 !important;
+    color: #fff !important;
+    border:none !important;
+}
+
+label{
+    width: 100% !important;
+    text-align: left !important;
+    font-weight: bolder;
+    font-size: 16px ;
+    padding: 10px !important;
+}
+
+label[for="remember_me"]{
+    float: left;
+    width: 50% !important;
+}
+
+input[type="checkbox"]{
+    width: 10% !important;
+    float: left;
+}
+
+input{
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px !important;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #2c3e50 !important;
+    background-color: transparent;
+    background-image: none;
+    border-bottom: 1px solid #2c3e50 !important;
+    border:none;
+}
+
+textarea:focus, textarea.form-control:focus, input.form-control:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="number"]:focus, .form-control[type="text"]:focus, .form-control[type="password"]:focus, .form-control[type="email"]:focus, .form-control[type="tel"]:focus, .form-control[contenteditable]:focus{
+   transition: box-shadow .35s ease-in-out;
+   border:none !important;
+}
+textarea:focus, textarea.form-control:focus, input.form-control:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, input[type="number"]:focus, .form-control[type="text"]:focus, .form-control[type="password"]:focus, .form-control[type="email"]:focus, .form-control[type="tel"]:focus, .form-control[contenteditable]:focus{
+    box-shadow: inset 0 -2px 0  #FE9F07 !important;
+    -webkit-box-shadow: inset 0 -2px 0  #FE9F07 !important;    
+}
+
+.recuperar-pass {
+    display: inline-block;
+    margin-top: 30px !important;
+    color: #2c3e50 !important;
+}
+
+.recuperar-pass:hover{
+    color: #FE9F07 !important;
+}
+
+@media(max-width:400px) {
+    .img-logo {
+    margin-left:20px;
+    }
+}

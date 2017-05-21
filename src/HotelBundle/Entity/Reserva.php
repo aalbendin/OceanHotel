@@ -39,9 +39,6 @@ class Reserva
      */
     private $modalitat;
 
-
-    
-
     /**
      * Get id
      *
