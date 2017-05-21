@@ -24,7 +24,7 @@ hotel_bundle_treballador_reserva:
 
 hotel_bundle_admin_reserva:
     resource: "@HotelBundleReservaBundle/Resources/config/adminRouting.yml"
-    prefix:   /backend/admin/reserva
+    prefix:   /backend/reserva
     
 
 hotel:
