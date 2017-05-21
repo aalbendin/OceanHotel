@@ -422,43 +422,48 @@ public function editarClientAction($idComanda, $id, Request $request){
 }
 
 public function donarBaixaComandaAction($id,Request $request){
+  $em = $this->getDoctrine()->getManager();
   $comanda = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findOneById($id);
-  $preuFinal = 0;
+  
+  $com = $em->getRepository('HotelBundle:Comanda');
+  $total = $com->calcularPreu($request,$comanda);
+
   $lineasComanda = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findBy(array('comanda' => $comanda->getId()));
   $em = $this->getDoctrine()->getManager();
   foreach ($lineasComanda as $reserva) {
-    $preuModalitat = $reserva->getModalitat()->getPreu();
-    $preuFinal = $preuFinal + $reserva->getHabitacio()->getPreu() + $preuModalitat;
     $em->remove($reserva);
   }
   $em->remove($comanda);
   $em->flush();
 
-  $msg = "Reserva cancelada, es tornaran un total de: ".$preuFinal."€ al client";
+  $msg = "Reserva cancelada, es tornaran un total de: ".$total[2]."€ al client";
   $this->get('session')->getFlashBag()->add(
     'notice',array(
       'type' => 'success',
       'msg' => $msg
       ));
-  return $this->redirect($this->generateurl('hotel_bundle_admin_reserva_veureLlistaReservas'));
+  return $this->redirect($this->generateurl('hotel_bundle_treballador_reserva_veureLlistaReservas'));
 }
 
 public function eliminarLineaAdminAction($idComanda,$id,Request $request)
 {
+
   $lineaComanda = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findOneById($id);
   $reservas = $this->getDoctrine()->getRepository('HotelBundle:Reserva')->findBy(array('comanda' => $idComanda));
 
   if(count($reservas) == 1){
     return $this->donarBaixaComandaAction($idComanda, $request);
   } else{
-    $modalitatPreu = $lineaComanda->getModalitat()->getPreu();
-    $dinero= $lineaComanda->getHabitacio()->getPreu() + $modalitatPreu;
+    $comanda = $this->getDoctrine()->getRepository('HotelBundle:Comanda')->findOneById($idComanda);
+    $em = $this->getDoctrine()->getManager();
+    $com = $em->getRepository('HotelBundle:Comanda');
+    $total = $com->calcularPreuLinea($request,$comanda,$id);
 
     $em = $this->getDoctrine()->getManager();
     $em->remove($lineaComanda);
     $em->flush();
 
-    $msg = "Es tornaran un total de: ".$dinero."€ al client";
+    $msg = "Es tornaran un total de: ".$total."€ al client";
     $this->get('session')->getFlashBag()->add(
       'notice',array(
         'type' => 'success',
