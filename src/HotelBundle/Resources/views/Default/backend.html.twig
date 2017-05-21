@@ -95,14 +95,17 @@
 				<li><a href="#" id="btn-1" data-toggle="collapse" data-target="#submenu3" aria-expanded="false" {% if app.request.get('_route') == 'hotel_bundle_llistaHabitacions' %} class="active" {% endif %}><span class="fa fa-list-alt"></span> Tasques <i class="fa fa-caret-down" aria-hidden="true"></i>
 				</a>
 				<ul class="nav collapse" id="submenu3" role="menu" aria-labelledby="btn-1">
-					<li><a href="{{path('hotel_bundle_admintasca_homepage')}}" >Tasques</a></li>
-					<li><a href="{{path('hotel_bundle_tasca_homepage')}}">Tipus de Tasques</a></li>
-					<li><a href="{{path('hotel_bundle_treballadors_tasca_homepage')}}">Tasques Treballadors</a></li>
+					<li><a href="{{path('hotel_bundle_treballadors_tasca_homepage')}}">Tasques Pendents</a></li>
 					<li><a href="{{path('hotel_bundle_treballador_tasca_llista')}}">Les meves tasques</a></li>
+
+                        {% if is_granted('ROLE_ADMIN') %}
+					<li><a href="{{path('hotel_bundle_tasca_homepage')}}">Tipus de Tasques</a></li>
+					<li><a href="{{path('hotel_bundle_admintasca_homepage')}}" >Creació de Tasques</a></li>
+                        {% endif %}
 				</ul>
 			</li>																			
 			<li>
-				<a href="{{path('hotel_bundle_admin_reserva_veureLlistaReservas')}}"><span class="fa fa-ticket"></span>  Reserves</a>
+				<a href="{{path('hotel_bundle_treballador_reserva_veureLlistaReservas')}}"><span class="fa fa-ticket"></span>  Reserves</a>
 			</li>
 			<li>
 				<a href="{{path('hotel_bundle_admin_reserva_llistaClient')}}"><span class="fa fa-users"></span>  Clients</a>

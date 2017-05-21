@@ -27,8 +27,6 @@ hotel_bundle_reserva_eliminarLineaComanda:
     path:     /eliminarLinia/{id}
     defaults: { _controller: HotelBundleReservaBundle:Comanda:eliminarLinia }
 
-
-
 hotel_bundle_reserva_homepage_reservas:
     path:     /reservas
     defaults: { _controller: HotelBundleReservaBundle:Comanda:indexReservas }
@@ -44,6 +42,8 @@ hotel_bundle_reserva_cercaHabitacions:
 hotel_bundle_reserva_eliminarCarret:
     path:     /eliminarCarret
     defaults: { _controller: HotelBundleReservaBundle:CercaHabitacions:eliminarCarret }
+
+
 
 
 
