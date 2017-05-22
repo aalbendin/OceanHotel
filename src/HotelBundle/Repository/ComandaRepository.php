@@ -50,6 +50,31 @@ class ComandaRepository extends \Doctrine\ORM\EntityRepository
 
     return array($modalitat,$habitacions,$total);  
     }
+
+    public function calcularPreuLinea(Request $request, $comanda, $idLinea){
+        $session = $request->getSession();
+        $modalitat = 0;
+        $habitacions = 0;
+        $total = 0;
+
+        $datetime1 = $comanda->getDataEntrada();
+        $datetime2 = $comanda->getDataSortida();
+        $interval = $datetime1->diff($datetime2);
+        $interval = intval($interval->format('%d'));
+
+        $em = $this->getEntityManager();
+
+        $reserva =$em->getRepository('HotelBundle:Reserva')->findOneById($idLinea);
+        $modalitat =  $reserva->getModalitat()->getPreu() * $reserva->getHabitacio()->getPlaces();
+        $habitacions = $reserva->getHabitacio()->getPreu();
+             
+         
+        $modalitat = $modalitat * $interval;
+        $habitacions = $habitacions * $interval;
+        $total = ($modalitat+$habitacions);
+
+    return $total;  
+    }
 	
 
 }

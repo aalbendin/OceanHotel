@@ -1,93 +1,111 @@
   <!DOCTYPE html>
   <html lang="es">
-    <head>
-      {% block head %}
+  <head>
+    {% block head %}
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="description" content="hotel">
       <meta name="author" content="yaritza Aburdene">
-      <!--<link rel="icon" href="img/favicon.ico">-->
+      <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
 
-      <title>Hotel</title>
+      <title>Ocean Hotel</title>
 
       <!-- CSS -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
       <link href="{{asset('public/css/frontend.css')}}" rel="stylesheet">
+      <link href="{{asset('public/css/flaticon.css')}}" rel="stylesheet">
       <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!-- Datepicker-->
-     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
-      {% endblock %}  
-    </head>
+      <!-- Datepicker-->
+      <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
+    {% endblock %}  
+  </head>
   <!-- NAVBAR
   ================================================== -->
-    <body>
-      <div class="navbar-wrapper">
-        <div class="container">
-
-          <nav class="navbar navbar-inverse navbar-static-top">
-            <div class="container">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Hotel</a>
-              </div>
-              <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                  <li><a href="{{ path('hotel_homepage') }}">Inici</a></li>
-                  <li><a href="{{path('hotel_bundle_reserva_llistaHabitacionsFrontend')}}">Habitacions</a></li>
-                  <li><a href="#about">Instal·lacions</a></li>
-                  <li><a href="#about">Fotografies</a></li>
-                  <li><a href="{{path('hotel_page_ubicacio')}}">Ubicació</a></li>
-                  <li><a href="{{path('hotel_page_contacte')}}">Contacte</a></li>               
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
+  <body>
+    <div class="navbar-wrapper">
+      <!-- top bar info-->
+      <nav class="navbar navbar-topbar navbar-static-top">
+        <div class="container">             
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li>Truca'ns per més informació  <span class="fa fa-phone topbar-icon"></span>  <a href="tel:+932345678">932345678</a>
+                O pots enviar-nos un correu electrònic   <span class="fa fa-envelope topbar-icon"></span>  <a href="mailto:oceanhotel@gmail.com" class="email-info">oceanhotel@gmail.com</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        {# <div class="container"> #}
+        <!-- Menu -->
+        <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="{{path('hotel_homepage')}}"><img class="img-responsive" style="width:120px;     margin-top: -15px;" src="{{asset('public/img/logo_banner.png')}}"/></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li><a href="{{ path('hotel_homepage') }}">Inici</a></li>
+                <li><a href="{{path('hotel_bundle_reserva_llistaHabitacionsFrontend')}}">Habitacions</a></li>
+                <li><a href="{{path('hotel_page_nosaltres')}}">Sobre l'hotel</a></li>
+                <li><a href="{{path('hotel_page_serveis')}}">Serveis</a></li>
+                <li><a href="{{path('hotel_page_contacte')}}">Contacte i Ubicació</a></li>               
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{path('hotel_bundle_reserva_comanda')}}"><span class="fa fa-ticket" /> <span id="countCarret" class="badge">{{app.session.get('arrayReserva')|length}}</span></a></li>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}                
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">                  
-                    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                  {% if is_granted('ROLE_ADMIN') %}
-                      <li>
-                          <a href="{{ path('hotel_homepage_backend') }}">
+                      {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        {% if is_granted('ROLE_ADMIN') %}
+                          <li>
+                            <a href="{{ path('hotel_homepage_backend') }}">
                               <span class="glyphicon glyphicon-log-out"></span> Backend
-                          </a>
-                      </li>
-                  {% endif %}
-                      <li>
-                          
+                            </a>
+                          </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_TREBALLADOR') %}
+                          <li>
+                            <a href="{{ path('hotel_bundle_treballadors_tasca_homepage') }}">
+                              <span class="glyphicon glyphicon-log-out"></span> Tasques
+                            </a>
+                          </li>
+                        {% endif %}
+                        <li>
+
                           <a href="{{ path('fos_user_profile_show') }}">
-                              <span class="glyphicon glyphicon-user"></span> Perfil
+                            <span class="glyphicon glyphicon-user"></span> Perfil
                           </a>
-                      </li>
-                      <li>
+                        </li>
+                        <li>
                           <a href="{{ path('hotel_bundle_reserva_homepage_reservas') }}">
-                              <span class="fa fa-ticket"></span> Reservas
+                            <span class="fa fa-ticket"></span> Reserves
                           </a>
-                      </li>
-                      <li>
-                      <a href="{{ path('fos_user_security_logout') }}"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
-                     </li>
-                {% else %}
-                      <li role="separator" class="divider"></li>
-                      <li><a  href="{{ path('fos_user_security_login') }}" > {{ 'layout.login'|trans({}, 'FOSUserBundle') }} <span class="fa fa-user" /></a></li>   
-                {% endif %}
-                                    
+                        </li>
+                        <li>
+                          <a href="{{ path('fos_user_security_logout') }}"> <span class="fa fa-power-off"></span>  {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+                        </li>
+                      {% else %}
+                        <li role="separator" class="divider"></li>
+                        <li><a  href="{{ path('fos_user_security_login') }}" > {{ 'layout.login'|trans({}, 'FOSUserBundle') }} <span class="fa fa-user" /></a></li>   
+                      {% endif %}
+
                     </ul>
                   </li>                                      
-                 </li>
-             </ul>
-              </div>
+                </li>
+              </ul>
             </div>
-          </nav>
+          </div>
+        </nav>
 
-        </div>
+        {# </div> #}
       </div>
 
       {% block page_content %}
@@ -105,9 +123,7 @@
             <img class="first-slide img-responsive" src="{{asset('public/img/slide1.jpg')}}" alt="First slide">
             <div class="container">
               <div class="carousel-caption">
-                <h1>Un lloc ideal per disfrutar</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                <p><a class="btn btn-lg btn-warning" href="#" role="button">Haz tu reserva ya!</a></p>
+                <h1>L'hotel amb les millors vistes</h1>
               </div>
             </div>
           </div>
@@ -116,8 +132,6 @@
             <div class="container">
               <div class="carousel-caption">
                 <h1>Elegancia i comodidat</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                <p><a class="btn btn-lg btn-warning" href="#" role="button">Ver más</a></p>
               </div>
             </div>
           </div>
@@ -125,9 +139,7 @@
             <img class="third-slide img-responsive" src="{{asset('public/img/slide3.jpg')}}" alt="Third slide">
             <div class="container">
               <div class="carousel-caption">
-                <h1>Localitzat en un edifici historic</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                <p><a class="btn btn-lg btn-warning" href="#" role="button">Conoce la historia</a></p>
+                <h1>Vine i gaudeix de la teva estancia a l'hotel</h1>
               </div>
             </div>
           </div>
@@ -146,111 +158,142 @@
       <!-- Marketing 
       ================================================== -->
       <div class="container marketing">
-
-        <!-- tres columnas con texto -->
-        <div class="row">
-          <div class="col-lg-4 col-md-8 col-xs-12">
-            <img  class="img-wrapper" src="{{asset('public/img/img-1.jpg')}}" alt="Generic placeholder image">
-            <div class="wrapper">
-              <div class="wrapper-text">
-              <h2>Gastronomia</h2>
-               <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-               <p><a class="btn btn-default" href="#" role="button">Ver detalles &raquo;</a></p>
-              </div>             
-            </div>
-           
-          </div><!-- /.col-lg-4 -->
-          <div class="col-lg-4 col-xs-12">
-            <img class="img-wrapper" tabindex="4"  src="{{asset('public/img/img-2.jpg')}}" alt="Generic placeholder image">
-            <div class="wrapper ocultar">
-              <div class="wrapper-text">
-              <h2>Ofertas Especiales</h2>
-              <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
-              <p><a class="btn btn-default" href="#" role="button">Ver detalles &raquo;</a></p>
-              </div>             
-            </div>
-          </div><!-- /.col-lg-4 -->
-          <div class="col-lg-4 col-xs-12">
-            <img class="img-wrapper" src="{{asset('public/img/img-3.jpg')}}" alt="Generic placeholder image">
-            <div class="wrapper">
-              <div class="wrapper-text">
-                <h2>Fotografías</h2>
-                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                <p><a class="btn btn-default" href="#" role="button">Ver detalles &raquo;</a></p>
-              </div>             
-            </div>
-          </div><!-- /.col-lg-4 -->
-        </div><!-- /.row -->
-
-
         <!-- Inicio de Caracteristicas -->
 
-        <hr class="featurette-divider">
-
         <div class="row featurette">
           <div class="col-md-7">
-            <h2 class="featurette-heading">Contamos con las mejores habitaciones<span class="text-warning"> "como dormir en las nubes"</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+            <h2 class="featurette-heading">Ocean Hotel
+              <span class="text-primary tex-marketing">  "Comptem amb les millors habitacions"</span></h2>
+              <p class="lead">Descobreixi a Ocean Hotel l'encant del Maresme en un entorn típic català de bellesa incomparable. L'Ocean Hotel li proposa un allotjament de primera qualitat amb una infinitat de possibilitats...</p>
+              <p><a class="btn btn-primary" href="{{path('hotel_page_nosaltres')}}" role="button">Continuar llegint &raquo;</a></p>
+            </div>
+            <div class="col-md-5">
+              <img class="featurette-image img-responsive center-block" src="{{asset('public/img/img-4.jpg')}}" alt="Generic placeholder image">
+            </div>
           </div>
-          <div class="col-md-5">
-            <img class="featurette-image img-responsive center-block" src="{{asset('public/img/img-4.jpg')}}" alt="Generic placeholder image">
-          </div>
-        </div>
+          <hr class="featurette-divider">
+          <!-- tres columnas con texto -->
+          <div class="row">
+            <h1 class="text-center">Restaurants Espectaculars On Menjar</h1>
+            <div class="col-lg-4 col-md-8 col-xs-12">
+              <img  class="img-wrapper" src="{{asset('public/img/img-1.jpg')}}" alt="Generic placeholder image">
+              <div class="wrapper">
+                <div class="wrapper-text">
+                  <h2>Marisc i Vistes al Mar</h2>
+                  <p>Un restaurant mediterrani rústic amb un bar i música elegants i un toc contemporani.</p>
+                  <p>Des de marisc fresc i sabors rústics mediterranis amb vista al mar fins a un còctel en la terrassa, els bars i restaurants de Barcelona porten el plaer social a una nova dimensió ja sigui dia o nit</p>
+                </div>             
+              </div>
+
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4 col-xs-12">
+              <img class="img-wrapper" tabindex="4"  src="{{asset('public/img/img-2.jpg')}}" alt="Generic placeholder image">
+              <div class="wrapper ocultar">
+                <div class="wrapper-text">
+                  <h2>Bon Ambient</h2>
+                  <p>Els còctels exquisits i el so de la música constitueixen un ambient on gaudir de les vistes a les platges. En l'Ocean hotel el que vulguin prendre el sol amb estil tenen a la seva disposició un servei personalitzat i llits balinesas al costat de la piscina. A la nit, els hostes de l'hotel i els residents es reuneixen en aquest sofisticat centre social.</p>
+                </div>             
+              </div>
+            </div><!-- /.col-lg-4 -->
+            <div class="col-lg-4 col-xs-12">
+              <img class="img-wrapper" src="{{asset('public/img/img-3.jpg')}}" alt="Generic placeholder image">
+              <div class="wrapper">
+                <div class="wrapper-text">
+                  <h2>Plats senzills, sabors intensos</h2>
+                  <p>Els plats seductors i tradicionals van des d'una paella de marisc, a tapes mediterrànies i pizzes al forn de pedra, elaborats en una cuina oberta pels nostres experts xefs, que proposen una selecció de sabors naturals inspirats en la península ibèrica.</p>
+                </div>             
+              </div>
+            </div><!-- /.col-lg-4 -->
+          </div><!-- /.row -->
 
         <hr class="featurette-divider">
 
-        <div class="row featurette">
-          <div class="col-md-7 col-md-push-5">
-            <h2 class="featurette-heading">Pisina en el interior <span class="text-warning">¡Descubrelo tu mismo!</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h1 class="text-center">Altres Serveis</h1>
+        <p class="text-center">Per la teva reserva oferim aquests serveis:</p>
+        <div class="row">
+            <div class="col-xs-12 col-md-2 col-md-push-2 caixa-servei">
+               <span class="flaticon-computer"></span>
+               <p>Wifi gratuït</p>
+            </div>
+             <div class="col-xs-12 col-md-2 col-md-push-3 caixa-servei">
+                   <span class="flaticon-location"></span>
+                   <p>pàrquing gratuït</p>
+               </div>
+             <div class="col-xs-12 col-md-2 col-md-push-4 caixa-servei">
+                   <span class="flaticon-sign"></span>
+                   <p>S'admiteixen gossos i gats</p>
+                </div>
+            </div>
+            <p class="mt btn-serveis"><a href="{{path('hotel_page_serveis')}}" class="btn btn-warning text-center" >Veure tots el serveis  &raquo;</a></p>
+        </div>
+
+       
+        </div><!-- /Fin de Caracteristicas -->
+      {% endblock %}
+      <hr class="featurette-divider">
+      <!-- Pie -->
+      <footer>
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-2 col-md-push-2">
+              <h3 class="title-footer">Explora</h3>
+              <ul class="text-left">
+                <a href="{{path('hotel_homepage')}}"><li>Inici</li></a>
+                <a href="{{path('hotel_page_nosaltres')}}"><li>Sobre l'hotel</li></a>
+                <a href="{{path('hotel_page_serveis')}}"><li>Servei</li></a>
+                <a href="{{path('hotel_page_contacte')}}"><li>Contacte i ubicació</li></a>
+              </ul>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-2 col-md-push-2">
+              <h3 class="title-footer">Reserva</h3>
+              <ul class="text-left">
+                <a href="{{path('hotel_bundle_reserva_llistaHabitacionsFrontend')}}"><li>Llista d'habitacions</li></a>
+                <a href="{{path('hotel_bundle_reserva_comanda')}}"><li>Lista de comandes</li></a>
+              </ul>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-2 col-md-push-2">
+              <h3 class="title-footer">Xarxes Socials</h3>
+              <div class="boto-xs"><a href="#"><span class="fa fa-facebook " /></a></div>
+              <div class="boto-xs"><a href="#"><span class="fa fa-twitter " /></a> </div>
+              <div class="boto-xs"><a href="#"><span class="fa fa-instagram " /></a> </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-2 col-md-push-2">
+              <img src="{{asset('public/img/logo.png')}}" class="img-responsive">
+            </div>
           </div>
-          <div class="col-md-5 col-md-pull-7">
-            <img class="featurette-image img-responsive center-block" src="{{asset('public/img/img-5.jpg')}}" alt="Generic placeholder image">
+          <div class="col-xs-12 col-lg-12">
+            <p>&copy; <span id="any"></span>  Hotel Ocean - Tots els drets reservats | Creat per Gobal System </p>
+            <p><a href="#">Privacidad</a> &middot; <a href="#">Terminos</a></p>
           </div>
         </div>
 
-        <hr class="featurette-divider">
+      </footer>
 
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">Y por ultimo, podras disfrutar de las maravillosa vista de la ciudad <span class="text-warning"> comiendo desde la terraza.</span></h2>
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-          </div>
-          <div class="col-md-5">
-            <img class="featurette-image img-responsive center-block" src="{{asset('public/img/img-6.jpg')}}" alt="Generic placeholder image">
-          </div>
-        </div>
-
-        
-
-        <!-- /Fin de Caracteristicas -->
-        {% endblock %}
-        <hr class="featurette-divider">
-        <!-- Pie -->
-        <footer>
-          <div class="container">
-            <p class="pull-right"><a href="#"><span class="fa fa-chevron-circle-up fa-3x"></span></a></p>
-          <p>&copy; 2017 Hotel Ocean, Todos los derechos reservados | Creado por Gobal System </p>
-          <p><a href="#">Privacidad</a> &middot; <a href="#">Terminos</a></p>
-          </div>
-          
-        </footer>
-
-      </div><!-- /.container -->
+    </div><!-- /.container -->
 
 
-      <!-- JavaScript
-      ================================================== -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-      <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js" ></script>
-     
-      <script>      
-        jQuery(document).ready(function () {
-                      $('.js-datepicker').datepicker({
-                          format: 'dd/mm/yyyy'                  
-                      });                   
-                  });
+    <!-- JavaScript ============================================ -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/js/bootstrap-datepicker.min.js" ></script>
+
+    <script> 
+      var today = new Date();
+      var any = today.getFullYear();
+      document.getElementById("any").innerHTML = any; 
+
+      jQuery(document).ready(function () {
+        $('.js-datepicker').datepicker({
+          format: 'dd/mm/yyyy'                  
+        });                   
+      });
+        // Carousel Auto-Cycle
+        $(document).ready(function() {
+          $('.carousel-hab').carousel({
+            interval: 4000
+          })
+        });
+
       </script>
     </body>
-  </html>
+    </html>

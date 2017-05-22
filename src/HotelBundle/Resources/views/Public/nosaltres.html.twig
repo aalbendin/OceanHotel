@@ -1,0 +1,52 @@
+{% extends "HotelBundle:Default:index.html.twig" %}
+
+{% block title %}Sobre l'hotel{% endblock %}
+
+{% block page_content %} 
+<div id="contingut">
+  <div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-lg-12 ">
+            <h1 class="text-center">Sobre l'Hotel</h1>
+        <div class="container marketing mt">
+      <div class="row featurette mt">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">Ocean Hotel
+            <span class="text-primary tex-marketing">  "Comptem amb les millors habitacions"</span></h2>
+            <p class="lead text-justify">Descobreixi a Ocean Hotel l'encant del Maresme en un entorn típic català de bellesa incomparable. L'Ocean Hotel li proposa un allotjament de primera qualitat amb una infinitat de possibilitats.  Podrà gaudir d'uns dies de platja tranquils i agradables al petit poble de Sant Pol de Mar en la costa del Maresme, però també disposarà de la connexió perfecta amb la ciutat de Barcelona, en la qual trobarà una infinitat de plans de tots els tipus imaginables.</p>
+          </div>
+          <div class="col-md-5">
+            <img class="featurette-image img-responsive center-block" src="{{asset('public/img/img-4.jpg')}}" alt="Generic placeholder image">
+          </div>
+        </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+          <h2 class="featurette-heading">Piscina a l'interior </h2>
+          <h2><span class="text-primary  tex-marketing">Descobreix-ho tu mateix!</span></h2>
+          <p class="lead text-justify">Una experiència més enllà de l'allotjament Ocean Hotel és una deliciosa col·lisió de pau interior i festa sense fi. Ocean hotel reflecteix aquest contrast mitjançant unes instal·lacions ultramodernas i uns elements de disseny innovador perfectament equilibrats amb unes luxoses possibilitats per relaxar-se disponibles a qualsevol moment.</p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+          <img class="featurette-image img-responsive center-block" src="{{asset('public/img/img-5.jpg')}}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">I finalment, podras gaudir de les meravellosa vista de la ciutat <span class="text-primary tex-marketing"> menjant des de la terrassa.</span></h2>
+          <p class="lead text-justify">El nostre prestigiós Restaurant, posada unes condicions immillorables, ja que recentment ha estat renovat íntegrament, oferint una cuidada selecció de plats típics: Arrossos, Carnes i Peixos, així com unes pinzellades de Cuina de Mercat i Creativa.</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block" src="{{asset('public/img/img-6.jpg')}}" alt="Generic placeholder image">
+        </div>
+      </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}  

@@ -8,11 +8,11 @@ body {
 }
 
 a {
-    color: #f0ad4e !important;
+    color: #ec971f  !important;
 }
 
 a:focus, a:hover {
-    color: #f0ad4e !important;
+    color: #ec971f  !important;
     text-decoration: underline;
 }
 
@@ -45,6 +45,44 @@ a:focus, a:hover {
     color: #333 !important;
 }
 
+
+/** TopBar **/
+
+.navbar-topbar{
+  background-color: #0064BB !important;
+  color: #fff;
+  margin: 0;
+  padding: 5px 0 5px 0;
+  border-radius: 0 !important;
+  height: 25px !important;
+  min-height: 0px;
+ 
+}
+
+.navbar-topbar ul li {
+   font-size: 12px !important;
+   margin-right: 30px !important;
+}
+.topbar-icon {
+  color: #ec971f !important; 
+}
+.navbar-topbar ul li a{
+  display: inline-block;
+  padding: 0;
+  color: #fff !important;
+}
+.navbar-topbar ul li a:hover{
+  background-color: transparent !important;
+  text-decoration: underline;
+}
+.navbar-topbar ul li a:focus{
+  background-color: transparent !important;
+}
+.email-info{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    line-height: 0;
+}
 /*====MENU====*/ 
 
 .navbar-wrapper {
@@ -79,15 +117,32 @@ a:focus, a:hover {
 
 .navbar-inverse .navbar-nav>li>a {
 	color:#fff !important;
+  transition: all 0.6s;
 }
 
-.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:active {
+.navbar-inverse .navbar-nav>li>a:hover, .navbar-inverse .navbar-nav>li>a:active, 
+.navbar-inverse .navbar-nav>.open>a:hover, 
+.navbar-inverse .navbar-nav>.open>a:active, .navbar-inverse .navbar-nav>.open>a:focus {
 	color:#d58512 !important;
 	border-bottom:5px solid #ec971f;
 	text-shadow:1px 1px 1px #000;
 	background-color:rgba(69, 68, 68, 0.7);
 }
 
+/* dropdown */
+
+.dropdown-menu, .dropdown-menu>li>a{
+      color: #fff !important;
+    background-color: rgba(69, 68, 68, 0.7) !important;
+
+}
+
+.dropdown-menu>li>a:hover {
+   color:#d58512 !important;
+  border-bottom:5px solid #ec971f;
+  text-shadow:1px 1px 1px #000;
+  background-color:rgba(69, 68, 68, 0.7);
+}
 .text-nav{
     padding: 10px;
     margin-top: 10px;
@@ -113,6 +168,12 @@ a:focus, a:hover {
 }
 .carousel-caption {
   z-index: 10;
+  background-color: rgba(69, 68, 68, 0.5) !important;
+  padding: 0;
+}
+
+.carousel-indicators {
+  display: none;
 }
 
 .carousel .item {
@@ -151,7 +212,7 @@ a:focus, a:hover {
     display: inline-block;
     float: none;
     z-index:100;
-    background-color:rgba(256, 151, 31, 0.7);
+    background-color:rgba(0, 100, 187,0.6);
     cursor:pointer;
     position:relative; 
 }
@@ -166,12 +227,18 @@ a:focus, a:hover {
 }
 .marketing h2 {
   font-weight: normal;
+  color: #ec971f;
+  text-shadow: 1px 1px 1px #575757;
 }
 .marketing .col-lg-4 p {
   margin-right: 10px !important;
   margin-left: 10px  !important;
 }
 
+
+.tex-marketing{
+  font-size: 35px;
+}
 
 
 
@@ -189,13 +256,59 @@ a:focus, a:hover {
   letter-spacing: -1px;
 }
 
+/** Datepicker **/
+
+.datepicker-dropdown {
+   color: #fff !important;
+    background-color: rgba(69, 68, 68, 0.9) !important;
+}
+.datepicker table tr td.day:hover, .datepicker table tr td.day.focused,
+.datepicker .datepicker-switch:hover, .datepicker .prev:hover, 
+.datepicker .next:hover, .datepicker tfoot tr th:hover {
+    background: #ec971f !important;
+    cursor: pointer;
+}
+
+
+/** ubicacio */ 
+
+.caixa-ubicacio{
+  background-color: #0064BB !important;
+  padding: 30px;
+  color:#fff;
+  text-align: center !important;
+}
+
+.icon-location{
+  color: #ec971f !important;
+  text-shadow: 1px 1px 2px #000;
+}
+
+/** Servei **/
+
+.caixa-servei{
+  background-color: #0064BB !important;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+  height: 190px;
+  padding-top: 10px !important;
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after{
+  font-size: 50px !important;
+  color: #ec971f !important;
+
+}
+
+
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 
 @media (min-width: 768px) {
   /* Navbar positioning foo */
   .navbar-wrapper {
-    margin-top: 20px;
+    /*margin-top: 20px;*/
   }
   .navbar-wrapper .container {
     padding-right: 15px;
@@ -207,19 +320,47 @@ a:focus, a:hover {
   }
 
   .navbar-wrapper .navbar {
-    border-radius: 4px;
+   /* border-radius: 4px;*/
   }
 
-  .carousel-caption p {
+  .carousel-caption h1 {
     margin-bottom: 20px;
-    font-size: 21px;
+    margin-left: 40px;
     line-height: 1.4;
+    width: 90%;
   }
 
   .featurette-heading {
     font-size: 50px;
   }
- 
+
+}
+
+/** botons xarxes socials **/
+.boto-xs{
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  transition: all 0.8s;
+}
+
+.boto-xs:hover{
+  font-size: 30px !important;
+  transform: rotate(1turn);
+    background-color: #0064BB;
+}
+
+.boto-xs a{
+  color: #162d50;
+  transition: all 0.1s;
+}
+
+.boto-xs a:hover{
+  color: #162d50;
+}
+
+.btn-serveis {
+  margin-left:42%;
 }
 
 @media (min-width: 992px) {
@@ -242,8 +383,6 @@ a:focus, a:hover {
     position: relative;
     margin-top: 100px;
 }
-
-
 
 .thumbnail{
 
@@ -270,4 +409,8 @@ a:focus, a:hover {
       min-height: 100px !important;
 
     }
+    .btn-serveis {
+  margin-left:0;
+}
+
 }
