@@ -13,10 +13,10 @@
 							</div>
 						{% endfor %}	
 						<div class="row">
-							<a href="{{path('hotel_bundle_admin_reserva_editarClientByComanda', { 'idComanda': comanda.id , 'id': client.id }) }}" class="btn btn-warning btn-afegir"><span class="fa fa-plus"/>  Client</a>
+							<a href="{{path('hotel_bundle_treballador_reserva_editarClientByComanda', { 'idComanda': comanda.id , 'id': client.id }) }}" class="btn btn-warning btn-afegir"><span class="fa fa-plus"/>  Client</a>
 						</div>
 						<div class="row">
-							<a href="{{path('hotel_bundle_admin_reserva_donarBaixaComanda', { 'id': comanda.id }) }}" class="btn btn-warning btn-afegir"><span class="fa fa-plus"/> Donar Baixa Comanda</a>
+							<a href="{{path('hotel_bundle_treballador_reserva_donarBaixaComanda', { 'id': comanda.id }) }}" class="btn btn-warning btn-afegir"><span class="fa fa-plus"/> Donar Baixa Comanda</a>
 						</div>
 						<div class="row">									
 						</div>
@@ -55,7 +55,7 @@
 											<td>{{reserva.modalitat.getDescripcio()}}</td>
 											<td>
 												<center>
-												<a  href="{{path('hotel_bundle_admin_reserva_eliminarLineaComanda', { 'idComanda':comanda.id  , 'id': reserva.id }) }}"class="btn btn-xs btn-danger"><span class="fa fa-trash"></span></a>
+												<a  href="{{path('hotel_bundle_treballador_reserva_eliminarLineaComanda', { 'idComanda':comanda.id  , 'id': reserva.id }) }}"class="btn btn-xs btn-danger"><span class="fa fa-trash"></span></a>
 												</center>
 											</td>
 										</tr>
